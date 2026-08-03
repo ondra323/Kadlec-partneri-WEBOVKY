@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ochrana osobních údajů · Kadlec & partneři</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #113225;
+  --forest-mid: #1e4d35;
+  --forest-light: #2d6a4f;
+  --gold: #b5935a;
+  --gold-light: #d4af7a;
+  --oat: #F9F7F3;
+  --oat-dark: #f0ece4;
+  --cream: #fffdf9;
+  --text: #1e2120;
+  --muted: #5a6360;
+  --border: #e2ddd6;
+  --sidebar-w: 260px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--oat); color: var(--text); font-size: 15px; line-height: 1.7; }
+
+/* TOP BAR */
+.topbar { background: var(--forest); padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; }
+.topbar-logo { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--oat); text-decoration: none; }
+.topbar-logo span { color: var(--gold); }
+.topbar-back { font-size: 12px; color: rgba(249,247,243,0.5); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; letter-spacing: 0.05em; }
+.topbar-back:hover { color: var(--oat); }
+.topbar-back svg { width: 14px; height: 14px; }
+
+/* LAYOUT */
+.gdpr-wrap { max-width: 1100px; margin: 0 auto; padding: 56px 40px 100px; display: grid; grid-template-columns: var(--sidebar-w) 1fr; gap: 64px; align-items: start; }
+@media (max-width: 860px) { .gdpr-wrap { grid-template-columns: 1fr; padding: 32px 20px 80px; gap: 0; } }
+
+/* SIDEBAR */
+.gdpr-sidebar { position: sticky; top: 32px; }
+@media (max-width: 860px) { .gdpr-sidebar { display: none; } }
+.sidebar-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.sidebar-nav { list-style: none; }
+.sidebar-nav li { margin-bottom: 2px; }
+.sidebar-nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  font-size: 13px; font-weight: 400; color: var(--muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.25s;
+  line-height: 1.3;
+}
+.sidebar-nav a:hover { color: var(--forest); background: var(--oat-dark); }
+.sidebar-nav a.active { color: var(--forest); font-weight: 600; border-left-color: var(--gold); background: rgba(181,147,90,0.07); }
+.sidebar-nav .nav-num { font-family: 'Playfair Display', serif; font-size: 11px; color: var(--gold); min-width: 18px; }
+
+.sidebar-contact { margin-top: 32px; padding: 20px; background: var(--forest); }
+.sidebar-contact p { font-size: 11px; color: rgba(249,247,243,0.45); margin-bottom: 8px; line-height: 1.5; }
+.sidebar-contact a { font-size: 12px; color: var(--gold-light); text-decoration: none; font-weight: 500; }
+.sidebar-contact a:hover { color: var(--oat); }
+
+/* CONTENT */
+.gdpr-content {}
+
+.gdpr-hero { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.gdpr-hero .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.gdpr-hero .eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+.gdpr-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 600; color: var(--forest); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+.gdpr-hero p { font-size: 15px; color: var(--muted); font-weight: 300; max-width: 560px; line-height: 1.7; }
+.gdpr-meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+.gdpr-meta-item { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.gdpr-meta-item svg { width: 13px; height: 13px; color: var(--gold); flex-shrink: 0; }
+
+/* SECTIONS */
+.gdpr-section { padding: 40px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 32px; }
+.gdpr-section:last-of-type { border-bottom: none; }
+
+.section-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 24px; }
+.section-num { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--gold); width: 28px; flex-shrink: 0; padding-top: 6px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 600; color: var(--forest); line-height: 1.25; letter-spacing: -0.01em; }
+
+.gdpr-section p { font-size: 14.5px; color: rgba(26,28,27,0.78); font-weight: 300; line-height: 1.75; margin-bottom: 16px; }
+.gdpr-section p:last-child { margin-bottom: 0; }
+.gdpr-section a { color: var(--forest-light); text-decoration: none; border-bottom: 1px solid rgba(45,106,79,0.3); transition: border-color 0.2s; }
+.gdpr-section a:hover { border-bottom-color: var(--forest-light); }
+
+.gdpr-list { list-style: none; margin: 16px 0; }
+.gdpr-list li {
+  display: grid; grid-template-columns: auto 1fr; gap: 12px 16px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  font-size: 14px; color: rgba(26,28,27,0.75); line-height: 1.6; font-weight: 300;
+}
+.gdpr-list li::before { content: '—'; color: var(--gold); font-size: 12px; padding-top: 2px; }
+.gdpr-list li strong { color: var(--forest); font-weight: 600; }
+
+.gdpr-highlight { background: var(--forest); padding: 24px 28px; margin: 20px 0; }
+.gdpr-highlight p { color: rgba(249,247,243,0.7); font-size: 13.5px; margin-bottom: 0; }
+.gdpr-highlight strong { color: var(--oat); }
+
+.rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+@media (max-width: 600px) { .rights-grid { grid-template-columns: 1fr; } }
+.right-item { padding: 16px 18px; border: 1px solid var(--border); background: var(--cream); position: relative; overflow: hidden; }
+.right-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold); }
+.right-item h4 { font-size: 13px; font-weight: 600; color: var(--forest); margin-bottom: 4px; }
+.right-item p { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+/* MOBILE ACCORDION */
+.accordion { display: none; }
+@media (max-width: 860px) { 
+  .accordion { display: block; }
+  .gdpr-section { display: none; }
+  .gdpr-hero { display: block; }
+}
+
+.accordion-item { border-bottom: 1px solid var(--border); }
+.accordion-trigger {
+  width: 100%; text-align: left; background: none; border: none;
+  padding: 20px 0; cursor: pointer; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; font-family: 'DM Sans', sans-serif;
+}
+.accordion-trigger-left { display: flex; align-items: center; gap: 14px; }
+.accordion-trigger-num { font-family: 'Playfair Display', serif; font-size: 12px; color: var(--gold); min-width: 20px; }
+.accordion-trigger-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--forest); }
+.accordion-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--muted); transition: transform 0.3s; }
+.accordion-item.open .accordion-icon { transform: rotate(180deg); }
+.accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.accordion-body-inner { padding: 0 0 24px; }
+
+/* FOOTER STRIP */
+.gdpr-footer { background: var(--forest); padding: 24px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 0; }
+@media (max-width: 860px) { .gdpr-footer { padding: 20px; } }
+.gdpr-footer p { font-size: 12px; color: rgba(249,247,243,0.4); }
+.gdpr-footer a { font-size: 12px; color: var(--gold-light); text-decoration: none; }
+.gdpr-footer a:hover { color: var(--oat); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">Kadlec <span>&</span> partneři</a>
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Zpět na web
+  </a>
+</div>
+
+<div class="gdpr-wrap">
+
+  <!-- SIDEBAR (desktop only) -->
+  <aside class="gdpr-sidebar">
+    <div class="sidebar-label">Obsah dokumentu</div>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li><a href="#sec-1" class="active"><span class="nav-num">01</span>Správce údajů</a></li>
+      <li><a href="#sec-2"><span class="nav-num">02</span>Jaké údaje zpracováváme</a></li>
+      <li><a href="#sec-3"><span class="nav-num">03</span>Proč údaje zpracováváme</a></li>
+      <li><a href="#sec-4"><span class="nav-num">04</span>Komu údaje předáváme</a></li>
+      <li><a href="#sec-5"><span class="nav-num">05</span>Doba uchovávání</a></li>
+      <li><a href="#sec-6"><span class="nav-num">06</span>Vaše práva</a></li>
+    </ul>
+
+    <div class="sidebar-contact">
+      <p>Dotazy k ochraně osobních údajů zasílejte na:</p>
+      <a href="mailto:ondrej@kadlecapartneri.cz">ondrej@kadlecapartneri.cz</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="gdpr-content">
+
+    <!-- HERO -->
+    <div class="gdpr-hero">
+      <div class="eyebrow">Právní dokumenty</div>
+      <h1>Ochrana osobních údajů</h1>
+      <p>Přehledně a srozumitelně. Informace o tom, jaké osobní údaje zpracováváme, proč a jak chráníme vaše soukromí.</p>
+      <div class="gdpr-meta">
+        <div class="gdpr-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Platnost od 1. 1. 2025
+        </div>
+        <div class="gdpr-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Dle nařízení EU 2016/679 (GDPR)
+        </div>
+      </div>
+    </div>
+
+    <!-- DESKTOP SECTIONS -->
+    <section class="gdpr-section" id="sec-1">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <h2 class="section-title">Kdo je správcem údajů</h2>
+      </div>
+      <p>Správcem vašich osobních údajů je <strong>Ondřej Kadlec</strong>, IČO: 14311569, se sídlem Polická 1106, 67531 Jemnice (dále jen „správce").</p>
+      <p>Správce působí jako vázaný zástupce v síti samostatného zprostředkovatele <strong>INSIA a.s.</strong> pro oblast pojištění a v síti <strong>In Invest</strong> pro oblast investic a doplňkového penzijního spoření.</p>
+      <div class="gdpr-highlight">
+        <p>E-mail pro komunikaci ve věcech ochrany osobních údajů: <strong><a href="mailto:ondrej@kadlecapartneri.cz" style="color:var(--gold-light);border-bottom-color:rgba(212,175,122,0.3)">ondrej@kadlecapartneri.cz</a></strong></p>
+      </div>
+    </section>
+
+    <section class="gdpr-section" id="sec-2">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <h2 class="section-title">Jaké osobní údaje zpracováváme</h2>
+      </div>
+      <p>Zpracováváme výhradně údaje nezbytné k poskytnutí profesionální finanční služby a plnění smluv. Jde především o:</p>
+      <ul class="gdpr-list">
+        <li><div><strong>Identifikační a kontaktní údaje</strong><br>Jméno, příjmení, rodné číslo, adresa, e-mail a telefon.</div></li>
+        <li><div><strong>Finanční a majetkové údaje</strong><br>Informace o vašich příjmech, majetku a investičních cílech (nezbytné pro správné nastavení investičního portfolia a pojištění majetku).</div></li>
+        <li><div><strong>Citlivé údaje (Zdravotní stav)</strong><br>Výhradně v případě sjednávání životního pojištění, a to vždy na základě vašeho výslovného souhlasu.</div></li>
+      </ul>
+    </section>
+
+    <section class="gdpr-section" id="sec-3">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <h2 class="section-title">Proč údaje zpracováváme (zákonný důvod)</h2>
+      </div>
+      <ul class="gdpr-list">
+        <li><div><strong>Plnění smlouvy</strong><br>Zajištění návrhu, sjednání a správy pojistných či investičních produktů.</div></li>
+        <li><div><strong>Právní povinnosti</strong><br>Dodržování legislativy (zákony o distribuci pojištění, podnikání na kapitálovém trhu a prevence praní špinavých peněz – AML).</div></li>
+        <li><div><strong>Oprávněný zájem</strong><br>Ochrana právních nároků správce.</div></li>
+      </ul>
+    </section>
+
+    <section class="gdpr-section" id="sec-4">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <h2 class="section-title">Komu údaje předáváme</h2>
+      </div>
+      <p>Vaše údaje jsou v naprostém bezpečí a předáváme je pouze nezbytným partnerům:</p>
+      <ul class="gdpr-list">
+        <li><div><strong>Zastupovaná centrála INSIA a.s.</strong><br>Zajišťující nezbytné systémové a administrativní zázemí.</div></li>
+        <li><div><strong>Konkrétní finanční instituce</strong><br>Pojišťovny a investiční společnosti, u kterých je váš produkt sjednáván.</div></li>
+      </ul>
+      <p>Údaje neprodáváme ani nepředáváme třetím stranám pro marketingové účely.</p>
+    </section>
+
+    <section class="gdpr-section" id="sec-5">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <h2 class="section-title">Doba uchovávání údajů</h2>
+      </div>
+      <p>Údaje uchováváme po dobu trvání smluvního vztahu a následně po dobu, kterou striktně vyžadují zákony pro archivaci finanční dokumentace <strong>(zpravidla 10 let od ukončení produktu)</strong>.</p>
+      <p>Poté jsou údaje bezpečně vymazány nebo skartovány.</p>
+    </section>
+
+    <section class="gdpr-section" id="sec-6">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <h2 class="section-title">Vaše práva</h2>
+      </div>
+      <p>Dle nařízení GDPR máte plné právo mít svá data pod kontrolou. Máte právo na:</p>
+      <div class="rights-grid">
+        <div class="right-item">
+          <h4>Přístup k údajům</h4>
+          <p>Informace o tom, jaké údaje o vás zpracováváme a jak.</p>
+        </div>
+        <div class="right-item">
+          <h4>Opravu údajů</h4>
+          <p>Opravu nepřesných nebo doplnění neúplných údajů.</p>
+        </div>
+        <div class="right-item">
+          <h4>Výmaz (být zapomenut)</h4>
+          <p>Pokud to neodporuje zákonným archivačním povinnostem.</p>
+        </div>
+        <div class="right-item">
+          <h4>Omezení zpracování</h4>
+          <p>Právo vznést námitku proti zpracování vašich údajů.</p>
+        </div>
+        <div class="right-item" style="grid-column: 1 / -1">
+          <h4>Odvolání souhlasu</h4>
+          <p>Např. u údajů o zdravotním stavu kdykoliv prostřednictvím e-mailu správce: <a href="mailto:ondrej@kadlecapartneri.cz">ondrej@kadlecapartneri.cz</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE ACCORDION -->
+    <div class="accordion" id="accordion">
+
+      <div class="accordion-item open" data-index="0">
+        <button class="accordion-trigger" onclick="toggleAccordion(0)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-trigger-num">01</span>
+            <span class="accordion-trigger-title">Správce údajů</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="acc-body-0">
+          <div class="accordion-body-inner">
+            <p style="font-size:14px;color:rgba(26,28,27,0.75);font-weight:300;line-height:1.7;margin-bottom:12px">Správcem vašich osobních údajů je <strong>Ondřej Kadlec</strong>, IČO: 14311569, se sídlem Polická 1106, 67531 Jemnice.</p>
+            <p style="font-size:14px;color:rgba(26,28,27,0.75);font-weight:300;line-height:1.7;margin-bottom:12px">Správce působí jako vázaný zástupce v síti <strong>INSIA a.s.</strong> pro oblast pojištění a v síti <strong>In Invest</strong> pro oblast investic.</p>
+            <p style="font-size:14px;line-height:1.7;margin-bottom:0">E-mail: <a href="mailto:ondrej@kadlecapartneri.cz" style="color:var(--forest-light)">ondrej@kadlecapartneri.cz</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-index="1">
+        <button class="accordion-trigger" onclick="toggleAccordion(1)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-trigger-num">02</span>
+            <span class="accordion-trigger-title">Jaké údaje zpracováváme</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="acc-body-1">
+          <div class="accordion-body-inner">
+            <ul class="gdpr-list">
+              <li><div><strong>Identifikační a kontaktní údaje</strong><br>Jméno, příjmení, rodné číslo, adresa, e-mail a telefon.</div></li>
+              <li><div><strong>Finanční a majetkové údaje</strong><br>Informace o příjmech, majetku a investičních cílech.</div></li>
+              <li><div><strong>Citlivé údaje (zdravotní stav)</strong><br>Výhradně u životního pojištění na základě vašeho souhlasu.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-index="2">
+        <button class="accordion-trigger" onclick="toggleAccordion(2)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-trigger-num">03</span>
+            <span class="accordion-trigger-title">Proč údaje zpracováváme</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="acc-body-2">
+          <div class="accordion-body-inner">
+            <ul class="gdpr-list">
+              <li><div><strong>Plnění smlouvy</strong><br>Sjednání a správa pojistných či investičních produktů.</div></li>
+              <li><div><strong>Právní povinnosti</strong><br>Legislativa o distribuci pojištění, kapitálový trh, AML.</div></li>
+              <li><div><strong>Oprávněný zájem</strong><br>Ochrana právních nároků správce.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-index="3">
+        <button class="accordion-trigger" onclick="toggleAccordion(3)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-trigger-num">04</span>
+            <span class="accordion-trigger-title">Komu údaje předáváme</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="acc-body-3">
+          <div class="accordion-body-inner">
+            <ul class="gdpr-list">
+              <li><div><strong>INSIA a.s.</strong><br>Systémové a administrativní zázemí.</div></li>
+              <li><div><strong>Finanční instituce</strong><br>Pojišťovny a investiční společnosti pro sjednání produktu.</div></li>
+            </ul>
+            <p style="font-size:13.5px;color:var(--muted);margin-top:12px">Údaje neprodáváme třetím stranám pro marketing.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-index="4">
+        <button class="accordion-trigger" onclick="toggleAccordion(4)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-trigger-num">05</span>
+            <span class="accordion-trigger-title">Doba uchovávání</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="acc-body-4">
+          <div class="accordion-body-inner">
+            <p style="font-size:14px;color:rgba(26,28,27,0.75);font-weight:300;line-height:1.7">Po dobu smluvního vztahu a následně <strong>zpravidla 10 let od ukončení produktu</strong>, jak vyžadují zákony. Poté jsou údaje bezpečně vymazány.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-index="5">
+        <button class="accordion-trigger" onclick="toggleAccordion(5)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-trigger-num">06</span>
+            <span class="accordion-trigger-title">Vaše práva</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="acc-body-5">
+          <div class="accordion-body-inner">
+            <div class="rights-grid">
+              <div class="right-item"><h4>Přístup k údajům</h4><p>Informace o zpracování.</p></div>
+              <div class="right-item"><h4>Oprava</h4><p>Doplnění nepřesných údajů.</p></div>
+              <div class="right-item"><h4>Výmaz</h4><p>Pokud neodporuje zákonu.</p></div>
+              <div class="right-item"><h4>Omezení</h4><p>Právo vznést námitku.</p></div>
+              <div class="right-item" style="grid-column:1/-1"><h4>Odvolání souhlasu</h4><p>Kdykoli na <a href="mailto:ondrej@kadlecapartneri.cz" style="color:var(--forest-light)">ondrej@kadlecapartneri.cz</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion -->
+
+  </main>
+</div>
+
+<!-- FOOTER STRIP -->
+<div class="gdpr-footer">
+  <p>© 2026 Ondřej Kadlec · IČO: 14311569 · Vázaný zástupce INSIA a.s.</p>
+  <a href="mailto:ondrej@kadlecapartneri.cz">ondrej@kadlecapartneri.cz</a>
+</div>
+
+<script>
+// === SCROLLSPY ===
+const sections = document.querySelectorAll('.gdpr-section')
+const navLinks = document.querySelectorAll('#sidebar-nav a')
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'))
+      const id = entry.target.id
+      const active = document.querySelector(`#sidebar-nav a[href="#${id}"]`)
+      if (active) active.classList.add('active')
+    }
+  })
+}, { rootMargin: '-20% 0px -70% 0px', threshold: 0 })
+
+sections.forEach(s => observer.observe(s))
+
+// === ACCORDION ===
+// Init: open first one
+const firstBody = document.getElementById('acc-body-0')
+if (firstBody) firstBody.style.maxHeight = firstBody.scrollHeight + 'px'
+
+function toggleAccordion(index) {
+  const items = document.querySelectorAll('.accordion-item')
+  items.forEach((item, i) => {
+    const body = document.getElementById('acc-body-' + i)
+    if (!body) return
+    if (i === index) {
+      const isOpen = item.classList.contains('open')
+      item.classList.toggle('open', !isOpen)
+      body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px'
+    } else {
+      item.classList.remove('open')
+      body.style.maxHeight = '0'
+    }
+  })
+}
+</script>
+</body>
+</html>
