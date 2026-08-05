@@ -19,11 +19,9 @@
   --ink-2:#4a4f54;          /* druhý řez inkoustu */
   --rule:#c9cbcd;           /* rýsovací linka */
 
-  --red:#d8261b;            /* KRUH — aktivní stav, akce */
-  --blue:#1a3fd0;           /* ČTVEREC — struktura */
+  --green:#00803f;          /* KRUH — aktivní stav, akce */
+  --blue:#1c3564;           /* ČTVEREC — struktura */
   --yellow:#f5c400;         /* TROJÚHELNÍK — upozornění */
-
-  --grid:rgba(26,63,208,.07); /* účaří */
 
   /* ── TYPOGRAFICKÝ ŽEBŘÍK — osm kroků, žádné mezistupně ── */
   --t-display:clamp(2.1rem,7.4vw,3.6rem);
@@ -38,8 +36,8 @@
   --t-xs:.87rem;            /* drobné */
   --t-label:.8rem;          /* verzálkový štítek */
 
-  --red-deep:#b81d13;       /* červená pod prstem */
-  --on-red:#ffffff;         /* inkoust na červené */
+  --green-deep:#006632;     /* zelená pod prstem */
+  --on-green:#ffffff;         /* inkoust na červené */
   --hatch:#e6e5e1;          /* šrafa neobsazeného místa */
   --ink-3:#6c7176;          /* nápověda ve vstupu */
   --u:8px;                  /* modul */
@@ -48,10 +46,7 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   font-family:'Jost',system-ui,sans-serif;color:var(--ink);
-  background-color:var(--table);
-  /* účaří — viditelná mřížka dílny */
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px);
-  background-size:100% calc(var(--u) * 4);
+  background:var(--table);
   line-height:1.6;font-size:var(--t-base);overflow-x:hidden;
 }
 .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 24px}
@@ -61,7 +56,7 @@ strong,b{font-weight:600}
 /* ── PRIMÁRNÍ FORMY ── */
 .form-sq,.form-ci,.form-tr{display:block;flex:none}
 .form-sq{width:14px;height:14px;background:var(--blue)}
-.form-ci{width:14px;height:14px;border-radius:50%;background:var(--red)}
+.form-ci{width:14px;height:14px;border-radius:50%;background:var(--green)}
 .form-tr{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;
   border-bottom:14px solid var(--yellow)}
 
@@ -76,14 +71,14 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
 #h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
 #hero h1{font-size:var(--t-display);margin-bottom:calc(var(--u) * 2.5)}
-#hero h1 em{font-style:normal;color:var(--red)}
+#hero h1 em{font-style:normal;color:var(--green)}
 #hero .sub{font-size:var(--t-lead);color:var(--ink-2);line-height:1.5;max-width:34ch}
 #hero .sub b{color:var(--ink);font-weight:600}
 
 /* portrét uvnitř kruhu — primární forma dělá práci, není ozdoba */
 .hero-sign{display:flex;align-items:flex-end;gap:calc(var(--u) * 3);margin-top:calc(var(--u) * 5)}
 .disc{position:relative;width:46%;max-width:186px;aspect-ratio:1;border-radius:50%;
-  background:var(--red);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+  background:var(--green-deep);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
 #hero-photo{height:100%;width:auto;max-width:none;display:block;
   -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);
           mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
@@ -93,12 +88,12 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 
 /* ── AKCE — jediný červený kruh, který se dá stisknout ── */
 .cta,.submit{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;
-  min-height:64px;background:var(--red);color:var(--on-red);text-decoration:none;border:0;border-radius:0;
+  min-height:64px;background:var(--green);color:var(--on-green);text-decoration:none;border:0;border-radius:0;
   font:inherit;font-size:var(--t-sub);font-weight:600;cursor:pointer;
   margin-top:calc(var(--u) * 4);
   transition:background .16s ease-out,transform .1s ease-out}
-.cta:before,.submit:before{content:"";width:15px;height:15px;border-radius:50%;background:var(--on-red);flex:none}
-.cta:hover,.submit:hover{background:var(--red-deep)}
+.cta:before,.submit:before{content:"";width:15px;height:15px;border-radius:50%;background:var(--on-green);flex:none}
+.cta:hover,.submit:hover{background:var(--green-deep)}
 .cta:active,.submit:active{transform:translateY(1px)}
 .cta:focus-visible,.submit:focus-visible,.opt:focus-visible,.chip:focus-visible,
 .qback:focus-visible,#sticky a:focus-visible,.consent input:focus-visible{
@@ -137,7 +132,7 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .steps{counter-reset:s;margin-top:calc(var(--u) * 3)}
 .step{position:relative;padding:0 0 calc(var(--u) * 3.5) 46px;counter-increment:s}
 .step:before{content:counter(s);position:absolute;left:0;top:1px;width:30px;height:30px;
-  background:var(--blue);color:var(--on-red);display:flex;align-items:center;justify-content:center;
+  background:var(--blue);color:var(--on-green);display:flex;align-items:center;justify-content:center;
   font-size:var(--t-sm);font-weight:600}
 .step:after{content:"";position:absolute;left:15px;top:34px;bottom:4px;width:1px;background:var(--rule)}
 .step:last-child{padding-bottom:0}.step:last-child:after{display:none}
@@ -172,7 +167,7 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 #q-head{text-align:center;margin-bottom:calc(var(--u) * 3)}
 .quiz-box{background:var(--plane);border:1px solid var(--ink);padding:calc(var(--u) * 3)}
 .bar{height:4px;background:var(--table);margin-bottom:calc(var(--u) * 3);overflow:hidden}
-.bar i{display:block;height:100%;background:var(--red);width:100%;transform:scaleX(0);
+.bar i{display:block;height:100%;background:var(--green);width:100%;transform:scaleX(0);
   transform-origin:left;transition:transform .34s cubic-bezier(.4,0,.2,1)}
 .qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:calc(var(--u) * 1)}
 .qstep{font-size:var(--t-label);letter-spacing:.13em;text-transform:uppercase;color:var(--blue);font-weight:600}
@@ -192,8 +187,8 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .opt:before{content:"";width:15px;height:15px;background:transparent;border:1px solid var(--blue);flex:none;
   transition:background .16s ease-out,border-radius .16s ease-out,border-color .16s ease-out}
 .opt:hover{border-color:var(--ink)}
-.opt.sel{border-color:var(--red)}
-.opt.sel:before{background:var(--red);border-color:var(--red);border-radius:50%}
+.opt.sel{border-color:var(--green)}
+.opt.sel:before{background:var(--green);border-color:var(--green);border-radius:50%}
 .opt .t{flex:1}
 .opt .t small{display:block;font-size:var(--t-xs);color:var(--ink-2);margin-top:2px;line-height:1.3}
 .field{margin-bottom:calc(var(--u) * 2.5)}
@@ -204,13 +199,13 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .field input::placeholder{color:var(--ink-3)}
 .field .err{display:none;align-items:center;gap:8px;font-size:var(--t-sm);color:var(--ink);
   background:var(--yellow);padding:8px 11px;margin-top:7px;font-weight:500}
-.field.bad input{border-color:var(--red);box-shadow:inset 0 0 0 2px var(--red)}
+.field.bad input{border-color:var(--green);box-shadow:inset 0 0 0 2px var(--green)}
 .field.bad .err{display:flex}
 .chips{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--u) * 1.25)}
 .chip{min-height:52px;border:1px solid var(--rule);border-radius:0;background:var(--plane);font:inherit;
   font-size:var(--t-sm);cursor:pointer;color:var(--ink-2);padding:10px;
   transition:border-color .16s ease-out,color .16s ease-out}
-.chip.sel{border-color:var(--red);color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--red)}
+.chip.sel{border-color:var(--green);color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--green)}
 .recap{background:var(--table);padding:calc(var(--u) * 2);margin-bottom:calc(var(--u) * 2.5);
   font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;border-left:1px solid var(--blue)}
 .recap b{color:var(--ink)}
@@ -221,7 +216,7 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .reassure b{color:var(--ink)}
 .consent{display:flex;gap:12px;align-items:flex-start;margin-top:calc(var(--u) * 2);
   font-size:var(--t-xs);color:var(--ink-2);line-height:1.45;cursor:pointer}
-.consent input{width:24px;height:24px;min-width:24px;margin-top:1px;accent-color:var(--red)}
+.consent input{width:24px;height:24px;min-width:24px;margin-top:1px;accent-color:var(--green)}
 .consent a{color:var(--blue)}
 .trust{display:flex;flex-wrap:wrap;gap:calc(var(--u) * 1.5) calc(var(--u) * 2.5);
   margin-top:calc(var(--u) * 2.5);padding-top:calc(var(--u) * 2);border-top:1px solid var(--rule)}
@@ -234,20 +229,20 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 #sendfail a{color:var(--ink);font-weight:700}
 
 #done{display:none;text-align:center;padding:calc(var(--u) * 2) 0}
-#done .tick{width:72px;height:72px;border-radius:50%;background:var(--red);color:var(--on-red);
+#done .tick{width:72px;height:72px;border-radius:50%;background:var(--green);color:var(--on-green);
   display:flex;align-items:center;justify-content:center;font-size:var(--t-fig);margin:0 auto calc(var(--u) * 3)}
 #done h3{font-size:var(--t-title);margin-bottom:calc(var(--u) * 1.5)}
 #done p{font-size:var(--t-body);color:var(--ink-2)}
 #done .urgent{margin-top:calc(var(--u) * 2);font-size:var(--t-sm)}
-#done .urgent a{color:var(--red);font-weight:700}
+#done .urgent a{color:var(--green);font-weight:700}
 
 #sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;
   padding:calc(var(--u) * 1.25) 16px calc(var(--u) * 1.25 + env(safe-area-inset-bottom));
   background:var(--table);border-top:1px solid var(--ink);
   transform:translateY(125%);transition:transform .3s cubic-bezier(.2,0,0,1)}
 #sticky.show{transform:none}
-#sticky a{display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--red);
-  color:var(--on-red);text-decoration:none;font-weight:600;font-size:var(--t-body)}
+#sticky a{display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--green);
+  color:var(--on-green);text-decoration:none;font-weight:600;font-size:var(--t-body)}
 
 footer{border-top:3px solid var(--ink);font-size:var(--t-sm);padding:calc(var(--u) * 4) 0 calc(var(--u) * 14);
   line-height:1.65;color:var(--ink-2)}
@@ -275,14 +270,14 @@ footer a{color:var(--blue)}
   THESIS: Nezávislost se dokazuje přiznáním, ne pečetěmi. Odmítá zeleno-zlatý
     „důvěryhodný finanční“ trychtýř i jeho brutalistní opak.
   OWN-WORLD: Bauhausova dílna. Pracovní deska, inkoustová čerň, tři primární barvy
-    s pevnou rolí: červený kruh = aktivní stav a akce, modrý čtverec = struktura,
+    s pevnou rolí: zelený kruh = aktivní stav a akce, modrý čtverec = struktura,
     žlutý trojúhelník = upozornění. Jedno písmo (Jost, linie Futury/Rennera),
     minuskové nadpisy, viditelná účaří, nulový rádius kromě kruhů. Žádné karty,
     gradienty ani ikony.
   STORY: Návštěvník pochopí, že mu tenhle člověk může říct „neměňte nic“, protože
     ho platí instituce — a nechá telefon.
   FIRST VIEWPORT: Modrý čtverec s tématem, minuskový nadpis, portrét vsazený do
-    velkého červeného kruhu s maskou dolů. Akce hned pod textem.
+    velkého zeleného kruhu s maskou dolů. Akce hned pod textem.
   FORM: Bauhausova dílna, kandidát 6 dealovaného seznamu, připnutý uživatelem
     proti rollu (7 = řádková inzerce). Inscenace: rozkládaný arch. Seed 21eca2f2.
 -->
