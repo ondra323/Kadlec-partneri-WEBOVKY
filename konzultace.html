@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Druhý názor na vaše finance | Ondřej Kadlec</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Srovnám, co máte, s tím, co dnes nabízí trh. Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --forest:#113225; --forest-mid:#1e4d35; --forest-light:#2d6a4f;
+  --gold:#c8801f;            /* ← vyhrazeno VÝHRADNĚ pro CTA (attention ratio) */
+  --brass:#b5935a; --brass-light:#d4af7a; --brass-deep:#6f5324;
+  --cream:#fffdf9; --oat:#F9F7F3; --oat-dark:#f0ece4;
+  --text:#1a1c1b; --muted:#6b7068; --muted-strong:#565b53; --border:#e2ddd6;
+  --t-display:clamp(1.95rem,6.4vw,3.2rem);
+  --t-h2:clamp(1.5rem,4.6vw,2.25rem);
+  --t-lead:clamp(1.02rem,3.4vw,1.18rem);
+  --track-label:.16em;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text);
+  line-height:1.65;font-size:1.0625rem;overflow-x:hidden}
+.serif{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.12}
+.wrap{width:100%;max-width:560px;margin:0 auto;padding:0 22px}
+p+p{margin-top:15px}
+
+.slide{padding:58px 0 62px;position:relative}
+.label{font-size:.7rem;letter-spacing:var(--track-label);text-transform:uppercase;font-weight:600;
+  color:var(--forest-light);margin-bottom:14px}
+.dark{background:var(--forest);color:var(--cream)}
+.dark .label{color:var(--brass-light)}
+.dark .serif{color:var(--cream)}
+.dark p{color:rgba(255,253,249,.84)}
+.oat{background:var(--oat)}
+
+/* ── HERO ── */
+#hero{background:linear-gradient(168deg,#0d2a1f,#123527 55%,#16402c);padding:50px 0 0;overflow:hidden}
+/* podpis + portrét u spodní hrany hera */
+.hero-sign{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:20px}
+.hero-sign .who{padding-bottom:22px}
+.hero-sign .who b{display:block;font-family:'Playfair Display',serif;font-size:1.12rem;
+  color:var(--cream);font-weight:600;line-height:1.25}
+.hero-sign .who span{display:block;font-size:.83rem;color:rgba(212,175,122,.9);margin-top:3px}
+.hero-sign .who em{display:block;font-style:normal;font-size:.79rem;color:rgba(255,253,249,.55);margin-top:6px}
+#hero-photo{display:block;width:47%;max-width:210px;height:auto;margin-bottom:-2px;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.32))}
+#hero .eyebrow{display:inline-block;font-size:.73rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--brass-light);border:1px solid rgba(212,175,122,.34);border-radius:100px;padding:6px 13px;margin-bottom:20px}
+#hero h1{font-size:var(--t-display);color:var(--cream);margin-bottom:17px}
+#hero h1 em{font-style:normal;color:var(--brass-light)}
+#hero .sub{font-size:var(--t-lead);color:rgba(255,253,249,.86);line-height:1.58}
+#hero .sub b{color:#fff;font-weight:600}
+
+/* ── CTA · jediná zlatá barva na stránce ── */
+.cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:60px;
+  background:var(--gold);color:#fff;text-decoration:none;border-radius:11px;font-weight:600;
+  font-size:1.06rem;margin-top:26px;box-shadow:0 4px 16px rgba(200,128,31,.24)}
+.cta:active{transform:scale(.99)}
+.cta-note{font-size:.84rem;color:var(--muted);margin-top:11px;text-align:center}
+.dark .cta-note{color:rgba(255,253,249,.62)}
+
+/* ── PROBLÉM (interní) ── */
+.pain{list-style:none;margin-top:24px}
+.pain li{padding:15px 0 15px 30px;position:relative;border-bottom:1px solid var(--border);
+  font-size:1.02rem;color:var(--muted-strong);line-height:1.55}
+.pain li:before{content:"";position:absolute;left:4px;top:24px;width:8px;height:8px;border-radius:50%;
+  background:var(--forest-light);opacity:.5}
+.pain li strong{color:var(--text);font-weight:600}
+.pain-close{font-size:var(--t-lead);color:var(--text);margin-top:24px;line-height:1.6}
+
+/* ── karty ── */
+.card{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:24px 20px;margin-top:20px}
+.oat .card{background:#fff}
+.card p{font-size:1rem;color:var(--muted-strong)}
+.photo{width:110px;height:110px;border-radius:50%;object-fit:cover;background:var(--oat-dark);
+  border:3px solid var(--brass-light);display:block;margin-bottom:16px}
+.proof-row{display:flex;flex-direction:column;gap:13px;margin-top:22px}
+.proof{display:flex;gap:13px;align-items:flex-start}
+.proof .num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--forest-light);line-height:1;min-width:54px}
+.proof .txt{font-size:.94rem;color:var(--muted-strong);line-height:1.5}
+
+/* ── PLÁN ── */
+.steps{counter-reset:s;margin-top:26px}
+.step{position:relative;padding:0 0 26px 50px;counter-increment:s}
+.step:before{content:counter(s);position:absolute;left:0;top:0;width:33px;height:33px;border-radius:50%;
+  background:var(--forest-mid);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:.88rem;font-weight:600}
+.step:after{content:"";position:absolute;left:16px;top:37px;bottom:4px;width:1px;background:var(--border)}
+.step:last-child{padding-bottom:0}.step:last-child:after{display:none}
+.step h3{font-size:1.05rem;font-weight:600;margin-bottom:4px}
+.step p{font-size:.94rem;color:var(--muted);line-height:1.55}
+.promise{margin-top:24px;padding:17px 19px;border-radius:12px;background:rgba(45,106,79,.08);
+  border:1px solid rgba(45,106,79,.26);font-size:.96rem;line-height:1.6;color:var(--muted-strong)}
+.promise strong{color:var(--forest-light);font-weight:600}
+
+/* ── REFERENCE ── */
+.testi{background:#fff;border:1px solid var(--border);border-left:3px solid var(--forest-light);
+  border-radius:10px;padding:20px 18px;margin-top:16px}
+.testi .result{display:inline-block;font-size:.77rem;font-weight:600;background:rgba(45,106,79,.11);
+  color:var(--forest-light);padding:5px 10px;border-radius:5px;margin-bottom:12px}
+.testi blockquote{font-size:.99rem;line-height:1.6}
+.testi .who{display:flex;align-items:center;gap:11px;margin-top:14px}
+.testi .who img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:var(--oat-dark)}
+.testi .who div{font-size:.84rem;line-height:1.35}
+.testi .who b{font-weight:600;display:block}
+.testi .who span{color:var(--muted)}
+
+/* ── SÁZKA ── */
+.fork{display:grid;gap:13px;margin-top:26px}
+.fork>div{border-radius:12px;padding:19px 17px}
+.fork .bad{background:rgba(255,253,249,.05);border:1px solid rgba(255,253,249,.13)}
+.fork .good{background:rgba(212,175,122,.11);border:1px solid rgba(212,175,122,.3)}
+.fork h4{font-size:.71rem;letter-spacing:var(--track-label);text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.fork .bad h4{color:rgba(255,253,249,.5)}
+.fork .good h4{color:var(--brass-light)}
+.fork ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fork li{font-size:.94rem;padding-left:20px;position:relative;line-height:1.5}
+.fork .bad li{color:rgba(255,253,249,.68)}
+.fork .good li{color:rgba(255,253,249,.94)}
+.fork li:before{position:absolute;left:0;top:-1px}
+.fork .bad li:before{content:"×";color:rgba(255,253,249,.4)}
+.fork .good li:before{content:"✓";color:var(--brass-light)}
+
+/* ── KVÍZ ── */
+#kviz{background:var(--oat);padding:56px 0 122px}
+.quiz-box{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px 19px 22px;
+  box-shadow:0 3px 20px rgba(17,50,37,.05);margin-top:20px}
+.bar{height:3px;background:var(--oat-dark);border-radius:99px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;background:var(--forest-light);width:0;transition:width .34s cubic-bezier(.4,0,.2,1)}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
+.qstep{font-size:.7rem;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--forest-light);font-weight:600}
+.qback{background:none;border:0;font:inherit;font-size:.82rem;color:var(--muted);cursor:pointer;padding:6px 4px;
+  text-decoration:underline;text-underline-offset:3px}
+.qtitle{font-family:'Playfair Display',serif;font-weight:600;font-size:1.3rem;line-height:1.25;margin-bottom:5px}
+.qsub{font-size:.89rem;color:var(--muted);margin-bottom:18px}
+.panel{display:none}.panel.on{display:block;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;width:100%;min-height:58px;padding:13px 15px;
+  border:1.5px solid var(--border);border-radius:11px;background:#fff;font:inherit;font-size:1rem;
+  text-align:left;cursor:pointer;color:var(--text);transition:border-color .16s,background .16s,transform .1s}
+.opt:active{transform:scale(.985)}
+.opt:hover{border-color:var(--forest-light);background:#f7faf8}
+.opt.sel{border-color:var(--forest-light);background:rgba(45,106,79,.08)}
+.opt .t{flex:1}
+.opt .t small{display:block;font-size:.81rem;color:var(--muted);margin-top:2px;line-height:1.35}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.83rem;font-weight:600;margin-bottom:6px;color:var(--muted-strong)}
+.field input{width:100%;min-height:52px;padding:13px 15px;font:inherit;font-size:1.0625rem;
+  border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--text)}
+.field input:focus{outline:none;border-color:var(--forest-light);box-shadow:0 0 0 3px rgba(45,106,79,.13)}
+.field input::placeholder{color:#a8aca4}
+.field .err{display:none;font-size:.8rem;color:#a8342a;margin-top:5px}
+.field.bad input{border-color:#c9564b}.field.bad .err{display:block}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.chip{min-height:48px;border:1.5px solid var(--border);border-radius:9px;background:#fff;font:inherit;
+  font-size:.93rem;cursor:pointer;color:var(--muted-strong);padding:10px}
+.chip.sel{border-color:var(--forest-light);background:rgba(45,106,79,.09);color:var(--text);font-weight:500}
+.recap{background:var(--oat);border-radius:9px;padding:13px 15px;margin-bottom:16px;font-size:.87rem;
+  color:var(--muted-strong);line-height:1.55}
+.recap b{color:var(--text);font-weight:600}
+/* sociální důkaz PŘÍMO u konverzního bodu */
+.spot{border-left:3px solid var(--forest-light);background:var(--oat);border-radius:8px;
+  padding:13px 15px;margin-bottom:18px;font-size:.88rem;line-height:1.55;color:var(--muted-strong)}
+.spot b{display:block;color:var(--text);font-weight:600;font-size:.82rem;margin-top:7px}
+.submit{width:100%;min-height:62px;margin-top:4px;border:0;border-radius:11px;background:var(--gold);
+  color:#fff;font:inherit;font-size:1.06rem;font-weight:600;cursor:pointer;
+  box-shadow:0 4px 16px rgba(200,128,31,.24)}
+.submit:disabled{opacity:.6}
+.micro{font-size:.84rem;color:var(--muted);text-align:center;margin-top:10px}
+.reassure{font-size:.84rem;color:var(--muted);line-height:1.55;margin-top:12px;text-align:center}
+.reassure b{color:var(--muted-strong);font-weight:600}
+.consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.79rem;color:var(--muted);line-height:1.5}
+.consent input{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--forest-light)}
+.consent a{color:var(--forest-light)}
+.trust{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:16px}
+.trust span{font-size:.73rem;color:var(--muted-strong);border:1px solid var(--border);border-radius:99px;
+  padding:6px 11px;background:var(--oat)}
+#done{display:none;text-align:center;padding:16px 0}
+#done .tick{width:60px;height:60px;border-radius:50%;background:rgba(45,106,79,.11);color:var(--forest-light);
+  display:flex;align-items:center;justify-content:center;font-size:1.85rem;margin:0 auto 18px}
+#done h3{font-family:'Playfair Display',serif;font-size:1.45rem;margin-bottom:9px}
+#done p{font-size:.97rem;color:var(--muted-strong)}
+
+#sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,253,249,.94);backdrop-filter:blur(11px);border-top:1px solid var(--border);
+  transform:translateY(125%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+#sticky.show{transform:none}
+#sticky a{display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--gold);
+  color:#fff;text-decoration:none;border-radius:11px;font-weight:600;font-size:1.02rem}
+
+footer{background:var(--forest);color:rgba(255,253,249,.5);font-size:.76rem;padding:26px 0 98px;
+  text-align:center;line-height:1.7}
+footer a{color:rgba(255,253,249,.66)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ═══ 1 · HERO — Charakter + cíl + první CTA ═══ -->
+<section class="slide dark" id="hero">
+  <div class="wrap">
+    <span class="eyebrow" id="h-eyebrow">Druhý názor</span>
+    <h1 class="serif" id="h-title">Chcete na své finance<br><em>druhý názor?</em></h1>
+    <p class="sub" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.</b></p>
+    <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
+    <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
+    <div class="hero-sign">
+      <div class="who">
+        <b>Ondřej Kadlec</b>
+        <span>Nezávislý finanční poradce</span>
+        <em>Kancelář v Jemnici</em>
+      </div>
+      <img id="hero-photo" src="assets/ondrej-hero.webp"
+           srcset="assets/ondrej-hero.webp 420w, assets/ondrej-hero@2x.webp 630w"
+           sizes="(max-width:520px) 47vw, 210px"
+           width="420" height="559" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+           fetchpriority="high" decoding="async">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · PROBLÉM — externí i interní ═══ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="label">Znáte to?</div>
+    <h2 class="serif" style="font-size:var(--t-h2)" id="p-title">Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.</h2>
+    <ul class="pain" id="p-list"></ul>
+    <p class="pain-close" id="p-close">A tak to zůstává, jak to je. <strong>Nejdražší není špatné rozhodnutí — nejdražší je žádné.</strong> To se totiž platí každý měsíc.</p>
+  </div>
+</section>
+
+<!-- ═══ 3 · PRŮVODCE — empatie a autorita ═══ -->
+<section class="slide oat">
+  <div class="wrap">
+    <div class="label">Kdo se na to podívá</div>
+    <h2 class="serif" style="font-size:var(--t-h2)">Začínal jsem jako bankéř. Vím, jak se ta čísla staví zevnitř.</h2>
+    <div class="card">
+      <picture>
+        <source srcset="assets/ondrej-kadlec.webp" type="image/webp">
+        <img src="assets/ondrej-kadlec.jpg" width="110" height="110" loading="lazy" decoding="async"
+             alt="Ondřej Kadlec" class="photo" onerror="this.style.display='none'">
+      </picture>
+      <p>Uvnitř banky se produkt nedoporučuje podle toho, co potřebujete vy, ale podle toho, co má pobočka v plánu. Tak jsem odešel a dělám to samé z druhé strany stolu.</p>
+      <p><strong>Když si přese mě něco sjednáte, dostanu provizi od instituce — ne od vás.</strong> Nemám měsíční plán na jeden produkt. Když je nejlepší nechat všechno tak, jak to je, přijdu o provizi a stejně vám to řeknu.</p>
+    </div>
+    <div class="proof-row">
+      <div class="proof"><span class="num">100+</span><span class="txt">rodin a firem z Jemnicka a okolí</span></div>
+      <div class="proof"><span class="num">15+</span><span class="txt">bank a pojišťoven srovnaných vedle sebe</span></div>
+      <div class="proof"><span class="num">ČNB</span><span class="txt">vázaný zástupce sítí INSIA a ININVEST, pod dohledem České národní banky</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · PLÁN — tři kroky ═══ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="label">Jak to bude probíhat</div>
+    <h2 class="serif" style="font-size:var(--t-h2)">Tři kroky. Žádná byrokracie na vaší straně.</h2>
+    <div class="steps">
+      <div class="step"><h3>Zavolám vám do 24 hodin</h3><p>Osobně já, ne call centrum. Deset minut, ať vím, o co jde.</p></div>
+      <div class="step"><h3>Sejdeme se na 30 minut</h3><p>V Jemnici, u vás, nebo online. Nic si nepřipravujete.</p></div>
+      <div class="step"><h3>Dostanete srovnání na papíře</h3><p>Uvidíte, co nabízí trh vedle toho, co máte teď. Na místě se nic nepodepisuje.</p></div>
+    </div>
+    <div class="promise"><strong>Slib:</strong> Když už po telefonátu bude jasné, že vám nemám co nabídnout, řeknu vám to rovnou — a víc se vám neozvu.</div>
+    <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
+    <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
+  </div>
+</section>
+
+<!-- ═══ 5 · SOCIÁLNÍ DŮKAZ ═══ -->
+<section class="slide oat">
+  <div class="wrap">
+    <div class="label">Lidé odsud</div>
+    <h2 class="serif" style="font-size:var(--t-h2)">Ne obecné pochvaly. Konkrétní čísla.</h2>
+    <!-- ⚠️ PLACEHOLDER · nahradit reálnými referencemi (plné jméno, obec, číslo) -->
+    <div class="testi">
+      <span class="result">Úspora 3 400 Kč měsíčně</span>
+      <blockquote>„Bál jsem se půl roku papírování. Ondřej vzal naše smlouvy a všechno s bankou vyřídil sám. My jsme dvakrát podepsali."</blockquote>
+      <div class="who"><img src="assets/ref-1.jpg" alt="" onerror="this.style.display='none'"><div><b>Jméno Příjmení</b><span>Jemnice</span></div></div>
+    </div>
+    <div class="testi">
+      <span class="result">Vyšlo, že měnit nemám</span>
+      <blockquote>„Čekal jsem, že mi něco prodá. Místo toho mi řekl, že to mám nastavené dobře a ať to nechám být. Od té doby mu věřím."</blockquote>
+      <div class="who"><img src="assets/ref-2.jpg" alt="" onerror="this.style.display='none'"><div><b>Jméno Příjmení</b><span>Moravské Budějovice</span></div></div>
+    </div>
+    <div class="testi">
+      <span class="result">Do týdne hotovo</span>
+      <blockquote>„Nemám čas obíhat instituce. Ondřej to vzal celé na sebe a já jenom podepsal, co mi přivezl domů."</blockquote>
+      <div class="who"><img src="assets/ref-3.jpg" alt="" onerror="this.style.display='none'"><div><b>Jméno Příjmení</b><span>Dačice</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6 · SÁZKA — vyhnutí se selhání / úspěch ═══ -->
+<section class="slide dark">
+  <div class="wrap">
+    <div class="label">Rozcestí</div>
+    <h2 class="serif" style="font-size:var(--t-h2)">Za rok touhle dobou budete v jedné ze dvou situací.</h2>
+    <div class="fork">
+      <div class="bad">
+        <h4>Když to necháte být</h4>
+        <ul>
+          <li>Podmínky vám nastaví instituce a vy je nebudete mít s čím porovnat</li>
+          <li>Budete platit dál a nebudete vědět, jestli férově</li>
+          <li>Až to začne hořet, budete rozhodovat ve spěchu</li>
+          <li>Za rok si položíte přesně tuhle otázku znovu</li>
+        </ul>
+      </div>
+      <div class="good">
+        <h4>Když si dáte 30 minut</h4>
+        <ul>
+          <li>Budete mít na papíře, co nabízí celý trh</li>
+          <li>Budete znát přesné číslo, o kolik jde</li>
+          <li>Budete mít plán, kterému rozumíte a umíte ho vysvětlit doma</li>
+          <li>A když vyjde, že měnit nemáte, budete to vědět taky</li>
+        </ul>
+      </div>
+    </div>
+    <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
+    <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
+  </div>
+</section>
+
+<!-- ═══ 7 · KVÍZ ═══ -->
+<section id="kviz">
+  <div class="wrap">
+    <h2 class="serif" style="font-size:var(--t-h2);text-align:center" id="q-head">Začneme jednou otázkou</h2>
+
+    <div class="quiz-box">
+      <div class="bar"><i id="bar"></i></div>
+
+      <div class="panel" data-q="1">
+        <div class="qhead"><span class="qstep" data-lbl></span></div>
+        <div class="qtitle">Co byste chtěl probrat?</div>
+        <div class="qsub">Vyberte, co je pro vás dnes nejaktuálnější.</div>
+        <div class="opts">
+          <button class="opt" data-v="pojisteni"><span class="t">Pojištění<small>Úrazové, životní, majetek</small></span></button>
+          <button class="opt" data-v="hypoteka"><span class="t">Hypotéka a bydlení<small>Koupě, stavba nebo končící fixace</small></span></button>
+          <button class="opt" data-v="uvery"><span class="t">Úvěry a splátky<small>Refinancování nebo sloučení</small></span></button>
+          <button class="opt" data-v="investice"><span class="t">Úspory a investice<small>Aby peníze nestály na místě</small></span></button>
+          <button class="opt" data-v="penze"><span class="t">Zajištění na penzi<small>DIP, penzijko, dlouhodobý plán</small></span></button>
+        </div>
+      </div>
+
+      <div class="panel" data-q="2">
+        <div class="qhead"><span class="qstep" data-lbl></span><button class="qback" data-back>← zpět</button></div>
+        <div class="qtitle" id="q2t">…</div>
+        <div class="qsub" id="q2s">…</div>
+        <div class="opts" id="q2o"></div>
+      </div>
+
+      <div class="panel" data-q="3">
+        <div class="qhead"><span class="qstep" data-lbl></span><button class="qback" data-back>← zpět</button></div>
+        <div class="qtitle">Jak moc to spěchá?</div>
+        <div class="qsub">Podle toho poznám, kdy se vám mám ozvat.</div>
+        <div class="opts">
+          <button class="opt" data-v="hned"><span class="t">Spěchá to<small>Mám termín nebo mi něco končí</small></span></button>
+          <button class="opt" data-v="3m"><span class="t">Do tří měsíců<small>Chci to mít připravené</small></span></button>
+          <button class="opt" data-v="letos"><span class="t">Někdy letos<small>Zatím to není akutní</small></span></button>
+          <button class="opt" data-v="rozhled"><span class="t">Nespěchá, jen mě to zajímá<small>Chci vědět, jak na tom jsem</small></span></button>
+        </div>
+      </div>
+
+      <div class="panel" data-q="4">
+        <div class="qhead"><span class="qstep" data-lbl></span><button class="qback" data-back>← zpět</button></div>
+        <div class="qtitle">Kam vám mám zavolat?</div>
+        <div class="qsub">Poslední krok — jméno a telefon.</div>
+
+        <div class="recap" id="recap"></div>
+        <div class="spot">
+          „Nechával jsem číslo nerad, mám špatné zkušenosti. Ondřej zavolal jednou, domluvili jsme se a nikdo mě od té doby neotravoval."
+          <b>Jméno Příjmení · Jemnice</b>
+        </div>
+
+        <form id="f" novalidate>
+          <div class="field" id="fn">
+            <label for="jmeno">Jak vás mám oslovit?</label>
+            <input id="jmeno" type="text" autocomplete="given-name" placeholder="Jan" required>
+            <span class="err">Napište prosím své jméno.</span>
+          </div>
+          <div class="field" id="ft">
+            <label for="tel">Telefonní číslo</label>
+            <input id="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="777 123 456" required>
+            <span class="err">Zkontrolujte prosím číslo (9 číslic).</span>
+          </div>
+          <div class="field">
+            <label>Kdy se vám hodí zvednout telefon?</label>
+            <div class="chips" id="when">
+              <button type="button" class="chip sel" data-v="kdykoli">Kdykoli</button>
+              <button type="button" class="chip" data-v="dopoledne">Dopoledne</button>
+              <button type="button" class="chip" data-v="odpoledne">Odpoledne</button>
+              <button type="button" class="chip" data-v="podvecer">Podvečer</button>
+            </div>
+          </div>
+
+          <p class="micro">Zabere to 5 sekund · 100% nezávazné</p>
+          <button type="submit" class="submit">Chci, aby mi Ondřej zavolal →</button>
+
+          <p class="reassure">
+            <b>Zavolám vám osobně do 24 hodin</b> k domluvení krátké nezávazné schůzky.<br>
+            Vaše číslo nikam nepředávám a nebudu vás obtěžovat spamem.
+          </p>
+          <label class="consent">
+            <input type="checkbox" id="gdpr" required>
+            <span>Souhlasím se zpracováním jména a telefonu za účelem vyřízení mé poptávky. <a href="gdpr.html" target="_blank" rel="noopener">Jak s údaji nakládám</a></span>
+          </label>
+          <div class="trust">
+            <span>🛡️ Pod dohledem ČNB</span>
+            <span>🔒 Šifrovaný přenos</span>
+            <span>🚫 Žádný spam</span>
+          </div>
+        </form>
+      </div>
+
+      <div id="done">
+        <div class="tick">✓</div>
+        <h3>Mám to, děkuji.</h3>
+        <p id="donetxt">Ozvu se vám osobně nejpozději do 24 hodin.</p>
+        <p style="margin-top:14px;font-size:.87rem;color:var(--muted)">Kdyby to nesneslo odkladu: <a href="tel:+420733651217" style="color:var(--forest-light);font-weight:600">733 651 217</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice<br>
+    Vázaný zástupce sítě INSIA a.s. a ININVEST, pod dohledem ČNB<br>
+    <a href="gdpr.html">Zpracování osobních údajů</a>
+  </div>
+</footer>
+
+<div id="sticky"><a href="#kviz" data-cta>Chci druhý názor →</a></div>
+
+<!-- ═══ SKRIPTY — až pod čarou ponoru (lazy) ═══ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const app = initializeApp({
+    apiKey:"AIzaSyCMpXn3fBghTYqDaLrbjEN4NYz6Utlg8gI", authDomain:"blog-adbe8.firebaseapp.com",
+    projectId:"blog-adbe8", storageBucket:"blog-adbe8.firebasestorage.app",
+    messagingSenderId:"543978071624", appId:"1:543978071624:web:67d10930e0ab629d37da7d"
+  });
+  const db = getFirestore(app);
+  window.__inquiryDb = db;
+  window.__fbInquiry = { collection, addDoc, serverTimestamp };
+  try {
+    const p = new URLSearchParams(location.search), ref = document.referrer;
+    let source = p.get('utm_source') || 'přímá';
+    if (!p.get('utm_source') && ref) {
+      if (/instagram\./i.test(ref)) source='instagram';
+      else if (/facebook\.|fb\./i.test(ref)) source='facebook';
+      else { try { source='odkaz ('+new URL(ref).hostname+')' } catch(e){} }
+    }
+    addDoc(collection(db,'pageviews'), {
+      page:'konzultace/'+(p.get('tema')||'obecne'), source, referrer:ref||'',
+      ua:navigator.userAgent.substring(0,120), timestamp:serverTimestamp(), duration:0
+    }).catch(()=>{});
+  } catch(e){}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script>(function w(n){if(typeof emailjs!=='undefined'){try{emailjs.init("CPb7Fs8T2eyD6612X")}catch(e){}}else if(n<25)setTimeout(function(){w(n+1)},300)})(0);</script>
+
+<script>
+(function(){
+  // ═══ TÉMATA — shoda sdělení s reklamou (message match) ═══
+  var T = {
+    pojisteni:{
+      eyebrow:'Pojištění',
+      title:'Víte, co vaše pojistka<br><em>doopravdy kryje?</em>',
+      sub:'Podívám se, na co máte nárok a co už dnes umí novější smlouvy. <b>Když je vaše v pořádku, řeknu vám to a necháme ji být.</b>',
+      cta:'Chci zkontrolovat svou pojistku',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že tomu nikdo nerozumí.',
+      pain:[
+        ['Smlouvu jste podepsali před lety','a od té doby jste do ní nekoukli. Nevíte, co v ní vlastně je.'],
+        ['Platíte každý měsíc','a netušíte, jestli za peníze, které dávají smysl.'],
+        ['Když se něco stane','zjistíte podmínky až ve chvíli, kdy je pozdě je měnit.'],
+        ['Přepsat to zní jako práce','na kterou nikdo nemá čas ani chuť.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Nejdražší pojistka je ta, která v den úrazu neplní.</strong>'
+    },
+    hypoteka:{
+      eyebrow:'Hypotéka',
+      title:'Kolik by vaše hypotéka<br>stála <em>u jiné banky?</em>',
+      sub:'Srovnám vaši sazbu s nabídkou celého trhu. <b>Když máte dobrou, řeknu vám to a měnit nebudeme nic.</b>',
+      cta:'Chci srovnat svou hypotéku',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.',
+      pain:[
+        ['Fixace končí','a vy nevíte, jestli je nabídka banky férová, nebo počítá s tím, že se nebudete ptát.'],
+        ['Splátka odchází každý měsíc','a nikdo vám nikdy neřekl, jestli platíte normálně.'],
+        ['Obíhat patnáct bank','nemá kdo. Tak vezmete to, co vám nabídnou.'],
+        ['Bojíte se, že vás doběhnou','a nemáte to s kým probrat.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Na hypotéce se rozdíl v desetinách procenta počítá ve stovkách tisíc.</strong>'
+    },
+    uvery:{
+      eyebrow:'Úvěry',
+      title:'Platíte za své půjčky víc,<br>než je <em>dnes běžné?</em>',
+      sub:'Projdu vaše splátky a srovnám je s aktuálním trhem. <b>Když je máte nastavené dobře, řeknu vám to.</b>',
+      cta:'Chci spočítat své splátky',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že v tom není vidět.',
+      pain:[
+        ['Splátky odcházejí každý měsíc','a vy nevíte, kolik z nich jsou jenom úroky.'],
+        ['Máte to na víc místech','a přehled o celkové částce vlastně nemáte.'],
+        ['Kreditka nebo kontokorent','jsou nejdražší peníze na trhu a používají se nejsnáz.'],
+        ['Řešit to zní jako ostuda','přitom je to jenom počítání.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Nejdražší není špatné rozhodnutí — nejdražší je žádné.</strong> To se platí každý měsíc.'
+    },
+    investice:{
+      eyebrow:'Úspory',
+      title:'Leží vaše úspory tam,<br>kde jim <em>inflace ubírá?</em>',
+      sub:'Podívám se, kde peníze máte a co si za ně platíte. <b>Když je to nastavené dobře, řeknu vám to.</b>',
+      cta:'Chci se na své úspory podívat',
+      ptitle:'Nejde o to, že byste byli nezodpovědní. Jde o to, že chyba stojí peníze.',
+      pain:[
+        ['Peníze leží na spořáku','a každý rok tiše ztrácejí hodnotu.'],
+        ['Investovat? Ale kam','a co když to zvoráte. Tak radši nic.'],
+        ['Když už něco máte','netušíte, kolik si za to instituce bere.'],
+        ['Každý radí něco jiného','a každý na tom vydělává.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Peníze, které nikam nejdou, se každý rok scvrknou o inflaci.</strong>'
+    },
+    penze:{
+      eyebrow:'Penze',
+      title:'Víte, kolik vám stát<br>v penzi <em>doopravdy pošle?</em>',
+      sub:'Spočítáme to a podíváme se, co s tím jde dělat. <b>Když už máte dobře nastaveno, řeknu vám to.</b>',
+      cta:'Chci vědět, jak na tom budu',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že je to strašně daleko.',
+      pain:[
+        ['Na penzi to nějak vyjde','— nebo taky ne. A zjistíte to, až s tím nepůjde nic dělat.'],
+        ['Staré penzijko','vám možná vydělává míň, než je inflace.'],
+        ['DIP, DPS, transformované fondy','— tři zkratky a nikdo pořádně nevysvětlí rozdíl.'],
+        ['Daňové úlevy','nejspíš nevyužíváte naplno, protože o nich nikdo neřekne.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>U penze je jediná drahá věc čas, který proteče.</strong>'
+    }
+  };
+  var DEF_PAIN = [
+    ['Fixace, smlouvy, splátky','— každá věc zvlášť dává smysl, dohromady se v tom nedá vyznat.'],
+    ['Nikdo vám neřekne','jestli platíte normálně, nebo o desítky tisíc navíc.'],
+    ['Poradit se s kým','když každý na tom něco vydělává.'],
+    ['Tak se to odloží','a jede se dál jako dosud.']
+  ];
+
+  var P = new URLSearchParams(location.search);
+  var tema = P.get('tema'); if (!T[tema]) tema = null;
+  var A = {topic: tema || '', detail:'', when:'', call:'kdykoli', _max:0};
+  var FIRST = tema ? 2 : 1, TOTAL = tema ? 3 : 4;
+
+  // Q2 větve
+  var Q2 = {
+    pojisteni:{t:'Co máte sjednané?', s:'Klidně přibližně, doladíme to po telefonu.', o:[
+      ['urazove','Úrazové pojištění','Klasika, často roky stará smlouva'],
+      ['zivotni','Životní pojištění','Nebo pojištění příjmu a invalidity'],
+      ['majetek','Dům, byt, domácnost','Nebo auto'],
+      ['nevim','Něco mám, ale nevím co','Přesně proto to chci probrat']]},
+    hypoteka:{t:'V jaké jste fázi?', s:'Ať vím, co si mám připravit.', o:[
+      ['fixace','Končí nám fixace','Do roka nebo dřív'],
+      ['mam','Hypotéku máme','Chci ověřit, jestli neplatíme moc'],
+      ['vyhlednuto','Máme vyhlédnuto','Potřebujeme to zafinancovat'],
+      ['vybirame','Teprve vybíráme','Chceme vědět, na co dosáhneme']]},
+    uvery:{t:'Kolik závazků řešíte?', s:'Stačí odhad.', o:[
+      ['jeden','Jeden úvěr','Chci nižší sazbu'],
+      ['dvatri','Dva až tři','Zvažuji je sloučit'],
+      ['vic','Víc než tři','Ztrácím v tom přehled'],
+      ['kreditky','Kreditku nebo kontokorent','Nejdražší peníze na trhu']]},
+    investice:{t:'Jak to teď máte?', s:'Na částky se ptát nebudu.', o:[
+      ['sporak','Leží to na spořicím účtu','Nebo v hotovosti'],
+      ['sam','Investuji sám','Chci na to druhý názor'],
+      ['pres','Mám to přes banku nebo poradce','Nevím, co za to platím'],
+      ['zacinam','Teprve chci začít','Nevím kde a jak']]},
+    penze:{t:'Jak to teď máte nastavené?', s:'Nevadí, když si nejste jistí.', o:[
+      ['nic','Zatím nic','Vím, že bych měl začít'],
+      ['stare','Mám staré penzijko','Netuším, jestli je dobré'],
+      ['dps','Mám DPS nebo DIP','Chci ověřit, jestli je to optimální'],
+      ['firma','Řeším to i za firmu','Zaměstnanci nebo já jako majitel']]}
+  };
+
+  // ── vykreslení problému + hera podle tématu ──
+  function paint(){
+    var d = tema ? T[tema] : null;
+    var list = d ? d.pain : DEF_PAIN;
+    document.getElementById('p-list').innerHTML = list.map(function(x){
+      return '<li><strong>'+x[0]+'</strong> '+x[1]+'</li>';
+    }).join('');
+    if (!d) return;
+    document.getElementById('h-eyebrow').textContent = d.eyebrow;
+    document.getElementById('h-title').innerHTML = d.title;
+    document.getElementById('h-sub').innerHTML = d.sub;
+    document.getElementById('p-title').textContent = d.ptitle;
+    document.getElementById('p-close').innerHTML = d.close;
+    document.querySelectorAll('[data-cta]').forEach(function(e){ e.textContent = d.cta + ' →'; });
+    document.title = d.eyebrow + ' — druhý názor | Ondřej Kadlec';
+  }
+  paint();
+
+  var bar = document.getElementById('bar'), panels = document.querySelectorAll('.panel');
+
+  function show(n){
+    if (n > A._max) { A._max = n; track('krok-' + n); }
+    A._cur = n;
+    panels.forEach(function(p){ p.classList.toggle('on', +p.dataset.q === n) });
+    var idx = n - FIRST + 1;
+    bar.style.width = (idx / TOTAL * 100) + '%';
+    document.querySelectorAll('[data-q="'+n+'"] [data-lbl]').forEach(function(e){
+      e.textContent = (n === 4) ? 'Poslední krok' : ('Otázka ' + idx + ' ze ' + TOTAL);
+    });
+    var b = document.querySelector('[data-q="'+n+'"] [data-back]');
+    if (b) b.style.visibility = (n <= FIRST) ? 'hidden' : 'visible';
+    var box = document.querySelector('.quiz-box');
+    var y = box.getBoundingClientRect().top + window.scrollY - 60;
+    if (Math.abs(window.scrollY - y) > 40) window.scrollTo({top:y, behavior:'smooth'});
+  }
+  A._cur = FIRST;
+
+  function mark(el){
+    el.parentNode.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel')});
+    el.classList.add('sel');
+  }
+
+  function buildQ2(){
+    var d = Q2[A.topic], box = document.getElementById('q2o');
+    document.getElementById('q2t').textContent = d.t;
+    document.getElementById('q2s').textContent = d.s;
+    box.innerHTML = '';
+    d.o.forEach(function(o){
+      var b = document.createElement('button');
+      b.className = 'opt'; b.dataset.v = o[0];
+      b.innerHTML = '<span class="t">'+o[1]+'<small>'+o[2]+'</small></span>';
+      b.addEventListener('click', function(){
+        A.detail = o[0]; A.detailLabel = o[1]; mark(b);
+        setTimeout(function(){show(3)}, 170);
+      });
+      box.appendChild(b);
+    });
+  }
+
+  document.querySelectorAll('[data-q="1"] .opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      A.topic = b.dataset.v; mark(b); buildQ2();
+      setTimeout(function(){show(2)}, 170);
+    });
+  });
+  document.querySelectorAll('[data-q="3"] .opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      A.when = b.dataset.v; mark(b); recap();
+      setTimeout(function(){show(4)}, 170);
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(function(b){
+    b.addEventListener('click', function(){ show(Math.max(FIRST, A._cur - 1)) });
+  });
+  document.querySelectorAll('#when .chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      document.querySelectorAll('#when .chip').forEach(function(x){x.classList.remove('sel')});
+      c.classList.add('sel'); A.call = c.dataset.v;
+    });
+  });
+
+  var LBL = {pojisteni:'Pojištění', hypoteka:'Hypotéka a bydlení', uvery:'Úvěry a splátky',
+             investice:'Úspory a investice', penze:'Penze'};
+  var WHEN = {hned:'co nejdřív', '3m':'do tří měsíců', letos:'letos', rozhled:'bez spěchu'};
+  var CALL = {kdykoli:'Kdykoli', dopoledne:'Dopoledne', odpoledne:'Odpoledne', podvecer:'Podvečer'};
+
+  function recap(){
+    document.getElementById('recap').innerHTML =
+      'Řešíte <b>' + (LBL[A.topic]||'') + '</b> — ' + (A.detailLabel||'') +
+      '. Termín: <b>' + (WHEN[A.when]||'') + '</b>. Podklady si připravím ještě před telefonátem.';
+  }
+
+  var seen = {};
+  function track(ev){
+    if (seen[ev]) return; seen[ev] = 1;
+    try {
+      var fb = window.__fbInquiry || {}, db = window.__inquiryDb;
+      if (db && fb.addDoc) fb.addDoc(fb.collection(db,'quiz_funnel'), {
+        event: ev, tema: tema || 'obecne',
+        source: P.get('utm_source') || document.referrer || 'přímá',
+        timestamp: fb.serverTimestamp()
+      }).catch(function(){});
+    } catch(e){}
+  }
+  track('otevreno');
+
+  document.getElementById('f').addEventListener('submit', function(e){
+    e.preventDefault();
+    var jm = document.getElementById('jmeno'), tl = document.getElementById('tel');
+    var ok = true, dg = tl.value.replace(/\D/g,'');
+    document.getElementById('fn').classList.toggle('bad', jm.value.trim().length < 2);
+    if (jm.value.trim().length < 2) ok = false;
+    var telOk = dg.length >= 9 && dg.length <= 13;
+    document.getElementById('ft').classList.toggle('bad', !telOk);
+    if (!telOk) ok = false;
+    if (!document.getElementById('gdpr').checked) { ok = false; document.getElementById('gdpr').focus(); }
+    if (!ok) return;
+
+    var utm = P.get('utm_source') || '';
+    if (!utm && document.referrer) {
+      if (/instagram\./i.test(document.referrer)) utm = 'instagram';
+      else if (/facebook\.|fb\./i.test(document.referrer)) utm = 'facebook';
+    }
+    var data = {
+      name: jm.value.trim(), email: '', phone: tl.value.trim(),
+      service: LBL[A.topic] || 'Konzultace', term: CALL[A.call] || 'Kdykoli',
+      note: (A.detailLabel||'') + ' · spěch: ' + (WHEN[A.when]||'') +
+            (tema ? ' · z reklamy: ' + tema : ' · téma zvolil sám') + (utm ? ' · ' + utm : ''),
+      source: 'konzultace/' + (tema || 'obecne'), status: 'new'
+    };
+
+    var btn = document.querySelector('.submit'), orig = btn.textContent;
+    btn.textContent = 'Odesílám…'; btn.disabled = true;
+
+    var fbSave = (async function(){
+      var fb = window.__fbInquiry || {}, db = window.__inquiryDb;
+      if (!db || !fb.addDoc) throw new Error('Firestore není k dispozici');
+      await fb.addDoc(fb.collection(db,'inquiries'), Object.assign({}, data, {createdAt: fb.serverTimestamp()}));
+    })();
+    var mail = (async function(){
+      if (typeof emailjs === 'undefined' || !emailjs.send) throw new Error('EmailJS není k dispozici');
+      await emailjs.send('service_0zu8waq','template_84t5ibu', data);
+    })();
+
+    Promise.allSettled([fbSave, mail]).then(function(r){
+      btn.textContent = orig; btn.disabled = false;
+      if (r[0].status === 'rejected' && r[1].status === 'rejected') {
+        console.error('Lead se nepodařilo odeslat', r);
+        alert('Odeslání se nepovedlo. Zavolejte mi prosím přímo na 733 651 217.');
+        return;
+      }
+      track('lead');
+      panels.forEach(function(p){p.classList.remove('on')});
+      document.querySelector('.bar').style.display = 'none';
+      document.getElementById('q-head').textContent = 'Hotovo';
+      document.getElementById('done').style.display = 'block';
+      document.getElementById('donetxt').textContent = (A.when === 'hned')
+        ? 'Vidím, že to spěchá — ozvu se ještě dnes, nejpozději zítra dopoledne.'
+        : 'Ozvu se vám osobně nejpozději do 24 hodin.';
+      var box = document.querySelector('.quiz-box');
+      window.scrollTo({top: box.getBoundingClientRect().top + window.scrollY - 60, behavior:'smooth'});
+      document.getElementById('sticky').classList.remove('show');
+    });
+  });
+
+  var hero = document.getElementById('hero'), kviz = document.getElementById('kviz'), st = document.getElementById('sticky');
+  addEventListener('scroll', function(){
+    st.classList.toggle('show',
+      window.scrollY > hero.offsetHeight * 0.8 &&
+      kviz.getBoundingClientRect().top > window.innerHeight * 0.85);
+  }, {passive:true});
+
+  if (tema) { buildQ2(); document.getElementById('q-head').textContent = 'Zbývají dvě otázky'; }
+  show(FIRST);
+})();
+</script>
+</body>
+</html>
