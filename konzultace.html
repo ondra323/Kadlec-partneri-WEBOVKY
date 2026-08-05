@@ -65,8 +65,22 @@ strong,b{font-weight:600}
 h1,h2,h3{font-weight:500;letter-spacing:-.02em;line-height:1.08;text-transform:lowercase;text-wrap:balance}
 h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 
-/* ── HERO — teze: kruh je člověk, který jedná ── */
-#hero{padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
+/* ── HERO — teze: figura stojí v ploše, text stojí před ní ── */
+#hero{position:relative;overflow:hidden;isolation:isolate;
+  padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
+/* na mobilu má figura vlastní pás dole — text ji nikde nekříží */
+#hero{padding-bottom:288px}
+/* zelená plocha — geometrie, ne rám; nikdy pod textem */
+#hero:before{content:"";position:absolute;z-index:-2;background:var(--green-deep);
+  right:0;bottom:0;width:56%;max-width:290px;height:232px}
+/* figura — vystupuje z plochy a dvěma osami se rozplývá do desky */
+#hero-photo{position:absolute;z-index:-1;right:calc(var(--u) * -1);bottom:0;
+  height:252px;width:auto;max-width:none;display:block;opacity:.82;
+  -webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 97%),
+                     linear-gradient(to left,#000 48%,transparent 92%);
+          mask-image:linear-gradient(to bottom,#000 62%,transparent 97%),
+                     linear-gradient(to left,#000 48%,transparent 92%);
+  -webkit-mask-composite:source-in;mask-composite:intersect}
 #h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-label);font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
 #h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
@@ -75,14 +89,8 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 #hero .sub{font-size:var(--t-lead);color:var(--ink-2);line-height:1.5;max-width:34ch}
 #hero .sub b{color:var(--ink);font-weight:600}
 
-/* portrét uvnitř kruhu — primární forma dělá práci, není ozdoba */
-.hero-sign{display:flex;align-items:flex-end;gap:calc(var(--u) * 3);margin-top:calc(var(--u) * 5)}
-.disc{position:relative;width:46%;max-width:186px;aspect-ratio:1;border-radius:50%;
-  background:var(--green-deep);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
-#hero-photo{height:100%;width:auto;max-width:none;display:block;
-  -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);
-          mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
-.hero-sign .who{padding-bottom:calc(var(--u) * 1.5);line-height:1.35}
+.hero-sign{margin-top:calc(var(--u) * 3)}
+.hero-sign .who{line-height:1.35}
 .hero-sign .who b{display:block;font-size:var(--t-body);font-weight:600;text-transform:none}
 .hero-sign .who span,.hero-sign .who em{display:block;font-size:var(--t-sm);font-style:normal;color:var(--ink-2)}
 
@@ -252,10 +260,17 @@ footer a{color:var(--blue)}
 /* kompozice se převažuje, nezmenšuje */
 @media(min-width:820px){
   .wrap{max-width:900px}
-  #hero .inner{display:grid;grid-template-columns:1fr 300px;gap:calc(var(--u) * 6);align-items:end}
-  .disc{width:100%;max-width:300px}
-  .hero-sign{display:block;margin-top:0}
-  .hero-sign .who{margin-top:calc(var(--u) * 2);padding-bottom:0}
+  /* figura stojí vedle textu, ne pod ním */
+  #hero{padding-bottom:calc(var(--u) * 9);min-height:560px;display:flex;align-items:center}
+  #hero .inner{max-width:52%}
+  #hero:before{top:calc(var(--u) * 9);bottom:calc(var(--u) * 9);height:auto;
+    width:40%;max-width:380px;right:calc(50% - 450px + 24px)}
+  #hero-photo{height:min(72vh,500px);right:calc(50% - 450px - 40px);
+    -webkit-mask-image:linear-gradient(to bottom,#000 66%,transparent 98%),
+                       linear-gradient(to left,#000 62%,transparent 97%);
+            mask-image:linear-gradient(to bottom,#000 66%,transparent 98%),
+                       linear-gradient(to left,#000 62%,transparent 97%)}
+  .hero-sign{margin-top:calc(var(--u) * 3)}
   .cta{max-width:420px}
   .quiz-box{padding:calc(var(--u) * 5)}
   #kviz .wrap{max-width:660px}
@@ -292,13 +307,6 @@ footer a{color:var(--blue)}
         <p class="sub" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.</b></p>
       </div>
       <div class="hero-sign">
-        <div class="disc">
-          <img id="hero-photo" src="assets/ondrej-hero.webp"
-               srcset="assets/ondrej-hero.webp 420w, assets/ondrej-hero@2x.webp 630w"
-               sizes="(max-width:820px) 46vw, 300px"
-               width="420" height="559" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
-               fetchpriority="high" decoding="async">
-        </div>
         <div class="who">
           <b>Ondřej Kadlec</b>
           <span>Nezávislý finanční poradce</span>
@@ -309,6 +317,11 @@ footer a{color:var(--blue)}
     <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
     <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
   </div>
+  <img id="hero-photo" src="assets/ondrej-hero.webp"
+       srcset="assets/ondrej-hero.webp 420w, assets/ondrej-hero@2x.webp 630w"
+       sizes="(max-width:820px) 220px, 330px"
+       width="420" height="559" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+       fetchpriority="high" decoding="async">
 </section>
 
 <!-- ═══ 2 · PROBLÉM ═══ -->
