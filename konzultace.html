@@ -8,7 +8,7 @@
 <meta name="description" content="Srovnám, co máte, s tím, co dnes nabízí trh. Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -25,9 +25,23 @@
 
   --grid:rgba(26,63,208,.07); /* účaří */
 
+  /* ── TYPOGRAFICKÝ ŽEBŘÍK — osm kroků, žádné mezistupně ── */
   --t-display:clamp(2.1rem,7.4vw,3.6rem);
   --t-h2:clamp(1.55rem,5vw,2.3rem);
   --t-lead:clamp(1.06rem,3.5vw,1.22rem);
+  --t-fig:1.5rem;           /* číselný údaj */
+  --t-title:1.42rem;        /* nadpis panelu */
+  --t-sub:1.1rem;           /* podnadpis, vstupy, akce */
+  --t-base:1.125rem;        /* základní text */
+  --t-body:1.06rem;         /* text v plochách */
+  --t-sm:.95rem;            /* sekundární */
+  --t-xs:.87rem;            /* drobné */
+  --t-label:.8rem;          /* verzálkový štítek */
+
+  --red-deep:#b81d13;       /* červená pod prstem */
+  --on-red:#ffffff;         /* inkoust na červené */
+  --hatch:#e6e5e1;          /* šrafa neobsazeného místa */
+  --ink-3:#6c7176;          /* nápověda ve vstupu */
   --u:8px;                  /* modul */
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -38,7 +52,7 @@ body{
   /* účaří — viditelná mřížka dílny */
   background-image:linear-gradient(var(--grid) 1px,transparent 1px);
   background-size:100% calc(var(--u) * 4);
-  line-height:1.6;font-size:1.125rem;overflow-x:hidden;
+  line-height:1.6;font-size:var(--t-base);overflow-x:hidden;
 }
 .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 24px}
 p+p{margin-top:calc(var(--u) * 2)}
@@ -58,7 +72,7 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 
 /* ── HERO — teze: kruh je člověk, který jedná ── */
 #hero{padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
-#h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.8rem;font-weight:600;
+#h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-label);font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
 #h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
 #hero h1{font-size:var(--t-display);margin-bottom:calc(var(--u) * 2.5)}
@@ -74,28 +88,28 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);
           mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
 .hero-sign .who{padding-bottom:calc(var(--u) * 1.5);line-height:1.35}
-.hero-sign .who b{display:block;font-size:1.06rem;font-weight:600;text-transform:none}
-.hero-sign .who span,.hero-sign .who em{display:block;font-size:.93rem;font-style:normal;color:var(--ink-2)}
+.hero-sign .who b{display:block;font-size:var(--t-body);font-weight:600;text-transform:none}
+.hero-sign .who span,.hero-sign .who em{display:block;font-size:var(--t-sm);font-style:normal;color:var(--ink-2)}
 
 /* ── AKCE — jediný červený kruh, který se dá stisknout ── */
 .cta,.submit{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;
-  min-height:64px;background:var(--red);color:#fff;text-decoration:none;border:0;border-radius:0;
-  font:inherit;font-size:1.09rem;font-weight:600;cursor:pointer;
+  min-height:64px;background:var(--red);color:var(--on-red);text-decoration:none;border:0;border-radius:0;
+  font:inherit;font-size:var(--t-sub);font-weight:600;cursor:pointer;
   margin-top:calc(var(--u) * 4);
   transition:background .16s ease-out,transform .1s ease-out}
-.cta:before,.submit:before{content:"";width:15px;height:15px;border-radius:50%;background:#fff;flex:none}
-.cta:hover,.submit:hover{background:#b81d13}
+.cta:before,.submit:before{content:"";width:15px;height:15px;border-radius:50%;background:var(--on-red);flex:none}
+.cta:hover,.submit:hover{background:var(--red-deep)}
 .cta:active,.submit:active{transform:translateY(1px)}
 .cta:focus-visible,.submit:focus-visible,.opt:focus-visible,.chip:focus-visible,
 .qback:focus-visible,#sticky a:focus-visible,.consent input:focus-visible{
   outline:3px solid var(--blue);outline-offset:2px}
 .submit:disabled{background:var(--ink-2);cursor:default}
-.cta-note,.micro{font-size:.9rem;color:var(--ink-2);margin-top:calc(var(--u) * 1.5)}
+.cta-note,.micro{font-size:var(--t-sm);color:var(--ink-2);margin-top:calc(var(--u) * 1.5)}
 
 /* ── PROBLÉM — trojúhelník je upozornění ── */
 .pain{list-style:none;margin-top:calc(var(--u) * 3)}
 .pain li{padding:calc(var(--u) * 2) 0 calc(var(--u) * 2) 30px;position:relative;
-  border-bottom:1px solid var(--rule);font-size:1.03rem;color:var(--ink-2);line-height:1.5}
+  border-bottom:1px solid var(--rule);font-size:var(--t-body);color:var(--ink-2);line-height:1.5}
 .pain li:before{content:"";position:absolute;left:0;top:calc(var(--u) * 2 + 6px);
   width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;
   border-bottom:12px solid var(--yellow)}
@@ -105,7 +119,7 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 /* ── PLOCHA — vynesená bílá deska, nikoli karta ── */
 .plane{background:var(--plane);border:1px solid var(--rule);padding:calc(var(--u) * 3);
   margin-top:calc(var(--u) * 3)}
-.plane p{color:var(--ink-2);font-size:1.04rem}
+.plane p{color:var(--ink-2);font-size:var(--t-body)}
 .plane p strong{color:var(--ink)}
 .photo{width:84px;height:84px;border-radius:50%;object-fit:cover;background:var(--table);
   display:block;margin-bottom:calc(var(--u) * 2)}
@@ -114,41 +128,41 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .facts{margin-top:calc(var(--u) * 4);border-top:1px solid var(--ink)}
 .fact{display:flex;gap:calc(var(--u) * 2);align-items:baseline;padding:calc(var(--u) * 2) 0;
   border-bottom:1px solid var(--rule)}
-.fact dt{font-size:1.5rem;font-weight:500;letter-spacing:-.02em;min-width:5.5ch;flex:none;
+.fact dt{font-size:var(--t-fig);font-weight:500;letter-spacing:-.02em;min-width:5.5ch;flex:none;
   font-variant-numeric:tabular-nums}
-.fact dd{font-size:.97rem;color:var(--ink-2);line-height:1.45}
-.fact.pending dt{font-size:1rem;font-weight:600;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
+.fact dd{font-size:var(--t-sm);color:var(--ink-2);line-height:1.45}
+.fact.pending dt{font-size:var(--t-body);font-weight:600;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
 
 /* ── PLÁN — čtverec je struktura ── */
 .steps{counter-reset:s;margin-top:calc(var(--u) * 3)}
 .step{position:relative;padding:0 0 calc(var(--u) * 3.5) 46px;counter-increment:s}
 .step:before{content:counter(s);position:absolute;left:0;top:1px;width:30px;height:30px;
-  background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:.95rem;font-weight:600}
+  background:var(--blue);color:var(--on-red);display:flex;align-items:center;justify-content:center;
+  font-size:var(--t-sm);font-weight:600}
 .step:after{content:"";position:absolute;left:15px;top:34px;bottom:4px;width:1px;background:var(--rule)}
 .step:last-child{padding-bottom:0}.step:last-child:after{display:none}
-.step h3{font-size:1.1rem;font-weight:600;margin-bottom:3px;text-transform:none}
-.step p{font-size:.98rem;color:var(--ink-2);line-height:1.5}
+.step h3{font-size:var(--t-sub);font-weight:600;margin-bottom:3px;text-transform:none}
+.step p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5}
 .promise{margin-top:calc(var(--u) * 3);padding:calc(var(--u) * 2.5);background:var(--yellow);
-  font-size:1.02rem;line-height:1.5;color:var(--ink)}
+  font-size:var(--t-body);line-height:1.5;color:var(--ink)}
 .promise strong{font-weight:700}
 
 /* ── REFERENCE — rovnováha, ne rámečky ── */
 .testi{background:var(--plane);border:1px solid var(--rule);padding:calc(var(--u) * 3);
   margin-top:calc(var(--u) * 2.5)}
-.testi .result{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;
+.testi .result{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-xs);font-weight:600;
   color:var(--blue);margin-bottom:calc(var(--u) * 1.5)}
 .testi .result:before{content:"";width:11px;height:11px;background:var(--blue);flex:none}
-.testi blockquote{font-size:1.04rem;line-height:1.5}
+.testi blockquote{font-size:var(--t-body);line-height:1.5}
 .testi .who{display:flex;align-items:center;gap:12px;margin-top:calc(var(--u) * 2)}
 .testi .who img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--table)}
-.testi .who div{font-size:.9rem;line-height:1.3}
+.testi .who div{font-size:var(--t-sm);line-height:1.3}
 .testi .who b{display:block}
 .testi .who span{color:var(--ink-2)}
 /* zřetelně neobsazené místo — nesmí vypadat jako hotová reference */
-.testi.slot{background:repeating-linear-gradient(135deg,var(--table),var(--table) 9px,#e6e5e1 9px,#e6e5e1 18px);
+.testi.slot{background:repeating-linear-gradient(135deg,var(--table),var(--table) 9px,var(--hatch) 9px,var(--hatch) 18px);
   border:1px dashed var(--ink-2)}
-.testi.slot .waiting{display:inline-flex;align-items:center;gap:8px;font-size:.83rem;font-weight:600;
+.testi.slot .waiting{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-label);font-weight:600;
   letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-top:calc(var(--u) * 2)}
 .testi.slot .waiting:before{content:"";width:0;height:0;border-left:7px solid transparent;
   border-right:7px solid transparent;border-bottom:12px solid var(--yellow);flex:none}
@@ -161,18 +175,18 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .bar i{display:block;height:100%;background:var(--red);width:100%;transform:scaleX(0);
   transform-origin:left;transition:transform .34s cubic-bezier(.4,0,.2,1)}
 .qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:calc(var(--u) * 1)}
-.qstep{font-size:.79rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);font-weight:600}
-.qback{background:none;border:0;font:inherit;font-size:.95rem;color:var(--ink-2);cursor:pointer;
+.qstep{font-size:var(--t-label);letter-spacing:.13em;text-transform:uppercase;color:var(--blue);font-weight:600}
+.qback{background:none;border:0;font:inherit;font-size:var(--t-sm);color:var(--ink-2);cursor:pointer;
   padding:10px 8px;margin:-10px -8px;text-decoration:underline;text-underline-offset:3px}
-.qtitle{font-size:1.42rem;font-weight:500;line-height:1.15;letter-spacing:-.02em;margin-bottom:5px}
-.qsub{font-size:.96rem;color:var(--ink-2);margin-bottom:calc(var(--u) * 2.5)}
+.qtitle{font-size:var(--t-title);font-weight:500;line-height:1.15;letter-spacing:-.02em;margin-bottom:5px}
+.qsub{font-size:var(--t-sm);color:var(--ink-2);margin-bottom:calc(var(--u) * 2.5)}
 /* pohyb dílny: přímočarý posun, žádné měkké prolínání */
 .panel{display:none}
 .panel.on{display:block;animation:slide-in .32s cubic-bezier(.2,0,0,1) both}
 @keyframes slide-in{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
 .opts{display:flex;flex-direction:column;gap:calc(var(--u) * 1.5)}
 .opt{display:flex;align-items:center;gap:14px;width:100%;min-height:62px;padding:14px 16px;
-  border:1px solid var(--rule);border-radius:0;background:var(--plane);font:inherit;font-size:1.05rem;
+  border:1px solid var(--rule);border-radius:0;background:var(--plane);font:inherit;font-size:var(--t-body);
   text-align:left;cursor:pointer;color:var(--ink);
   transition:border-color .16s ease-out,background .16s ease-out}
 .opt:before{content:"";width:15px;height:15px;background:transparent;border:1px solid var(--blue);flex:none;
@@ -181,50 +195,50 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .opt.sel{border-color:var(--red)}
 .opt.sel:before{background:var(--red);border-color:var(--red);border-radius:50%}
 .opt .t{flex:1}
-.opt .t small{display:block;font-size:.87rem;color:var(--ink-2);margin-top:2px;line-height:1.3}
+.opt .t small{display:block;font-size:var(--t-xs);color:var(--ink-2);margin-top:2px;line-height:1.3}
 .field{margin-bottom:calc(var(--u) * 2.5)}
-.field label{display:block;font-size:.93rem;font-weight:600;margin-bottom:7px}
-.field input{width:100%;min-height:56px;padding:14px 16px;font:inherit;font-size:1.09rem;
+.field label{display:block;font-size:var(--t-sm);font-weight:600;margin-bottom:7px}
+.field input{width:100%;min-height:56px;padding:14px 16px;font:inherit;font-size:var(--t-sub);
   border:1px solid var(--rule);border-radius:0;background:var(--plane);color:var(--ink)}
 .field input:focus{outline:none;border-color:var(--blue);box-shadow:inset 0 0 0 2px var(--blue)}
-.field input::placeholder{color:#6c7176}
-.field .err{display:none;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);
+.field input::placeholder{color:var(--ink-3)}
+.field .err{display:none;align-items:center;gap:8px;font-size:var(--t-sm);color:var(--ink);
   background:var(--yellow);padding:8px 11px;margin-top:7px;font-weight:500}
 .field.bad input{border-color:var(--red);box-shadow:inset 0 0 0 2px var(--red)}
 .field.bad .err{display:flex}
 .chips{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--u) * 1.25)}
 .chip{min-height:52px;border:1px solid var(--rule);border-radius:0;background:var(--plane);font:inherit;
-  font-size:.99rem;cursor:pointer;color:var(--ink-2);padding:10px;
+  font-size:var(--t-sm);cursor:pointer;color:var(--ink-2);padding:10px;
   transition:border-color .16s ease-out,color .16s ease-out}
 .chip.sel{border-color:var(--red);color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--red)}
 .recap{background:var(--table);padding:calc(var(--u) * 2);margin-bottom:calc(var(--u) * 2.5);
-  font-size:.95rem;color:var(--ink-2);line-height:1.5;border-left:1px solid var(--blue)}
+  font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;border-left:1px solid var(--blue)}
 .recap b{color:var(--ink)}
 .spot{background:var(--table);padding:calc(var(--u) * 2);margin-bottom:calc(var(--u) * 2.5);
-  font-size:.95rem;line-height:1.5;color:var(--ink-2)}
-.spot b{display:block;color:var(--ink);font-size:.89rem;margin-top:9px}
-.reassure{font-size:.93rem;color:var(--ink-2);line-height:1.5;margin-top:calc(var(--u) * 2)}
+  font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+.spot b{display:block;color:var(--ink);font-size:var(--t-xs);margin-top:9px}
+.reassure{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:calc(var(--u) * 2)}
 .reassure b{color:var(--ink)}
 .consent{display:flex;gap:12px;align-items:flex-start;margin-top:calc(var(--u) * 2);
-  font-size:.89rem;color:var(--ink-2);line-height:1.45;cursor:pointer}
+  font-size:var(--t-xs);color:var(--ink-2);line-height:1.45;cursor:pointer}
 .consent input{width:24px;height:24px;min-width:24px;margin-top:1px;accent-color:var(--red)}
 .consent a{color:var(--blue)}
 .trust{display:flex;flex-wrap:wrap;gap:calc(var(--u) * 1.5) calc(var(--u) * 2.5);
   margin-top:calc(var(--u) * 2.5);padding-top:calc(var(--u) * 2);border-top:1px solid var(--rule)}
-.trust span{display:inline-flex;align-items:center;gap:8px;font-size:.87rem;color:var(--ink-2)}
+.trust span{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-xs);color:var(--ink-2)}
 .trust span:before{content:"";width:10px;height:10px;background:var(--blue);flex:none}
 /* chyba odeslání — na místě, ne v alertu */
 #sendfail{display:none;align-items:flex-start;gap:11px;background:var(--yellow);
-  padding:calc(var(--u) * 2);margin-top:calc(var(--u) * 2);font-size:.96rem;line-height:1.5}
+  padding:calc(var(--u) * 2);margin-top:calc(var(--u) * 2);font-size:var(--t-sm);line-height:1.5}
 #sendfail.on{display:flex}
 #sendfail a{color:var(--ink);font-weight:700}
 
 #done{display:none;text-align:center;padding:calc(var(--u) * 2) 0}
-#done .tick{width:72px;height:72px;border-radius:50%;background:var(--red);color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto calc(var(--u) * 3)}
-#done h3{font-size:1.55rem;margin-bottom:calc(var(--u) * 1.5)}
-#done p{font-size:1.03rem;color:var(--ink-2)}
-#done .urgent{margin-top:calc(var(--u) * 2);font-size:.95rem}
+#done .tick{width:72px;height:72px;border-radius:50%;background:var(--red);color:var(--on-red);
+  display:flex;align-items:center;justify-content:center;font-size:var(--t-fig);margin:0 auto calc(var(--u) * 3)}
+#done h3{font-size:var(--t-title);margin-bottom:calc(var(--u) * 1.5)}
+#done p{font-size:var(--t-body);color:var(--ink-2)}
+#done .urgent{margin-top:calc(var(--u) * 2);font-size:var(--t-sm)}
 #done .urgent a{color:var(--red);font-weight:700}
 
 #sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;
@@ -233,9 +247,9 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   transform:translateY(125%);transition:transform .3s cubic-bezier(.2,0,0,1)}
 #sticky.show{transform:none}
 #sticky a{display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--red);
-  color:#fff;text-decoration:none;font-weight:600;font-size:1.05rem}
+  color:var(--on-red);text-decoration:none;font-weight:600;font-size:var(--t-body)}
 
-footer{border-top:3px solid var(--ink);font-size:.92rem;padding:calc(var(--u) * 4) 0 calc(var(--u) * 14);
+footer{border-top:3px solid var(--ink);font-size:var(--t-sm);padding:calc(var(--u) * 4) 0 calc(var(--u) * 14);
   line-height:1.65;color:var(--ink-2)}
 footer b{color:var(--ink);display:block;margin-bottom:4px}
 footer a{color:var(--blue)}
