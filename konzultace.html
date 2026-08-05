@@ -8,261 +8,349 @@
 <meta name="description" content="Srovnám, co máte, s tím, co dnes nabízí trh. Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --forest:#113225; --forest-mid:#1e4d35; --forest-light:#2d6a4f;
-  --gold:#c8801f;            /* ← vyhrazeno VÝHRADNĚ pro CTA (attention ratio) */
-  --brass:#b5935a; --brass-light:#d4af7a; --brass-deep:#6f5324;
-  --cream:#fffdf9; --oat:#F9F7F3; --oat-dark:#f0ece4;
-  --text:#1a1c1b; --muted:#6b7068; --muted-strong:#565b53; --border:#e2ddd6;
-  --t-display:clamp(1.95rem,6.4vw,3.2rem);
-  --t-h2:clamp(1.5rem,4.6vw,2.25rem);
-  --t-lead:clamp(1.02rem,3.4vw,1.18rem);
-  --track-label:.16em;
+  /* ── DÍLNA: pracovní deska, inkoust, tři primární barvy s přidělenou rolí ── */
+  --table:#f0f0ee;          /* pracovní deska */
+  --plane:#ffffff;          /* vynesená plocha */
+  --ink:#141618;            /* inkoust */
+  --ink-2:#4a4f54;          /* druhý řez inkoustu */
+  --rule:#c9cbcd;           /* rýsovací linka */
+
+  --red:#d8261b;            /* KRUH — aktivní stav, akce */
+  --blue:#1a3fd0;           /* ČTVEREC — struktura */
+  --yellow:#f5c400;         /* TROJÚHELNÍK — upozornění */
+
+  --grid:rgba(26,63,208,.07); /* účaří */
+
+  --t-display:clamp(2.1rem,7.4vw,3.6rem);
+  --t-h2:clamp(1.55rem,5vw,2.3rem);
+  --t-lead:clamp(1.06rem,3.5vw,1.22rem);
+  --u:8px;                  /* modul */
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text);
-  line-height:1.65;font-size:1.0625rem;overflow-x:hidden}
-.serif{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.12}
-.wrap{width:100%;max-width:560px;margin:0 auto;padding:0 22px}
-p+p{margin-top:15px}
+body{
+  font-family:'Jost',system-ui,sans-serif;color:var(--ink);
+  background-color:var(--table);
+  /* účaří — viditelná mřížka dílny */
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px);
+  background-size:100% calc(var(--u) * 4);
+  line-height:1.6;font-size:1.125rem;overflow-x:hidden;
+}
+.wrap{width:100%;max-width:600px;margin:0 auto;padding:0 24px}
+p+p{margin-top:calc(var(--u) * 2)}
+strong,b{font-weight:600}
 
-.slide{padding:58px 0 62px;position:relative}
-.label{font-size:.7rem;letter-spacing:var(--track-label);text-transform:uppercase;font-weight:600;
-  color:var(--forest-light);margin-bottom:14px}
-.dark{background:var(--forest);color:var(--cream)}
-.dark .label{color:var(--brass-light)}
-.dark .serif{color:var(--cream)}
-.dark p{color:rgba(255,253,249,.84)}
-.oat{background:var(--oat)}
+/* ── PRIMÁRNÍ FORMY ── */
+.form-sq,.form-ci,.form-tr{display:block;flex:none}
+.form-sq{width:14px;height:14px;background:var(--blue)}
+.form-ci{width:14px;height:14px;border-radius:50%;background:var(--red)}
+.form-tr{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;
+  border-bottom:14px solid var(--yellow)}
 
-/* ── HERO ── */
-#hero{background:linear-gradient(168deg,#0d2a1f,#123527 55%,#16402c);padding:50px 0 0;overflow:hidden}
-/* podpis + portrét u spodní hrany hera */
-.hero-sign{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:20px}
-.hero-sign .who{padding-bottom:22px}
-.hero-sign .who b{display:block;font-family:'Playfair Display',serif;font-size:1.12rem;
-  color:var(--cream);font-weight:600;line-height:1.25}
-.hero-sign .who span{display:block;font-size:.83rem;color:rgba(212,175,122,.9);margin-top:3px}
-.hero-sign .who em{display:block;font-style:normal;font-size:.79rem;color:rgba(255,253,249,.55);margin-top:6px}
-#hero-photo{display:block;width:47%;max-width:210px;height:auto;margin-bottom:-2px;
-  filter:drop-shadow(0 10px 24px rgba(0,0,0,.32))}
-#hero .eyebrow{display:inline-block;font-size:.73rem;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--brass-light);border:1px solid rgba(212,175,122,.34);border-radius:100px;padding:6px 13px;margin-bottom:20px}
-#hero h1{font-size:var(--t-display);color:var(--cream);margin-bottom:17px}
-#hero h1 em{font-style:normal;color:var(--brass-light)}
-#hero .sub{font-size:var(--t-lead);color:rgba(255,253,249,.86);line-height:1.58}
-#hero .sub b{color:#fff;font-weight:600}
+.slide{padding:calc(var(--u) * 8) 0 calc(var(--u) * 9);position:relative}
+.slide+.slide{border-top:1px solid var(--rule)}
+h1,h2,h3{font-weight:500;letter-spacing:-.02em;line-height:1.08;text-transform:lowercase;text-wrap:balance}
+h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 
-/* ── CTA · jediná zlatá barva na stránce ── */
-.cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:60px;
-  background:var(--gold);color:#fff;text-decoration:none;border-radius:11px;font-weight:600;
-  font-size:1.06rem;margin-top:26px;box-shadow:0 4px 16px rgba(200,128,31,.24)}
-.cta:active{transform:scale(.99)}
-.cta-note{font-size:.84rem;color:var(--muted);margin-top:11px;text-align:center}
-.dark .cta-note{color:rgba(255,253,249,.62)}
+/* ── HERO — teze: kruh je člověk, který jedná ── */
+#hero{padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
+#h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.8rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
+#h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
+#hero h1{font-size:var(--t-display);margin-bottom:calc(var(--u) * 2.5)}
+#hero h1 em{font-style:normal;color:var(--red)}
+#hero .sub{font-size:var(--t-lead);color:var(--ink-2);line-height:1.5;max-width:34ch}
+#hero .sub b{color:var(--ink);font-weight:600}
 
-/* ── PROBLÉM (interní) ── */
-.pain{list-style:none;margin-top:24px}
-.pain li{padding:15px 0 15px 30px;position:relative;border-bottom:1px solid var(--border);
-  font-size:1.02rem;color:var(--muted-strong);line-height:1.55}
-.pain li:before{content:"";position:absolute;left:4px;top:24px;width:8px;height:8px;border-radius:50%;
-  background:var(--forest-light);opacity:.5}
-.pain li strong{color:var(--text);font-weight:600}
-.pain-close{font-size:var(--t-lead);color:var(--text);margin-top:24px;line-height:1.6}
+/* portrét uvnitř kruhu — primární forma dělá práci, není ozdoba */
+.hero-sign{display:flex;align-items:flex-end;gap:calc(var(--u) * 3);margin-top:calc(var(--u) * 5)}
+.disc{position:relative;width:46%;max-width:186px;aspect-ratio:1;border-radius:50%;
+  background:var(--red);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+#hero-photo{height:100%;width:auto;max-width:none;display:block;
+  -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);
+          mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
+.hero-sign .who{padding-bottom:calc(var(--u) * 1.5);line-height:1.35}
+.hero-sign .who b{display:block;font-size:1.06rem;font-weight:600;text-transform:none}
+.hero-sign .who span,.hero-sign .who em{display:block;font-size:.93rem;font-style:normal;color:var(--ink-2)}
 
-/* ── karty ── */
-.card{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:24px 20px;margin-top:20px}
-.oat .card{background:#fff}
-.card p{font-size:1rem;color:var(--muted-strong)}
-.photo{width:110px;height:110px;border-radius:50%;object-fit:cover;background:var(--oat-dark);
-  border:3px solid var(--brass-light);display:block;margin-bottom:16px}
-.proof-row{display:flex;flex-direction:column;gap:13px;margin-top:22px}
-.proof{display:flex;gap:13px;align-items:flex-start}
-.proof .num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--forest-light);line-height:1;min-width:54px}
-.proof .txt{font-size:.94rem;color:var(--muted-strong);line-height:1.5}
+/* ── AKCE — jediný červený kruh, který se dá stisknout ── */
+.cta,.submit{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;
+  min-height:64px;background:var(--red);color:#fff;text-decoration:none;border:0;border-radius:0;
+  font:inherit;font-size:1.09rem;font-weight:600;cursor:pointer;
+  margin-top:calc(var(--u) * 4);
+  transition:background .16s ease-out,transform .1s ease-out}
+.cta:before,.submit:before{content:"";width:15px;height:15px;border-radius:50%;background:#fff;flex:none}
+.cta:hover,.submit:hover{background:#b81d13}
+.cta:active,.submit:active{transform:translateY(1px)}
+.cta:focus-visible,.submit:focus-visible,.opt:focus-visible,.chip:focus-visible,
+.qback:focus-visible,#sticky a:focus-visible,.consent input:focus-visible{
+  outline:3px solid var(--blue);outline-offset:2px}
+.submit:disabled{background:var(--ink-2);cursor:default}
+.cta-note,.micro{font-size:.9rem;color:var(--ink-2);margin-top:calc(var(--u) * 1.5)}
 
-/* ── PLÁN ── */
-.steps{counter-reset:s;margin-top:26px}
-.step{position:relative;padding:0 0 26px 50px;counter-increment:s}
-.step:before{content:counter(s);position:absolute;left:0;top:0;width:33px;height:33px;border-radius:50%;
-  background:var(--forest-mid);color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:.88rem;font-weight:600}
-.step:after{content:"";position:absolute;left:16px;top:37px;bottom:4px;width:1px;background:var(--border)}
+/* ── PROBLÉM — trojúhelník je upozornění ── */
+.pain{list-style:none;margin-top:calc(var(--u) * 3)}
+.pain li{padding:calc(var(--u) * 2) 0 calc(var(--u) * 2) 30px;position:relative;
+  border-bottom:1px solid var(--rule);font-size:1.03rem;color:var(--ink-2);line-height:1.5}
+.pain li:before{content:"";position:absolute;left:0;top:calc(var(--u) * 2 + 6px);
+  width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;
+  border-bottom:12px solid var(--yellow)}
+.pain li strong{color:var(--ink)}
+.pain-close{font-size:var(--t-lead);margin-top:calc(var(--u) * 3);line-height:1.5}
+
+/* ── PLOCHA — vynesená bílá deska, nikoli karta ── */
+.plane{background:var(--plane);border:1px solid var(--rule);padding:calc(var(--u) * 3);
+  margin-top:calc(var(--u) * 3)}
+.plane p{color:var(--ink-2);font-size:1.04rem}
+.plane p strong{color:var(--ink)}
+.photo{width:84px;height:84px;border-radius:50%;object-fit:cover;background:var(--table);
+  display:block;margin-bottom:calc(var(--u) * 2)}
+
+/* ── FAKTA — místo kulatých čísel ověřitelné údaje ── */
+.facts{margin-top:calc(var(--u) * 4);border-top:1px solid var(--ink)}
+.fact{display:flex;gap:calc(var(--u) * 2);align-items:baseline;padding:calc(var(--u) * 2) 0;
+  border-bottom:1px solid var(--rule)}
+.fact dt{font-size:1.5rem;font-weight:500;letter-spacing:-.02em;min-width:5.5ch;flex:none;
+  font-variant-numeric:tabular-nums}
+.fact dd{font-size:.97rem;color:var(--ink-2);line-height:1.45}
+.fact.pending dt{font-size:1rem;font-weight:600;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
+
+/* ── PLÁN — čtverec je struktura ── */
+.steps{counter-reset:s;margin-top:calc(var(--u) * 3)}
+.step{position:relative;padding:0 0 calc(var(--u) * 3.5) 46px;counter-increment:s}
+.step:before{content:counter(s);position:absolute;left:0;top:1px;width:30px;height:30px;
+  background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;font-weight:600}
+.step:after{content:"";position:absolute;left:15px;top:34px;bottom:4px;width:1px;background:var(--rule)}
 .step:last-child{padding-bottom:0}.step:last-child:after{display:none}
-.step h3{font-size:1.05rem;font-weight:600;margin-bottom:4px}
-.step p{font-size:.94rem;color:var(--muted);line-height:1.55}
-.promise{margin-top:24px;padding:17px 19px;border-radius:12px;background:rgba(45,106,79,.08);
-  border:1px solid rgba(45,106,79,.26);font-size:.96rem;line-height:1.6;color:var(--muted-strong)}
-.promise strong{color:var(--forest-light);font-weight:600}
+.step h3{font-size:1.1rem;font-weight:600;margin-bottom:3px;text-transform:none}
+.step p{font-size:.98rem;color:var(--ink-2);line-height:1.5}
+.promise{margin-top:calc(var(--u) * 3);padding:calc(var(--u) * 2.5);background:var(--yellow);
+  font-size:1.02rem;line-height:1.5;color:var(--ink)}
+.promise strong{font-weight:700}
 
-/* ── REFERENCE ── */
-.testi{background:#fff;border:1px solid var(--border);border-left:3px solid var(--forest-light);
-  border-radius:10px;padding:20px 18px;margin-top:16px}
-.testi .result{display:inline-block;font-size:.77rem;font-weight:600;background:rgba(45,106,79,.11);
-  color:var(--forest-light);padding:5px 10px;border-radius:5px;margin-bottom:12px}
-.testi blockquote{font-size:.99rem;line-height:1.6}
-.testi .who{display:flex;align-items:center;gap:11px;margin-top:14px}
-.testi .who img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:var(--oat-dark)}
-.testi .who div{font-size:.84rem;line-height:1.35}
-.testi .who b{font-weight:600;display:block}
-.testi .who span{color:var(--muted)}
+/* ── REFERENCE — rovnováha, ne rámečky ── */
+.testi{background:var(--plane);border:1px solid var(--rule);padding:calc(var(--u) * 3);
+  margin-top:calc(var(--u) * 2.5)}
+.testi .result{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;
+  color:var(--blue);margin-bottom:calc(var(--u) * 1.5)}
+.testi .result:before{content:"";width:11px;height:11px;background:var(--blue);flex:none}
+.testi blockquote{font-size:1.04rem;line-height:1.5}
+.testi .who{display:flex;align-items:center;gap:12px;margin-top:calc(var(--u) * 2)}
+.testi .who img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--table)}
+.testi .who div{font-size:.9rem;line-height:1.3}
+.testi .who b{display:block}
+.testi .who span{color:var(--ink-2)}
+/* zřetelně neobsazené místo — nesmí vypadat jako hotová reference */
+.testi.slot{background:repeating-linear-gradient(135deg,var(--table),var(--table) 9px,#e6e5e1 9px,#e6e5e1 18px);
+  border:1px dashed var(--ink-2)}
+.testi.slot .waiting{display:inline-flex;align-items:center;gap:8px;font-size:.83rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-top:calc(var(--u) * 2)}
+.testi.slot .waiting:before{content:"";width:0;height:0;border-left:7px solid transparent;
+  border-right:7px solid transparent;border-bottom:12px solid var(--yellow);flex:none}
 
-/* ── SÁZKA ── */
-.fork{display:grid;gap:13px;margin-top:26px}
-.fork>div{border-radius:12px;padding:19px 17px}
-.fork .bad{background:rgba(255,253,249,.05);border:1px solid rgba(255,253,249,.13)}
-.fork .good{background:rgba(212,175,122,.11);border:1px solid rgba(212,175,122,.3)}
-.fork h4{font-size:.71rem;letter-spacing:var(--track-label);text-transform:uppercase;margin-bottom:10px;font-weight:600}
-.fork .bad h4{color:rgba(255,253,249,.5)}
-.fork .good h4{color:var(--brass-light)}
-.fork ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-.fork li{font-size:.94rem;padding-left:20px;position:relative;line-height:1.5}
-.fork .bad li{color:rgba(255,253,249,.68)}
-.fork .good li{color:rgba(255,253,249,.94)}
-.fork li:before{position:absolute;left:0;top:-1px}
-.fork .bad li:before{content:"×";color:rgba(255,253,249,.4)}
-.fork .good li:before{content:"✓";color:var(--brass-light)}
-
-/* ── KVÍZ ── */
-#kviz{background:var(--oat);padding:56px 0 122px}
-.quiz-box{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px 19px 22px;
-  box-shadow:0 3px 20px rgba(17,50,37,.05);margin-top:20px}
-.bar{height:3px;background:var(--oat-dark);border-radius:99px;overflow:hidden;margin-bottom:20px}
-.bar i{display:block;height:100%;background:var(--forest-light);width:0;transition:width .34s cubic-bezier(.4,0,.2,1)}
-.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
-.qstep{font-size:.7rem;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--forest-light);font-weight:600}
-.qback{background:none;border:0;font:inherit;font-size:.82rem;color:var(--muted);cursor:pointer;padding:6px 4px;
-  text-decoration:underline;text-underline-offset:3px}
-.qtitle{font-family:'Playfair Display',serif;font-weight:600;font-size:1.3rem;line-height:1.25;margin-bottom:5px}
-.qsub{font-size:.89rem;color:var(--muted);margin-bottom:18px}
-.panel{display:none}.panel.on{display:block;animation:in .3s ease}
-@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{display:flex;align-items:center;width:100%;min-height:58px;padding:13px 15px;
-  border:1.5px solid var(--border);border-radius:11px;background:#fff;font:inherit;font-size:1rem;
-  text-align:left;cursor:pointer;color:var(--text);transition:border-color .16s,background .16s,transform .1s}
-.opt:active{transform:scale(.985)}
-.opt:hover{border-color:var(--forest-light);background:#f7faf8}
-.opt.sel{border-color:var(--forest-light);background:rgba(45,106,79,.08)}
+/* ── CVIČENÍ: KVÍZ ── */
+#kviz{padding:calc(var(--u) * 8) 0 calc(var(--u) * 16);border-top:3px solid var(--ink)}
+#q-head{text-align:center;margin-bottom:calc(var(--u) * 3)}
+.quiz-box{background:var(--plane);border:1px solid var(--ink);padding:calc(var(--u) * 3)}
+.bar{height:4px;background:var(--table);margin-bottom:calc(var(--u) * 3);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);width:100%;transform:scaleX(0);
+  transform-origin:left;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:calc(var(--u) * 1)}
+.qstep{font-size:.79rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);font-weight:600}
+.qback{background:none;border:0;font:inherit;font-size:.95rem;color:var(--ink-2);cursor:pointer;
+  padding:10px 8px;margin:-10px -8px;text-decoration:underline;text-underline-offset:3px}
+.qtitle{font-size:1.42rem;font-weight:500;line-height:1.15;letter-spacing:-.02em;margin-bottom:5px}
+.qsub{font-size:.96rem;color:var(--ink-2);margin-bottom:calc(var(--u) * 2.5)}
+/* pohyb dílny: přímočarý posun, žádné měkké prolínání */
+.panel{display:none}
+.panel.on{display:block;animation:slide-in .32s cubic-bezier(.2,0,0,1) both}
+@keyframes slide-in{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+.opts{display:flex;flex-direction:column;gap:calc(var(--u) * 1.5)}
+.opt{display:flex;align-items:center;gap:14px;width:100%;min-height:62px;padding:14px 16px;
+  border:1px solid var(--rule);border-radius:0;background:var(--plane);font:inherit;font-size:1.05rem;
+  text-align:left;cursor:pointer;color:var(--ink);
+  transition:border-color .16s ease-out,background .16s ease-out}
+.opt:before{content:"";width:15px;height:15px;background:transparent;border:1px solid var(--blue);flex:none;
+  transition:background .16s ease-out,border-radius .16s ease-out,border-color .16s ease-out}
+.opt:hover{border-color:var(--ink)}
+.opt.sel{border-color:var(--red)}
+.opt.sel:before{background:var(--red);border-color:var(--red);border-radius:50%}
 .opt .t{flex:1}
-.opt .t small{display:block;font-size:.81rem;color:var(--muted);margin-top:2px;line-height:1.35}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:.83rem;font-weight:600;margin-bottom:6px;color:var(--muted-strong)}
-.field input{width:100%;min-height:52px;padding:13px 15px;font:inherit;font-size:1.0625rem;
-  border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--text)}
-.field input:focus{outline:none;border-color:var(--forest-light);box-shadow:0 0 0 3px rgba(45,106,79,.13)}
-.field input::placeholder{color:#a8aca4}
-.field .err{display:none;font-size:.8rem;color:#a8342a;margin-top:5px}
-.field.bad input{border-color:#c9564b}.field.bad .err{display:block}
-.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.chip{min-height:48px;border:1.5px solid var(--border);border-radius:9px;background:#fff;font:inherit;
-  font-size:.93rem;cursor:pointer;color:var(--muted-strong);padding:10px}
-.chip.sel{border-color:var(--forest-light);background:rgba(45,106,79,.09);color:var(--text);font-weight:500}
-.recap{background:var(--oat);border-radius:9px;padding:13px 15px;margin-bottom:16px;font-size:.87rem;
-  color:var(--muted-strong);line-height:1.55}
-.recap b{color:var(--text);font-weight:600}
-/* sociální důkaz PŘÍMO u konverzního bodu */
-.spot{border-left:3px solid var(--forest-light);background:var(--oat);border-radius:8px;
-  padding:13px 15px;margin-bottom:18px;font-size:.88rem;line-height:1.55;color:var(--muted-strong)}
-.spot b{display:block;color:var(--text);font-weight:600;font-size:.82rem;margin-top:7px}
-.submit{width:100%;min-height:62px;margin-top:4px;border:0;border-radius:11px;background:var(--gold);
-  color:#fff;font:inherit;font-size:1.06rem;font-weight:600;cursor:pointer;
-  box-shadow:0 4px 16px rgba(200,128,31,.24)}
-.submit:disabled{opacity:.6}
-.micro{font-size:.84rem;color:var(--muted);text-align:center;margin-top:10px}
-.reassure{font-size:.84rem;color:var(--muted);line-height:1.55;margin-top:12px;text-align:center}
-.reassure b{color:var(--muted-strong);font-weight:600}
-.consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.79rem;color:var(--muted);line-height:1.5}
-.consent input{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--forest-light)}
-.consent a{color:var(--forest-light)}
-.trust{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:16px}
-.trust span{font-size:.73rem;color:var(--muted-strong);border:1px solid var(--border);border-radius:99px;
-  padding:6px 11px;background:var(--oat)}
-#done{display:none;text-align:center;padding:16px 0}
-#done .tick{width:60px;height:60px;border-radius:50%;background:rgba(45,106,79,.11);color:var(--forest-light);
-  display:flex;align-items:center;justify-content:center;font-size:1.85rem;margin:0 auto 18px}
-#done h3{font-family:'Playfair Display',serif;font-size:1.45rem;margin-bottom:9px}
-#done p{font-size:.97rem;color:var(--muted-strong)}
+.opt .t small{display:block;font-size:.87rem;color:var(--ink-2);margin-top:2px;line-height:1.3}
+.field{margin-bottom:calc(var(--u) * 2.5)}
+.field label{display:block;font-size:.93rem;font-weight:600;margin-bottom:7px}
+.field input{width:100%;min-height:56px;padding:14px 16px;font:inherit;font-size:1.09rem;
+  border:1px solid var(--rule);border-radius:0;background:var(--plane);color:var(--ink)}
+.field input:focus{outline:none;border-color:var(--blue);box-shadow:inset 0 0 0 2px var(--blue)}
+.field input::placeholder{color:#6c7176}
+.field .err{display:none;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);
+  background:var(--yellow);padding:8px 11px;margin-top:7px;font-weight:500}
+.field.bad input{border-color:var(--red);box-shadow:inset 0 0 0 2px var(--red)}
+.field.bad .err{display:flex}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--u) * 1.25)}
+.chip{min-height:52px;border:1px solid var(--rule);border-radius:0;background:var(--plane);font:inherit;
+  font-size:.99rem;cursor:pointer;color:var(--ink-2);padding:10px;
+  transition:border-color .16s ease-out,color .16s ease-out}
+.chip.sel{border-color:var(--red);color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--red)}
+.recap{background:var(--table);padding:calc(var(--u) * 2);margin-bottom:calc(var(--u) * 2.5);
+  font-size:.95rem;color:var(--ink-2);line-height:1.5;border-left:1px solid var(--blue)}
+.recap b{color:var(--ink)}
+.spot{background:var(--table);padding:calc(var(--u) * 2);margin-bottom:calc(var(--u) * 2.5);
+  font-size:.95rem;line-height:1.5;color:var(--ink-2)}
+.spot b{display:block;color:var(--ink);font-size:.89rem;margin-top:9px}
+.reassure{font-size:.93rem;color:var(--ink-2);line-height:1.5;margin-top:calc(var(--u) * 2)}
+.reassure b{color:var(--ink)}
+.consent{display:flex;gap:12px;align-items:flex-start;margin-top:calc(var(--u) * 2);
+  font-size:.89rem;color:var(--ink-2);line-height:1.45;cursor:pointer}
+.consent input{width:24px;height:24px;min-width:24px;margin-top:1px;accent-color:var(--red)}
+.consent a{color:var(--blue)}
+.trust{display:flex;flex-wrap:wrap;gap:calc(var(--u) * 1.5) calc(var(--u) * 2.5);
+  margin-top:calc(var(--u) * 2.5);padding-top:calc(var(--u) * 2);border-top:1px solid var(--rule)}
+.trust span{display:inline-flex;align-items:center;gap:8px;font-size:.87rem;color:var(--ink-2)}
+.trust span:before{content:"";width:10px;height:10px;background:var(--blue);flex:none}
+/* chyba odeslání — na místě, ne v alertu */
+#sendfail{display:none;align-items:flex-start;gap:11px;background:var(--yellow);
+  padding:calc(var(--u) * 2);margin-top:calc(var(--u) * 2);font-size:.96rem;line-height:1.5}
+#sendfail.on{display:flex}
+#sendfail a{color:var(--ink);font-weight:700}
 
-#sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-  background:rgba(255,253,249,.94);backdrop-filter:blur(11px);border-top:1px solid var(--border);
-  transform:translateY(125%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+#done{display:none;text-align:center;padding:calc(var(--u) * 2) 0}
+#done .tick{width:72px;height:72px;border-radius:50%;background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto calc(var(--u) * 3)}
+#done h3{font-size:1.55rem;margin-bottom:calc(var(--u) * 1.5)}
+#done p{font-size:1.03rem;color:var(--ink-2)}
+#done .urgent{margin-top:calc(var(--u) * 2);font-size:.95rem}
+#done .urgent a{color:var(--red);font-weight:700}
+
+#sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;
+  padding:calc(var(--u) * 1.25) 16px calc(var(--u) * 1.25 + env(safe-area-inset-bottom));
+  background:var(--table);border-top:1px solid var(--ink);
+  transform:translateY(125%);transition:transform .3s cubic-bezier(.2,0,0,1)}
 #sticky.show{transform:none}
-#sticky a{display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--gold);
-  color:#fff;text-decoration:none;border-radius:11px;font-weight:600;font-size:1.02rem}
+#sticky a{display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--red);
+  color:#fff;text-decoration:none;font-weight:600;font-size:1.05rem}
 
-footer{background:var(--forest);color:rgba(255,253,249,.5);font-size:.76rem;padding:26px 0 98px;
-  text-align:center;line-height:1.7}
-footer a{color:rgba(255,253,249,.66)}
+footer{border-top:3px solid var(--ink);font-size:.92rem;padding:calc(var(--u) * 4) 0 calc(var(--u) * 14);
+  line-height:1.65;color:var(--ink-2)}
+footer b{color:var(--ink);display:block;margin-bottom:4px}
+footer a{color:var(--blue)}
+
+/* kompozice se převažuje, nezmenšuje */
+@media(min-width:820px){
+  .wrap{max-width:900px}
+  #hero .inner{display:grid;grid-template-columns:1fr 300px;gap:calc(var(--u) * 6);align-items:end}
+  .disc{width:100%;max-width:300px}
+  .hero-sign{display:block;margin-top:0}
+  .hero-sign .who{margin-top:calc(var(--u) * 2);padding-bottom:0}
+  .cta{max-width:420px}
+  .quiz-box{padding:calc(var(--u) * 5)}
+  #kviz .wrap{max-width:660px}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<!-- ═══ 1 · HERO — Charakter + cíl + první CTA ═══ -->
-<section class="slide dark" id="hero">
+<!--
+  SMĚR · konzultace.html
+  THESIS: Nezávislost se dokazuje přiznáním, ne pečetěmi. Odmítá zeleno-zlatý
+    „důvěryhodný finanční“ trychtýř i jeho brutalistní opak.
+  OWN-WORLD: Bauhausova dílna. Pracovní deska, inkoustová čerň, tři primární barvy
+    s pevnou rolí: červený kruh = aktivní stav a akce, modrý čtverec = struktura,
+    žlutý trojúhelník = upozornění. Jedno písmo (Jost, linie Futury/Rennera),
+    minuskové nadpisy, viditelná účaří, nulový rádius kromě kruhů. Žádné karty,
+    gradienty ani ikony.
+  STORY: Návštěvník pochopí, že mu tenhle člověk může říct „neměňte nic“, protože
+    ho platí instituce — a nechá telefon.
+  FIRST VIEWPORT: Modrý čtverec s tématem, minuskový nadpis, portrét vsazený do
+    velkého červeného kruhu s maskou dolů. Akce hned pod textem.
+  FORM: Bauhausova dílna, kandidát 6 dealovaného seznamu, připnutý uživatelem
+    proti rollu (7 = řádková inzerce). Inscenace: rozkládaný arch. Seed 21eca2f2.
+-->
+
+<!-- ═══ 1 · HERO ═══ -->
+<section class="slide" id="hero">
   <div class="wrap">
-    <span class="eyebrow" id="h-eyebrow">Druhý názor</span>
-    <h1 class="serif" id="h-title">Chcete na své finance<br><em>druhý názor?</em></h1>
-    <p class="sub" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.</b></p>
+    <div class="inner">
+      <div>
+        <span id="h-eyebrow">Druhý názor</span>
+        <h1 id="h-title">Chcete na své finance<br><em>druhý názor?</em></h1>
+        <p class="sub" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.</b></p>
+      </div>
+      <div class="hero-sign">
+        <div class="disc">
+          <img id="hero-photo" src="assets/ondrej-hero.webp"
+               srcset="assets/ondrej-hero.webp 420w, assets/ondrej-hero@2x.webp 630w"
+               sizes="(max-width:820px) 46vw, 300px"
+               width="420" height="559" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+               fetchpriority="high" decoding="async">
+        </div>
+        <div class="who">
+          <b>Ondřej Kadlec</b>
+          <span>Nezávislý finanční poradce</span>
+          <em>Kancelář v Jemnici</em>
+        </div>
+      </div>
+    </div>
     <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
     <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
-    <div class="hero-sign">
-      <div class="who">
-        <b>Ondřej Kadlec</b>
-        <span>Nezávislý finanční poradce</span>
-        <em>Kancelář v Jemnici</em>
-      </div>
-      <img id="hero-photo" src="assets/ondrej-hero.webp"
-           srcset="assets/ondrej-hero.webp 420w, assets/ondrej-hero@2x.webp 630w"
-           sizes="(max-width:520px) 47vw, 210px"
-           width="420" height="559" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
-           fetchpriority="high" decoding="async">
-    </div>
   </div>
 </section>
 
-<!-- ═══ 2 · PROBLÉM — externí i interní ═══ -->
+<!-- ═══ 2 · PROBLÉM ═══ -->
 <section class="slide">
   <div class="wrap">
-    <div class="label">Znáte to?</div>
-    <h2 class="serif" style="font-size:var(--t-h2)" id="p-title">Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.</h2>
+    <h2 id="p-title">Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.</h2>
     <ul class="pain" id="p-list"></ul>
     <p class="pain-close" id="p-close">A tak to zůstává, jak to je. <strong>Nejdražší není špatné rozhodnutí — nejdražší je žádné.</strong> To se totiž platí každý měsíc.</p>
   </div>
 </section>
 
-<!-- ═══ 3 · PRŮVODCE — empatie a autorita ═══ -->
-<section class="slide oat">
+<!-- ═══ 3 · PRŮVODCE ═══ -->
+<section class="slide">
   <div class="wrap">
-    <div class="label">Kdo se na to podívá</div>
-    <h2 class="serif" style="font-size:var(--t-h2)">Začínal jsem jako bankéř. Vím, jak se ta čísla staví zevnitř.</h2>
-    <div class="card">
+    <h2>Začínal jsem jako bankéř. Vím, jak se ta čísla staví zevnitř.</h2>
+    <div class="plane">
       <picture>
         <source srcset="assets/ondrej-kadlec.webp" type="image/webp">
-        <img src="assets/ondrej-kadlec.jpg" width="110" height="110" loading="lazy" decoding="async"
+        <img src="assets/ondrej-kadlec.jpg" width="84" height="84" loading="lazy" decoding="async"
              alt="Ondřej Kadlec" class="photo" onerror="this.style.display='none'">
       </picture>
       <p>Uvnitř banky se produkt nedoporučuje podle toho, co potřebujete vy, ale podle toho, co má pobočka v plánu. Tak jsem odešel a dělám to samé z druhé strany stolu.</p>
       <p><strong>Když si přese mě něco sjednáte, dostanu provizi od instituce — ne od vás.</strong> Nemám měsíční plán na jeden produkt. Když je nejlepší nechat všechno tak, jak to je, přijdu o provizi a stejně vám to řeknu.</p>
     </div>
-    <div class="proof-row">
-      <div class="proof"><span class="num">100+</span><span class="txt">rodin a firem z Jemnicka a okolí</span></div>
-      <div class="proof"><span class="num">15+</span><span class="txt">bank a pojišťoven srovnaných vedle sebe</span></div>
-      <div class="proof"><span class="num">ČNB</span><span class="txt">vázaný zástupce sítí INSIA a ININVEST, pod dohledem České národní banky</span></div>
-    </div>
+    <dl class="facts">
+      <!-- ⚠️ ČEKÁ NA PODKLAD · doplnit přesný počet, ne kulaté „100+“ -->
+      <div class="fact pending">
+        <dt>Počet</dt>
+        <dd>rodin a firem z Jemnicka a okolí — <strong>doplnit přesné číslo</strong></dd>
+      </div>
+      <!-- ⚠️ ČEKÁ NA PODKLAD · vyjmenovat instituce místo „15+“ -->
+      <div class="fact pending">
+        <dt>Seznam</dt>
+        <dd>bank a pojišťoven, se kterými pracuji — <strong>doplnit jmenný seznam</strong></dd>
+      </div>
+      <div class="fact">
+        <dt>ČNB</dt>
+        <dd>vázaný zástupce sítí INSIA a ININVEST, pod dohledem České národní banky</dd>
+      </div>
+      <div class="fact">
+        <dt>IČO</dt>
+        <dd>14311569 · Polická 1106, 675 31 Jemnice — můžete si mě vyhledat</dd>
+      </div>
+    </dl>
   </div>
 </section>
 
-<!-- ═══ 4 · PLÁN — tři kroky ═══ -->
+<!-- ═══ 4 · PLÁN ═══ -->
 <section class="slide">
   <div class="wrap">
-    <div class="label">Jak to bude probíhat</div>
-    <h2 class="serif" style="font-size:var(--t-h2)">Tři kroky. Žádná byrokracie na vaší straně.</h2>
+    <h2>Tři kroky. Žádná byrokracie na vaší straně.</h2>
     <div class="steps">
       <div class="step"><h3>Zavolám vám do 24 hodin</h3><p>Osobně já, ne call centrum. Deset minut, ať vím, o co jde.</p></div>
       <div class="step"><h3>Sejdeme se na 30 minut</h3><p>V Jemnici, u vás, nebo online. Nic si nepřipravujete.</p></div>
@@ -275,63 +363,23 @@ footer a{color:rgba(255,253,249,.66)}
 </section>
 
 <!-- ═══ 5 · SOCIÁLNÍ DŮKAZ ═══ -->
-<section class="slide oat">
+<section class="slide">
   <div class="wrap">
-    <div class="label">Lidé odsud</div>
-    <h2 class="serif" style="font-size:var(--t-h2)">Ne obecné pochvaly. Konkrétní čísla.</h2>
-    <!-- ⚠️ PLACEHOLDER · nahradit reálnými referencemi (plné jméno, obec, číslo) -->
-    <div class="testi">
-      <span class="result">Úspora 3 400 Kč měsíčně</span>
-      <blockquote>„Bál jsem se půl roku papírování. Ondřej vzal naše smlouvy a všechno s bankou vyřídil sám. My jsme dvakrát podepsali."</blockquote>
-      <div class="who"><img src="assets/ref-1.jpg" alt="" onerror="this.style.display='none'"><div><b>Jméno Příjmení</b><span>Jemnice</span></div></div>
-    </div>
-    <div class="testi">
-      <span class="result">Vyšlo, že měnit nemám</span>
-      <blockquote>„Čekal jsem, že mi něco prodá. Místo toho mi řekl, že to mám nastavené dobře a ať to nechám být. Od té doby mu věřím."</blockquote>
-      <div class="who"><img src="assets/ref-2.jpg" alt="" onerror="this.style.display='none'"><div><b>Jméno Příjmení</b><span>Moravské Budějovice</span></div></div>
-    </div>
-    <div class="testi">
-      <span class="result">Do týdne hotovo</span>
-      <blockquote>„Nemám čas obíhat instituce. Ondřej to vzal celé na sebe a já jenom podepsal, co mi přivezl domů."</blockquote>
-      <div class="who"><img src="assets/ref-3.jpg" alt="" onerror="this.style.display='none'"><div><b>Jméno Příjmení</b><span>Dačice</span></div></div>
+    <h2>Ne obecné pochvaly. Konkrétní čísla.</h2>
+    <!-- ⚠️ ČEKÁ NA PODKLAD · tři reference s plným jménem, obcí a číslem.
+         Zástupné texty byly odstraněny — falešná reference ničí důvěru víc,
+         než žádná. Stránka nesmí do reklamy, dokud tady nejsou skutečné. -->
+    <div class="testi slot">
+      <blockquote>Místo pro reference klientů z Jemnice, Moravských Budějovic a Dačic — s plným jménem, obcí a konkrétním výsledkem.</blockquote>
+      <span class="waiting">Čeká na doplnění</span>
     </div>
   </div>
 </section>
 
-<!-- ═══ 6 · SÁZKA — vyhnutí se selhání / úspěch ═══ -->
-<section class="slide dark">
-  <div class="wrap">
-    <div class="label">Rozcestí</div>
-    <h2 class="serif" style="font-size:var(--t-h2)">Za rok touhle dobou budete v jedné ze dvou situací.</h2>
-    <div class="fork">
-      <div class="bad">
-        <h4>Když to necháte být</h4>
-        <ul>
-          <li>Podmínky vám nastaví instituce a vy je nebudete mít s čím porovnat</li>
-          <li>Budete platit dál a nebudete vědět, jestli férově</li>
-          <li>Až to začne hořet, budete rozhodovat ve spěchu</li>
-          <li>Za rok si položíte přesně tuhle otázku znovu</li>
-        </ul>
-      </div>
-      <div class="good">
-        <h4>Když si dáte 30 minut</h4>
-        <ul>
-          <li>Budete mít na papíře, co nabízí celý trh</li>
-          <li>Budete znát přesné číslo, o kolik jde</li>
-          <li>Budete mít plán, kterému rozumíte a umíte ho vysvětlit doma</li>
-          <li>A když vyjde, že měnit nemáte, budete to vědět taky</li>
-        </ul>
-      </div>
-    </div>
-    <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
-    <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
-  </div>
-</section>
-
-<!-- ═══ 7 · KVÍZ ═══ -->
+<!-- ═══ 6 · CVIČENÍ — KVÍZ ═══ -->
 <section id="kviz">
   <div class="wrap">
-    <h2 class="serif" style="font-size:var(--t-h2);text-align:center" id="q-head">Začneme jednou otázkou</h2>
+    <h2 id="q-head">Začneme jednou otázkou</h2>
 
     <div class="quiz-box">
       <div class="bar"><i id="bar"></i></div>
@@ -374,10 +422,8 @@ footer a{color:rgba(255,253,249,.66)}
         <div class="qsub">Poslední krok — jméno a telefon.</div>
 
         <div class="recap" id="recap"></div>
-        <div class="spot">
-          „Nechával jsem číslo nerad, mám špatné zkušenosti. Ondřej zavolal jednou, domluvili jsme se a nikdo mě od té doby neotravoval."
-          <b>Jméno Příjmení · Jemnice</b>
-        </div>
+        <!-- ⚠️ ČEKÁ NA PODKLAD · reference přímo u telefonního pole; dokud není
+             skutečná, žádná tu nestojí -->
 
         <form id="f" novalidate>
           <div class="field" id="fn">
@@ -403,6 +449,11 @@ footer a{color:rgba(255,253,249,.66)}
           <p class="micro">Zabere to 5 sekund · 100% nezávazné</p>
           <button type="submit" class="submit">Chci, aby mi Ondřej zavolal →</button>
 
+          <p id="sendfail">
+            <span class="form-tr" aria-hidden="true"></span>
+            <span>Odeslání se nepovedlo. Zavolejte mi prosím přímo na <a href="tel:+420733651217">733 651 217</a>.</span>
+          </p>
+
           <p class="reassure">
             <b>Zavolám vám osobně do 24 hodin</b> k domluvení krátké nezávazné schůzky.<br>
             Vaše číslo nikam nepředávám a nebudu vás obtěžovat spamem.
@@ -412,9 +463,9 @@ footer a{color:rgba(255,253,249,.66)}
             <span>Souhlasím se zpracováním jména a telefonu za účelem vyřízení mé poptávky. <a href="gdpr.html" target="_blank" rel="noopener">Jak s údaji nakládám</a></span>
           </label>
           <div class="trust">
-            <span>🛡️ Pod dohledem ČNB</span>
-            <span>🔒 Šifrovaný přenos</span>
-            <span>🚫 Žádný spam</span>
+            <span>Pod dohledem ČNB</span>
+            <span>Šifrovaný přenos</span>
+            <span>Žádný spam</span>
           </div>
         </form>
       </div>
@@ -423,7 +474,7 @@ footer a{color:rgba(255,253,249,.66)}
         <div class="tick">✓</div>
         <h3>Mám to, děkuji.</h3>
         <p id="donetxt">Ozvu se vám osobně nejpozději do 24 hodin.</p>
-        <p style="margin-top:14px;font-size:.87rem;color:var(--muted)">Kdyby to nesneslo odkladu: <a href="tel:+420733651217" style="color:var(--forest-light);font-weight:600">733 651 217</a></p>
+        <p class="urgent">Kdyby to nesneslo odkladu: <a href="tel:+420733651217">733 651 217</a></p>
       </div>
     </div>
   </div>
@@ -431,7 +482,8 @@ footer a{color:rgba(255,253,249,.66)}
 
 <footer>
   <div class="wrap">
-    Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice<br>
+    <b>Ondřej Kadlec</b>
+    IČO 14311569 · Polická 1106, 675 31 Jemnice<br>
     Vázaný zástupce sítě INSIA a.s. a ININVEST, pod dohledem ČNB<br>
     <a href="gdpr.html">Zpracování osobních údajů</a>
   </div>
@@ -610,7 +662,7 @@ footer a{color:rgba(255,253,249,.66)}
     A._cur = n;
     panels.forEach(function(p){ p.classList.toggle('on', +p.dataset.q === n) });
     var idx = n - FIRST + 1;
-    bar.style.width = (idx / TOTAL * 100) + '%';
+    bar.style.transform = 'scaleX(' + (idx / TOTAL) + ')';
     document.querySelectorAll('[data-q="'+n+'"] [data-lbl]').forEach(function(e){
       e.textContent = (n === 4) ? 'Poslední krok' : ('Otázka ' + idx + ' ze ' + TOTAL);
     });
@@ -703,6 +755,9 @@ footer a{color:rgba(255,253,249,.66)}
     if (!document.getElementById('gdpr').checked) { ok = false; document.getElementById('gdpr').focus(); }
     if (!ok) return;
 
+    var fail = document.getElementById('sendfail');
+    fail.classList.remove('on');
+
     var utm = P.get('utm_source') || '';
     if (!utm && document.referrer) {
       if (/instagram\./i.test(document.referrer)) utm = 'instagram';
@@ -733,7 +788,8 @@ footer a{color:rgba(255,253,249,.66)}
       btn.textContent = orig; btn.disabled = false;
       if (r[0].status === 'rejected' && r[1].status === 'rejected') {
         console.error('Lead se nepodařilo odeslat', r);
-        alert('Odeslání se nepovedlo. Zavolejte mi prosím přímo na 733 651 217.');
+        fail.classList.add('on');
+        fail.scrollIntoView({block:'center', behavior:'smooth'});
         return;
       }
       track('lead');
