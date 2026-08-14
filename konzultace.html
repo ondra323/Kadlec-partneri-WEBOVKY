@@ -142,72 +142,102 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   font-size:var(--t-body);line-height:1.5;color:var(--ink)}
 .promise strong{font-weight:700}
 
-/* ── HROMADA REFERENCÍ — jedna scéna, karty na ni padají shora ──
-   Vějíř: každá karta leží o --step níž, takže z těch pod ní zůstane vidět
-   podpis. Poslední dopadne úplně dolů a je čitelná celá. */
-.pile{--step:60px;position:relative;margin-top:calc(var(--u) * 4);
-  height:calc(var(--step) * 9 + 178px)}
-/* VÝCHOZÍ STAV JE VIDITELNÝ. Skrývá se až třídou .anim, kterou přidá
-   JavaScript — bez něj i při selhání skriptu jsou reference prostě vidět. */
-.pile .testi{position:absolute;left:6px;right:6px;top:calc(var(--i) * var(--step));
-  z-index:var(--z);background:var(--plane);border:1px solid var(--ink);border-radius:0;
-  padding:calc(var(--u) * 2) calc(var(--u) * 2.5) calc(var(--u) * 2.25);
-  transform:translate3d(var(--x),0,0) rotate(var(--r))}
-/* Rozhozený pád: každá karta letí z jiné výšky, pod jiným úhlem a jinou
-   dobu — proto to nepůsobí strojově. Poslední dosedá nejpomaleji, aby na
-   ní zůstalo oko. will-change žije jen po dobu běhu, třída .anim se pak
-   sundá. Krytí naskočí rychle, karty tedy padají plné, ne průsvitné. */
-.pile.anim .testi{transform:translate3d(0,var(--fy),0) rotate(var(--fr));opacity:0;
-  will-change:transform,opacity;
-  transition:transform var(--dur) cubic-bezier(.16,1,.3,1) var(--d),
-             opacity .26s linear var(--d)}
-.pile.anim.in .testi{transform:translate3d(var(--x),0,0) rotate(var(--r));opacity:1}
-/* ocásek mluvící bubliny — tvrdé hrany, dvě vrstvy kvůli obrysu */
-.pile .testi:before,.pile .testi:after{content:"";position:absolute;
-  width:0;height:0;border-style:solid;border-color:transparent}
-.pile .testi:before{left:26px;bottom:-14px;
-  border-width:14px 13px 0 0;border-top-color:var(--ink)}
-.pile .testi:after{left:27px;bottom:-12px;
-  border-width:12px 11px 0 0;border-top-color:var(--plane)}
-/* podpis je nahoře — ve vějíři je z každé karty vidět právě on */
-.pile .testi .who{display:block;font-size:var(--t-sm);font-weight:600;
-  margin-bottom:calc(var(--u) * 1.25)}
-.pile .testi .who:before{content:"";display:inline-block;vertical-align:baseline;
-  width:9px;height:9px;margin-right:9px;background:var(--green)}
-.pile .testi .who.anon{color:var(--ink-2);font-weight:500}
-.pile .testi .who.anon:before{background:var(--ink-3)}
-.pile .testi blockquote{font-size:var(--t-body);line-height:1.42}
+/* ── STĚNA REFERENCÍ — hustá koláž, která zaplní celou scénu ──
+   Mřížka s dense packingem: krátké citace zabírají jeden sloupec, delší dva,
+   mezery dorovnají primární formy. Barevná pole jsou z palety světa, žádná
+   nová barva — tři primární plus inkoust a deska. */
+.wall{position:relative;margin-top:calc(var(--u) * 4)}
+.wall-grid{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:calc(var(--u) * 1.5);grid-auto-flow:dense;grid-auto-rows:minmax(0,auto)}
 
-/* ── MĚŘIČ — načte se, až na něj dojde řada ── */
-.meter{margin-top:calc(var(--u) * 7);border-top:3px solid var(--ink);
-  padding-top:calc(var(--u) * 3)}
-.meter-head{display:flex;align-items:baseline;gap:calc(var(--u) * 2.5);flex-wrap:wrap}
-.meter-score{font-size:var(--t-display);font-weight:500;letter-spacing:-.03em;
-  line-height:1;color:var(--green);font-variant-numeric:tabular-nums}
-.meter-score .of{color:var(--ink)}
-.meter-lab{font-size:var(--t-lead);color:var(--ink-2);line-height:1.35}
-.meter-lab b{color:var(--ink);font-variant-numeric:tabular-nums}
-.meter-bar{height:12px;background:var(--plane);border:1px solid var(--ink);
-  margin-top:calc(var(--u) * 2.5);overflow:hidden}
-.meter-reg{margin-top:calc(var(--u) * 1.75);font-size:var(--t-sm);color:var(--ink-2)}
+.rev{position:relative;z-index:var(--z);grid-column:span var(--c);
+  border:1px solid var(--ink);padding:calc(var(--u) * 2) calc(var(--u) * 2.25);
+  transform:rotate(var(--r)) scale(var(--s))}
+.rev blockquote{font-size:var(--t-sm);line-height:1.4}
+.rev .who{display:block;font-size:var(--t-xs);font-weight:600;
+  margin-bottom:calc(var(--u) * 1)}
+.rev .who:before{content:"";display:inline-block;vertical-align:baseline;
+  width:8px;height:8px;margin-right:8px;background:currentColor}
+
+/* barevná pole — každé odliší jednu recenzi, role barev zůstává */
+.rev--plane{background:var(--plane);color:var(--ink)}
+.rev--table{background:var(--table);color:var(--ink)}
+.rev--green{background:var(--green-deep);color:var(--on-green);border-color:var(--green-deep)}
+.rev--blue {background:var(--blue);color:var(--on-green);border-color:var(--blue)}
+.rev--yellow{background:var(--yellow);color:var(--ink);border-color:var(--ink)}
+.rev--ink  {background:var(--ink);color:var(--on-green);border-color:var(--ink)}
+.rev--plane .who,.rev--table .who{color:var(--green)}
+.rev--yellow .who{color:var(--ink)}
+.rev--plane .who.anon,.rev--table .who.anon{color:var(--ink-3)}
+.rev--plane blockquote,.rev--table blockquote{color:var(--ink-2)}
+
+/* ocásek bubliny — u každé karty jinde, aby tvary nebyly stejné */
+.rev[data-tail]:before,.rev[data-tail]:after{content:"";position:absolute;
+  width:0;height:0;border-style:solid;border-color:transparent}
+.rev[data-tail="bl"]:before{left:18px;bottom:-13px;border-width:13px 12px 0 0;border-top-color:var(--ink)}
+.rev[data-tail="bl"]:after {left:19px;bottom:-11px;border-width:11px 10px 0 0}
+.rev[data-tail="br"]:before{right:18px;bottom:-13px;border-width:13px 0 0 12px;border-top-color:var(--ink)}
+.rev[data-tail="br"]:after {right:19px;bottom:-11px;border-width:11px 0 0 10px}
+.rev--plane[data-tail]:after{border-top-color:var(--plane)}
+.rev--table[data-tail]:after{border-top-color:var(--table)}
+.rev--green[data-tail]:after{border-top-color:var(--green-deep)}
+.rev--blue[data-tail]:after {border-top-color:var(--blue)}
+.rev--yellow[data-tail]:after{border-top-color:var(--yellow)}
+.rev--ink[data-tail]:after  {border-top-color:var(--ink)}
+.rev--green[data-tail]:before,.rev--blue[data-tail]:before,
+.rev--ink[data-tail]:before{border-top-color:inherit}
+
+/* primární formy dorovnávají mezery — slovník světa, ne výplň */
+.gap{grid-column:span 1;display:flex;align-items:center;justify-content:center;
+  padding:calc(var(--u) * 2) 0;transform:rotate(var(--r))}
+.gap i{display:block}
+.gap--ci i{width:52px;height:52px;border-radius:50%;background:var(--green)}
+.gap--sq i{width:48px;height:48px;background:var(--blue)}
+.gap--tr i{width:0;height:0;border-left:28px solid transparent;
+  border-right:28px solid transparent;border-bottom:48px solid var(--yellow)}
+
+/* nálet: každý prvek přijíždí z jiné strany a zaplňuje své místo */
+.wall.anim .rev,.wall.anim .gap{opacity:0;will-change:transform,opacity;
+  transform:translate3d(var(--fx),var(--fy),0) rotate(var(--fr)) scale(.82);
+  transition:transform var(--dur) cubic-bezier(.16,1,.3,1) var(--d),
+             opacity .24s linear var(--d)}
+.wall.anim.in .rev{opacity:1;transform:rotate(var(--r)) scale(var(--s))}
+.wall.anim.in .gap{opacity:1;transform:rotate(var(--r))}
+
+/* ── MĚŘIČ SPOKOJENOSTI — přejede přes hotovou stěnu ──
+   Výsek clip-path místo škálování, aby se text uvnitř nedeformoval. */
+.gauge{grid-column:1 / -1;position:relative;z-index:40;
+  margin:-14px -24px;background:var(--green);color:var(--on-green);
+  padding:calc(var(--u) * 1.75) 24px;display:flex;align-items:baseline;
+  gap:calc(var(--u) * 2);flex-wrap:wrap;
+  border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.gauge-score{font-size:var(--t-display);font-weight:500;letter-spacing:-.03em;
+  line-height:1;font-variant-numeric:tabular-nums}
+.gauge-lab{font-size:var(--t-body);line-height:1.3}
+.gauge-lab b{font-variant-numeric:tabular-nums}
+.wall.anim .gauge{clip-path:inset(0 100% 0 0);will-change:clip-path;
+  transition:clip-path .9s cubic-bezier(.16,1,.3,1) var(--gd)}
+.wall.anim.in .gauge{clip-path:inset(0 0 0 0)}
+
+.meter-reg{margin-top:calc(var(--u) * 3);font-size:var(--t-sm);color:var(--ink-2)}
 .meter-reg b{color:var(--ink);font-weight:600}
-.meter-bar i{display:block;height:100%;width:100%;background:var(--green);
-  transform-origin:left}
-.meter.anim .meter-bar i{transform:scaleX(0);will-change:transform;
-  transition:transform .95s cubic-bezier(.16,1,.3,1) .1s}
-.meter.anim.in .meter-bar i{transform:scaleX(1)}
 
 /* ── OTÁZKA — barevná, přijede jako poslední ── */
-.joinq{margin-top:calc(var(--u) * 4);font-size:var(--t-h2);font-weight:500;
+.joinq{margin-top:calc(var(--u) * 3);font-size:var(--t-h2);font-weight:500;
   letter-spacing:-.02em;line-height:1.1;text-transform:lowercase;color:var(--green)}
 .joinq.anim{opacity:0;transform:translate3d(0,18px,0);will-change:transform,opacity;
   transition:opacity .34s linear .22s,transform .5s cubic-bezier(.16,1,.3,1) .22s}
 .joinq.anim.in{opacity:1;transform:none}
 
+@media(min-width:560px){
+  .wall-grid{grid-template-columns:repeat(4,1fr)}
+}
 @media(prefers-reduced-motion:reduce){
-  .pile.anim .testi{transform:translate3d(var(--x),0,0) rotate(var(--r));opacity:1}
-  .meter.anim .meter-bar i{transform:scaleX(1)}
+  .wall.anim .rev{opacity:1;transform:rotate(var(--r)) scale(var(--s))}
+  .wall.anim .gap{opacity:1;transform:rotate(var(--r))}
+  .wall.anim .gauge{clip-path:inset(0 0 0 0)}
   .joinq.anim{opacity:1;transform:none}
+}
 }
 
 /* ── REFERENCE — rovnováha, ne rámečky ── */
@@ -331,7 +361,7 @@ footer a{color:var(--blue)}
   .hero-sign{margin-top:calc(var(--u) * 3)}
   .cta{max-width:420px}
   /* reference drží čitelnou míru sazby, ne celou šířku sloupce */
-  .pile,.meter,.joinq{max-width:640px}
+  .wall,.meter-reg,.joinq{max-width:660px}
   .quiz-box{padding:calc(var(--u) * 5)}
   #kviz .wrap{max-width:660px}
 }
@@ -439,61 +469,59 @@ footer a{color:var(--blue)}
   <div class="wrap">
     <h2>Co říkají lidé, kteří to už mají za sebou.</h2>
 
-    <div class="pile" id="pile">
-      <!-- pořadí = pořadí dopadu; poslední leží dole a je čitelná celá -->
-      <article class="testi" style="--i:0;--r:-1.7deg;--x:-7px;--z:1;--d:0ms;--fy:-420px;--fr:-11deg;--dur:.56s">
-        <b class="who anon">Klient</b>
-        <blockquote>Skvělá komunikace a ochota.</blockquote>
-      </article>
-      <article class="testi" style="--i:1;--r:1.5deg;--x:8px;--z:2;--d:110ms;--fy:-360px;--fr:9deg;--dur:.60s">
-        <b class="who">Jana Maříková</b>
-        <blockquote>Hodně a hodně spokojených klientů, ať se daří.</blockquote>
-      </article>
-      <article class="testi" style="--i:2;--r:-1.2deg;--x:-5px;--z:3;--d:220ms;--fy:-480px;--fr:-7deg;--dur:.54s">
-        <b class="who anon">Klient</b>
-        <blockquote>Spolehlivost, kompetence, vše OK.</blockquote>
-      </article>
-      <article class="testi" style="--i:3;--r:1.8deg;--x:6px;--z:4;--d:330ms;--fy:-320px;--fr:12deg;--dur:.62s">
-        <b class="who">Míša Mátlová</b>
-        <blockquote>Ondra mi pomohl s organizováním mých financí a s porozuměním investičnímu světu. Doporučuji!</blockquote>
-      </article>
-      <article class="testi" style="--i:4;--r:-1.4deg;--x:-9px;--z:5;--d:440ms;--fy:-440px;--fr:-13deg;--dur:.58s">
-        <b class="who anon">Klient</b>
-        <blockquote>Perfektní spolupráce, ochota a vstřícnost.</blockquote>
-      </article>
-      <article class="testi" style="--i:5;--r:1.1deg;--x:5px;--z:6;--d:550ms;--fy:-380px;--fr:8deg;--dur:.60s">
-        <b class="who">Jana Samková</b>
-        <blockquote>Ondra je hodný, ochotný a milý človíček, rád poradí a pomůže. Jak zavolám, hned vyhoví.</blockquote>
-      </article>
-      <article class="testi" style="--i:6;--r:-1.8deg;--x:-4px;--z:7;--d:660ms;--fy:-500px;--fr:-9deg;--dur:.56s">
-        <b class="who anon">Klient</b>
-        <blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote>
-      </article>
-      <article class="testi" style="--i:7;--r:1.3deg;--x:9px;--z:8;--d:770ms;--fy:-340px;--fr:11deg;--dur:.64s">
-        <b class="who">Karel Mařík</b>
-        <blockquote>Je ochotný, poradí, zařídí a je blbuvzdorný! Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil.</blockquote>
-      </article>
-      <article class="testi" style="--i:8;--r:-1.0deg;--x:-6px;--z:9;--d:880ms;--fy:-400px;--fr:-6deg;--dur:.60s">
-        <b class="who">Lukin Bařinka</b>
-        <blockquote>Ondřej mi pomohl zorganizovat finance a díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení.</blockquote>
-      </article>
-      <article class="testi" style="--i:9;--r:1.6deg;--x:4px;--z:10;--d:990ms;--fy:-300px;--fr:5deg;--dur:.72s">
-        <b class="who">Martin Švanda</b>
-        <blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote>
-      </article>
-    </div>
-
-    <!-- ⚠️ OVĚŘ PŘED SPUŠTĚNÍM: 10/10 ze 100+ klientů musí sedět s tím, co je
-         doložitelné. Ideálně doplnit zdroj (Google, Facebook). -->
-    <div class="meter" id="meter">
-      <div class="meter-head">
-        <!-- známka se nedopočítává: cestou by stránka ukazovala 1/10 -->
-        <span class="meter-score">10<span class="of">/10</span></span>
-        <span class="meter-lab">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span>
+    <div class="wall" id="wall">
+      <div class="wall-grid">
+        <article class="rev rev--table" style="--c:1;--r:-1.6deg;--z:1;--d:0ms;--fx:-70px;--fy:-90px;--fr:-1.6deg;--dur:.58s;--s:1" data-tail="bl">
+          <b class="who anon">Klient</b>
+          <blockquote>Skvělá komunikace a ochota.</blockquote>
+        </article>
+        <article class="rev rev--plane" style="--c:1;--r:1.4deg;--z:2;--d:85ms;--fx:80px;--fy:-70px;--fr:1.4deg;--dur:.62s;--s:1" data-tail="br">
+          <b class="who anon">Klient</b>
+          <blockquote>Spolehlivost, kompetence, vše OK.</blockquote>
+        </article>
+        <article class="rev rev--green" style="--c:2;--r:-0.9deg;--z:3;--d:170ms;--fx:-60px;--fy:90px;--fr:-0.9deg;--dur:.56s;--s:1" data-tail="bl">
+          <b class="who">Martin Švanda</b>
+          <blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote>
+        </article>
+        <span class="gap gap--ci" style="--c:1;--r:6deg;--z:4;--d:255ms;--fx:90px;--fy:60px;--fr:6deg;--dur:.60s" aria-hidden="true"><i></i></span>
+        <article class="rev rev--plane" style="--c:1;--r:-1.2deg;--z:5;--d:340ms;--fx:-90px;--fy:-60px;--fr:-1.2deg;--dur:.58s;--s:1" data-tail="br">
+          <b class="who anon">Klient</b>
+          <blockquote>Perfektní spolupráce, ochota a vstřícnost.</blockquote>
+        </article>
+        <article class="rev rev--blue" style="--c:2;--r:1.1deg;--z:6;--d:425ms;--fx:70px;--fy:80px;--fr:1.1deg;--dur:.64s;--s:1" data-tail="bl">
+          <b class="who">Míša Mátlová</b>
+          <blockquote>Ondra mi pomohl s organizováním mých financí a s porozuměním investičnímu světu. Doporučuji!</blockquote>
+        </article>
+        <article class="rev rev--table" style="--c:1;--r:1.7deg;--z:7;--d:510ms;--fx:-80px;--fy:70px;--fr:1.7deg;--dur:.56s;--s:1" data-tail="br">
+          <b class="who">Jana Maříková</b>
+          <blockquote>Hodně a hodně spokojených klientů, ať se daří.</blockquote>
+        </article>
+        <span class="gap gap--sq" style="--c:1;--r:-8deg;--z:8;--d:595ms;--fx:60px;--fy:-90px;--fr:-8deg;--dur:.60s" aria-hidden="true"><i></i></span>
+        <!-- ⚠️ OVĚŘ: 10/10 ze 100+ musí sedět s doložitelným. -->
+        <div class="gauge" style="--gd:1250ms">
+          <span class="gauge-score">10<span class="of">/10</span></span>
+          <span class="gauge-lab">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span>
+        </div>
+        <article class="rev rev--yellow" style="--c:2;--r:-1.3deg;--z:9;--d:680ms;--fx:-70px;--fy:-80px;--fr:-1.3deg;--dur:.62s;--s:1" data-tail="bl">
+          <b class="who">Karel Mařík</b>
+          <blockquote>Je ochotný, poradí, zařídí a je blbuvzdorný! Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil.</blockquote>
+        </article>
+        <article class="rev rev--plane" style="--c:1;--r:1.0deg;--z:10;--d:765ms;--fx:85px;--fy:75px;--fr:1.0deg;--dur:.58s;--s:1" data-tail="br">
+          <b class="who anon">Klient</b>
+          <blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote>
+        </article>
+        <span class="gap gap--tr" style="--c:1;--r:5deg;--z:11;--d:850ms;--fx:-65px;--fy:85px;--fr:5deg;--dur:.60s" aria-hidden="true"><i></i></span>
+        <article class="rev rev--plane" style="--c:2;--r:-1.5deg;--z:12;--d:935ms;--fx:75px;--fy:-85px;--fr:-1.5deg;--dur:.64s;--s:1" data-tail="bl">
+          <b class="who">Jana Samková</b>
+          <blockquote>Ondra je hodný, ochotný a milý človíček, rád poradí a pomůže. Jak zavolám, hned vyhoví.</blockquote>
+        </article>
+        <article class="rev rev--ink" style="--c:2;--r:1.2deg;--z:13;--d:1020ms;--fx:-85px;--fy:65px;--fr:1.2deg;--dur:.66s;--s:1" data-tail="br">
+          <b class="who">Lukin Bařinka</b>
+          <blockquote>Ondřej mi pomohl zorganizovat finance a díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení.</blockquote>
+        </article>
       </div>
-      <div class="meter-bar"><i></i></div>
-      <p class="meter-reg">Registrován v systému <b>INSIA</b> a <b>ININVEST</b></p>
     </div>
+    <p class="meter-reg">Registrován v systému <b>INSIA</b> a <b>ININVEST</b></p>
 
     <p class="joinq" id="joinq">Budete mezi ně patřit taky?</p>
   </div>
@@ -964,9 +992,10 @@ footer a{color:var(--blue)}
     }
 
     // hold = doběh nejdelšího přechodu v prvku + rezerva
-    reveal('pile',  .28, 2100);   // poslední karta: 990 ms čeká + 720 ms letí
     reveal('joinq', .80, 1100);   // 220 ms čeká + 500 ms
-    reveal('meter', .55, 1900, function(box){
+    // stěna: poslední dlaždice 1020 ms čeká + 660 ms letí; měřič přejíždí
+    // od 1250 ms po dobu 900 ms, tedy doběh v 2150 ms
+    reveal('wall',  .22, 2500, function(box){
       var nums = box.querySelectorAll('[data-count]');
       if (!nums.length) return;
       // Cíl je v HTML. Nulujeme až při startu a jistíme časovačem — když
@@ -979,13 +1008,14 @@ footer a{color:var(--blue)}
         stopped = true;
         nums.forEach(function(n){ n.textContent = n.dataset.count; });
       }
-      var safety = setTimeout(settle, 1800);
+      // počítadlo naskočí až s přejezdem měřiče, ne s náletem dlaždic
+      var safety = setTimeout(settle, 2600);
       nums.forEach(function(n){ n.textContent = '0'; });
-      var t0 = 0;
+      var t0 = 0, START = 1250;
       requestAnimationFrame(function step(ts){
         if (stopped) return;
         if (!t0) t0 = ts;
-        var k = Math.min((ts - t0) / 1150, 1), e3 = 1 - Math.pow(1 - k, 3);
+        var k = Math.min(Math.max(ts - t0 - START, 0) / 900, 1), e3 = 1 - Math.pow(1 - k, 3);
         nums.forEach(function(n){ n.textContent = Math.round(+n.dataset.count * e3); });
         if (k < 1) requestAnimationFrame(step);
         else { clearTimeout(safety); settle(); }
