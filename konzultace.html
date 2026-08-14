@@ -68,19 +68,19 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 /* ── HERO — teze: figura stojí v ploše, text stojí před ní ── */
 #hero{position:relative;overflow:hidden;isolation:isolate;
   padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
-/* na mobilu má figura vlastní pás dole — text ji nikde nekříží */
-#hero{padding-bottom:288px}
-/* zelená plocha — geometrie, ne rám; nikdy pod textem */
-#hero:before{content:"";position:absolute;z-index:-2;background:var(--green-deep);
-  right:0;bottom:0;width:56%;max-width:290px;height:232px}
-/* figura — vystupuje z plochy a dvěma osami se rozplývá do desky */
-#hero-photo{position:absolute;z-index:-1;right:calc(var(--u) * -1);bottom:0;
-  height:252px;width:auto;max-width:none;display:block;opacity:.82;
-  -webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 97%),
-                     linear-gradient(to left,#000 48%,transparent 92%);
-          mask-image:linear-gradient(to bottom,#000 62%,transparent 97%),
-                     linear-gradient(to left,#000 48%,transparent 92%);
-  -webkit-mask-composite:source-in;mask-composite:intersect}
+/* figura má vlastní pás dole — text ji nikde nekříží */
+#hero{padding-bottom:268px}
+/* vrstvení: plocha → figura → osa → text */
+#hero .wrap{position:relative;z-index:3}
+/* PLOCHA — plná, tvrdá hrana, sedí na spodní lince sekce */
+#hero:before{content:"";position:absolute;z-index:0;background:var(--green-deep);
+  right:0;bottom:0;width:54%;max-width:272px;height:206px}
+/* OSA — linka drží plochu i figuru v jedné kompozici, prochází přes ně */
+#hero:after{content:"";position:absolute;z-index:2;left:0;right:0;bottom:104px;
+  height:1px;background:var(--ink)}
+/* FIGURA — plná forma. Ořez hrudníku schovává spodní hrana sekce, nic se nemlží. */
+#hero-photo{position:absolute;z-index:1;right:calc(var(--u) * 2);bottom:0;
+  height:238px;width:auto;max-width:none;display:block}
 #h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-label);font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
 #h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
@@ -263,13 +263,13 @@ footer a{color:var(--blue)}
   /* figura stojí vedle textu, ne pod ním */
   #hero{padding-bottom:calc(var(--u) * 9);min-height:560px;display:flex;align-items:center}
   #hero .inner{max-width:52%}
-  #hero:before{top:calc(var(--u) * 9);bottom:calc(var(--u) * 9);height:auto;
-    width:40%;max-width:380px;right:calc(50% - 450px + 24px)}
-  #hero-photo{height:min(72vh,500px);right:calc(50% - 450px - 40px);
-    -webkit-mask-image:linear-gradient(to bottom,#000 66%,transparent 98%),
-                       linear-gradient(to left,#000 62%,transparent 97%);
-            mask-image:linear-gradient(to bottom,#000 66%,transparent 98%),
-                       linear-gradient(to left,#000 62%,transparent 97%)}
+  /* plocha sedí na spodní lince, nad hlavou nechává jen úzký pruh */
+  #hero:before{top:auto;bottom:0;height:480px;
+    width:32%;max-width:310px;right:calc(50% - 450px + 40px)}
+  /* osa protíná jen pravé pole, textu se nedotkne */
+  #hero:after{left:auto;width:38%;right:0;bottom:190px}
+  #hero-photo{height:432px;right:calc(50% - 450px + 36px);
+    -webkit-mask-image:none;mask-image:none}
   .hero-sign{margin-top:calc(var(--u) * 3)}
   .cta{max-width:420px}
   .quiz-box{padding:calc(var(--u) * 5)}
