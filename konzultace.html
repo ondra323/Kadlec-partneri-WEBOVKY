@@ -142,32 +142,36 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   font-size:var(--t-body);line-height:1.5;color:var(--ink)}
 .promise strong{font-weight:700}
 
-/* ── HROMADA REFERENCÍ — karty padají shora a vrší se natočené ── */
-.pile{margin-top:calc(var(--u) * 4);padding-top:calc(var(--u) * 2)}
+/* ── HROMADA REFERENCÍ — jedna scéna, karty na ni padají shora ──
+   Vějíř: každá karta leží o --step níž, takže z těch pod ní zůstane vidět
+   podpis. Poslední dopadne úplně dolů a je čitelná celá. */
+.pile{--step:60px;position:relative;margin-top:calc(var(--u) * 4);
+  height:calc(var(--step) * 9 + 178px)}
 /* VÝCHOZÍ STAV JE VIDITELNÝ. Skrývá se až třídou .anim, kterou přidá
    JavaScript — bez něj i při selhání skriptu jsou reference prostě vidět. */
-.pile .testi{position:relative;z-index:var(--z);
-  background:var(--plane);border:1px solid var(--ink);border-radius:0;
-  padding:calc(var(--u) * 3);margin:0 0 calc(var(--u) * 2);
+.pile .testi{position:absolute;left:6px;right:6px;top:calc(var(--i) * var(--step));
+  z-index:var(--z);background:var(--plane);border:1px solid var(--ink);border-radius:0;
+  padding:calc(var(--u) * 2) calc(var(--u) * 2.5) calc(var(--u) * 2.25);
   transform:translate3d(var(--x),0,0) rotate(var(--r))}
-.pile.anim .testi{transform:translate3d(0,-150px,0);opacity:0;
-  transition:transform .66s cubic-bezier(.18,.72,.2,1) var(--d),
-             opacity .34s linear var(--d)}
+.pile.anim .testi{transform:translate3d(0,-460px,0) rotate(-9deg);opacity:0;
+  transition:transform .78s cubic-bezier(.16,.84,.28,1) var(--d),
+             opacity .3s linear var(--d)}
 .pile.anim.in .testi{transform:translate3d(var(--x),0,0) rotate(var(--r));opacity:1}
 /* ocásek mluvící bubliny — tvrdé hrany, dvě vrstvy kvůli obrysu */
 .pile .testi:before,.pile .testi:after{content:"";position:absolute;
   width:0;height:0;border-style:solid;border-color:transparent}
-.pile .testi:before{left:28px;bottom:-14px;
+.pile .testi:before{left:26px;bottom:-14px;
   border-width:14px 13px 0 0;border-top-color:var(--ink)}
-.pile .testi:after{left:29px;bottom:-12px;
+.pile .testi:after{left:27px;bottom:-12px;
   border-width:12px 11px 0 0;border-top-color:var(--plane)}
-.pile .testi blockquote{font-size:var(--t-body);line-height:1.45}
-.pile .testi .who{display:block;margin-top:calc(var(--u) * 1.5);
-  font-size:var(--t-sm);font-weight:600}
+/* podpis je nahoře — ve vějíři je z každé karty vidět právě on */
+.pile .testi .who{display:block;font-size:var(--t-sm);font-weight:600;
+  margin-bottom:calc(var(--u) * 1.25)}
 .pile .testi .who:before{content:"";display:inline-block;vertical-align:baseline;
   width:9px;height:9px;margin-right:9px;background:var(--green)}
 .pile .testi .who.anon{color:var(--ink-2);font-weight:500}
 .pile .testi .who.anon:before{background:var(--ink-3)}
+.pile .testi blockquote{font-size:var(--t-body);line-height:1.42}
 
 /* ── MĚŘIČ — načte se, až na něj dojde řada ── */
 .meter{margin-top:calc(var(--u) * 7);border-top:3px solid var(--ink);
@@ -180,6 +184,8 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 .meter-lab b{color:var(--ink);font-variant-numeric:tabular-nums}
 .meter-bar{height:12px;background:var(--plane);border:1px solid var(--ink);
   margin-top:calc(var(--u) * 2.5);overflow:hidden}
+.meter-reg{margin-top:calc(var(--u) * 1.75);font-size:var(--t-sm);color:var(--ink-2)}
+.meter-reg b{color:var(--ink);font-weight:600}
 .meter-bar i{display:block;height:100%;width:100%;background:var(--green);
   transform-origin:left}
 .meter.anim .meter-bar i{transform:scaleX(0);
@@ -429,46 +435,46 @@ footer a{color:var(--blue)}
     <h2>Co říkají lidé, kteří to už mají za sebou.</h2>
 
     <div class="pile" id="pile">
-      <article class="testi" style="--r:-2.2deg;--x:-7px;--z:1;--d:0ms">
-        <blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote>
-        <b class="who">Martin Švanda</b>
-      </article>
-      <article class="testi" style="--r:1.6deg;--x:9px;--z:2;--d:90ms">
-        <blockquote>Ondřej mi pomohl zorganizovat finance a díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení. Moc děkuji!</blockquote>
-        <b class="who">Lukin Bařinka</b>
-      </article>
-      <article class="testi" style="--r:-1.3deg;--x:-4px;--z:3;--d:180ms">
-        <blockquote>Je ochotný, poradí, zařídí a je blbuvzdorný! Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil, jinak bych žil od výplaty do výplaty. Tudíž vřele doporučuji.</blockquote>
-        <b class="who">Karel Mařík</b>
-      </article>
-      <article class="testi" style="--r:2.4deg;--x:6px;--z:4;--d:270ms">
-        <blockquote>Ondra mi pomohl s organizováním mých financí a s porozuměním investičnímu světu. Doporučuji!</blockquote>
-        <b class="who">Míša Mátlová</b>
-      </article>
-      <article class="testi" style="--r:-1.8deg;--x:-9px;--z:5;--d:360ms">
-        <blockquote>Ondra je hodný, ochotný a milý človíček, rád poradí a pomůže. Jak zavolám, hned vyhoví. Přeji Ti hodně bohatou klientelu a ať se Ti daří.</blockquote>
-        <b class="who">Jana Samková</b>
-      </article>
-      <article class="testi" style="--r:1.1deg;--x:5px;--z:6;--d:450ms">
-        <blockquote>Hodně a hodně spokojených klientů, ať se daří.</blockquote>
-        <b class="who">Jana Maříková</b>
-      </article>
-      <!-- bez podpisu tak, jak přišly — věk se nedopisuje -->
-      <article class="testi" style="--r:-2.6deg;--x:-5px;--z:7;--d:540ms">
-        <blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote>
+      <!-- pořadí = pořadí dopadu; poslední leží dole a je čitelná celá -->
+      <article class="testi" style="--i:0;--r:-1.7deg;--x:-7px;--z:1;--d:0ms">
         <b class="who anon">Klient</b>
-      </article>
-      <article class="testi" style="--r:1.9deg;--x:8px;--z:8;--d:630ms">
-        <blockquote>Perfektní spolupráce, ochota a vstřícnost.</blockquote>
-        <b class="who anon">Klient</b>
-      </article>
-      <article class="testi" style="--r:-1.1deg;--x:-6px;--z:9;--d:720ms">
-        <blockquote>Spolehlivost, kompetence, vše OK.</blockquote>
-        <b class="who anon">Klient</b>
-      </article>
-      <article class="testi" style="--r:2.1deg;--x:4px;--z:10;--d:810ms">
         <blockquote>Skvělá komunikace a ochota.</blockquote>
+      </article>
+      <article class="testi" style="--i:1;--r:1.5deg;--x:8px;--z:2;--d:190ms">
+        <b class="who">Jana Maříková</b>
+        <blockquote>Hodně a hodně spokojených klientů, ať se daří.</blockquote>
+      </article>
+      <article class="testi" style="--i:2;--r:-1.2deg;--x:-5px;--z:3;--d:380ms">
         <b class="who anon">Klient</b>
+        <blockquote>Spolehlivost, kompetence, vše OK.</blockquote>
+      </article>
+      <article class="testi" style="--i:3;--r:1.8deg;--x:6px;--z:4;--d:570ms">
+        <b class="who">Míša Mátlová</b>
+        <blockquote>Ondra mi pomohl s organizováním mých financí a s porozuměním investičnímu světu. Doporučuji!</blockquote>
+      </article>
+      <article class="testi" style="--i:4;--r:-1.4deg;--x:-9px;--z:5;--d:760ms">
+        <b class="who anon">Klient</b>
+        <blockquote>Perfektní spolupráce, ochota a vstřícnost.</blockquote>
+      </article>
+      <article class="testi" style="--i:5;--r:1.1deg;--x:5px;--z:6;--d:950ms">
+        <b class="who">Jana Samková</b>
+        <blockquote>Ondra je hodný, ochotný a milý človíček, rád poradí a pomůže. Jak zavolám, hned vyhoví.</blockquote>
+      </article>
+      <article class="testi" style="--i:6;--r:-1.8deg;--x:-4px;--z:7;--d:1140ms">
+        <b class="who anon">Klient</b>
+        <blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote>
+      </article>
+      <article class="testi" style="--i:7;--r:1.3deg;--x:9px;--z:8;--d:1330ms">
+        <b class="who">Karel Mařík</b>
+        <blockquote>Je ochotný, poradí, zařídí a je blbuvzdorný! Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil.</blockquote>
+      </article>
+      <article class="testi" style="--i:8;--r:-1.0deg;--x:-6px;--z:9;--d:1520ms">
+        <b class="who">Lukin Bařinka</b>
+        <blockquote>Ondřej mi pomohl zorganizovat finance a díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení.</blockquote>
+      </article>
+      <article class="testi" style="--i:9;--r:1.6deg;--x:4px;--z:10;--d:1710ms">
+        <b class="who">Martin Švanda</b>
+        <blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote>
       </article>
     </div>
 
@@ -481,6 +487,7 @@ footer a{color:var(--blue)}
         <span class="meter-lab">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span>
       </div>
       <div class="meter-bar"><i></i></div>
+      <p class="meter-reg">Registrován v systému <b>INSIA</b> a <b>ININVEST</b></p>
     </div>
 
     <p class="joinq" id="joinq">Budete mezi ně patřit taky?</p>
@@ -935,8 +942,9 @@ footer a{color:var(--blue)}
         el.classList.add('in'); if (then) then(el);
         // Tvrdá záruka: po doběhnutí sundáme třídu .anim úplně. Tím padá
         // i skryvající pravidlo, takže obsah je vidět i kdyby engine
-        // přechody vůbec nespustil. Delší než nejdelší animace (1,5 s).
-        setTimeout(function(){ el.classList.remove('anim'); }, 2200);
+        // přechody vůbec nespustil. Delší než nejdelší běh — poslední
+        // karta padá se zpožděním 1,71 s a trvá 0,78 s.
+        setTimeout(function(){ el.classList.remove('anim'); }, 3200);
       }
       // Pojistka: kdyby pozorovatel nikdy nedoručil (úsporný režim, chyba
       // enginu), obsah se po chvíli odkryje sám. Reference nesmí zmizet.
@@ -950,7 +958,7 @@ footer a{color:var(--blue)}
       io.observe(el);
     }
 
-    reveal('pile', .12);
+    reveal('pile', .28);
     reveal('joinq', .8);
     reveal('meter', .55, function(box){
       var nums = box.querySelectorAll('[data-count]');
@@ -958,11 +966,18 @@ footer a{color:var(--blue)}
       // Cíl je v HTML. Nulujeme až při startu a jistíme časovačem — když
       // requestAnimationFrame neběží (záložka na pozadí, úsporný režim),
       // číslo se stejně dopočítá na cílovou hodnotu.
-      function settle(){ nums.forEach(function(n){ n.textContent = n.dataset.count; }); }
+      // stopped hlídá, aby opožděný snímek nepřepsal dopočítanou hodnotu
+      // zpátky na nižší číslo — jinak by v patičce zůstal špatný údaj
+      var stopped = false;
+      function settle(){
+        stopped = true;
+        nums.forEach(function(n){ n.textContent = n.dataset.count; });
+      }
       var safety = setTimeout(settle, 1800);
       nums.forEach(function(n){ n.textContent = '0'; });
       var t0 = 0;
       requestAnimationFrame(function step(ts){
+        if (stopped) return;
         if (!t0) t0 = ts;
         var k = Math.min((ts - t0) / 1150, 1), e3 = 1 - Math.pow(1 - k, 3);
         nums.forEach(function(n){ n.textContent = Math.round(+n.dataset.count * e3); });
