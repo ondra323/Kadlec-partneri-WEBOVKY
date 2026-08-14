@@ -27,7 +27,7 @@
   --t-display:clamp(2.1rem,7.4vw,3.6rem);
   --t-h2:clamp(1.55rem,5vw,2.3rem);
   --t-lead:clamp(1.06rem,3.5vw,1.22rem);
-  --t-fig:1.5rem;           /* číselný údaj */
+  --t-fig:1.5rem;           /* velký znak — potvrzovací značka */
   --t-title:1.42rem;        /* nadpis panelu */
   --t-sub:1.1rem;           /* podnadpis, vstupy, akce */
   --t-base:1.125rem;        /* základní text */
@@ -127,17 +127,6 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   margin-top:calc(var(--u) * 3)}
 .plane p{color:var(--ink-2);font-size:var(--t-body)}
 .plane p strong{color:var(--ink)}
-.photo{width:84px;height:84px;border-radius:50%;object-fit:cover;background:var(--table);
-  display:block;margin-bottom:calc(var(--u) * 2)}
-
-/* ── FAKTA — místo kulatých čísel ověřitelné údaje ── */
-.facts{margin-top:calc(var(--u) * 4);border-top:1px solid var(--ink)}
-.fact{display:flex;gap:calc(var(--u) * 2);align-items:baseline;padding:calc(var(--u) * 2) 0;
-  border-bottom:1px solid var(--rule)}
-.fact dt{font-size:var(--t-fig);font-weight:500;letter-spacing:-.02em;min-width:5.5ch;flex:none;
-  font-variant-numeric:tabular-nums}
-.fact dd{font-size:var(--t-sm);color:var(--ink-2);line-height:1.45}
-.fact.pending dt{font-size:var(--t-body);font-weight:600;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
 
 /* ── PLÁN — čtverec je struktura ── */
 .steps{counter-reset:s;margin-top:calc(var(--u) * 3)}
@@ -349,36 +338,12 @@ footer a{color:var(--blue)}
 <!-- ═══ 3 · PRŮVODCE ═══ -->
 <section class="slide">
   <div class="wrap">
-    <h2>Začínal jsem jako bankéř. Vím, jak se ta čísla staví zevnitř.</h2>
+    <h2>Jeden člověk na všechno.<br>Ne pobočka, ne infolinka.</h2>
     <div class="plane">
-      <picture>
-        <source srcset="assets/ondrej-kadlec.webp" type="image/webp">
-        <img src="assets/ondrej-kadlec.jpg" width="84" height="84" loading="lazy" decoding="async"
-             alt="Ondřej Kadlec" class="photo" onerror="this.style.display='none'">
-      </picture>
-      <p>Uvnitř banky se produkt nedoporučuje podle toho, co potřebujete vy, ale podle toho, co má pobočka v plánu. Tak jsem odešel a dělám to samé z druhé strany stolu.</p>
-      <p><strong>Když si přese mě něco sjednáte, dostanu provizi od instituce — ne od vás.</strong> Nemám měsíční plán na jeden produkt. Když je nejlepší nechat všechno tak, jak to je, přijdu o provizi a stejně vám to řeknu.</p>
+      <p><strong>„Sjednali mi to na pobočce, ten člověk už tam nepracuje — a já nevím, na koho se obrátit."</strong> To slyším nejčastěji.</p>
+      <p>Se mnou máte jedno číslo. Jednání s institucemi, papíry i pojistné události beru na sebe.</p>
+      <p><strong>Provizi dostávám od instituce, ne od vás.</strong> Když je nejlepší nechat všechno být, řeknu vám to a o provizi přijdu.</p>
     </div>
-    <dl class="facts">
-      <!-- ⚠️ ČEKÁ NA PODKLAD · doplnit přesný počet, ne kulaté „100+“ -->
-      <div class="fact pending">
-        <dt>Počet</dt>
-        <dd>rodin a firem z Jemnicka a okolí — <strong>doplnit přesné číslo</strong></dd>
-      </div>
-      <!-- ⚠️ ČEKÁ NA PODKLAD · vyjmenovat instituce místo „15+“ -->
-      <div class="fact pending">
-        <dt>Seznam</dt>
-        <dd>bank a pojišťoven, se kterými pracuji — <strong>doplnit jmenný seznam</strong></dd>
-      </div>
-      <div class="fact">
-        <dt>ČNB</dt>
-        <dd>vázaný zástupce sítí INSIA a ININVEST, pod dohledem České národní banky</dd>
-      </div>
-      <div class="fact">
-        <dt>IČO</dt>
-        <dd>14311569 · Polická 1106, 675 31 Jemnice — můžete si mě vyhledat</dd>
-      </div>
-    </dl>
   </div>
 </section>
 
