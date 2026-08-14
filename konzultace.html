@@ -68,13 +68,16 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 /* ── HERO — teze: figura stojí v ploše, text stojí před ní ── */
 #hero{position:relative;overflow:hidden;isolation:isolate;
   padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
-/* FIGURA — hotový blok i se svou plochou. Zabíhá za okraj sekce,
-   takže ho ořezává hrana, ne prázdno kolem dlaždice. */
-#hero{padding-bottom:296px}
+/* FIGURA — čistý výřez, plocha postavená v CSS.
+   Obdélník začíná až za rukou (trup startuje na 35 % šířky výřezu),
+   takže ruka s gestem přesahuje přes světlou desku i přes text. */
+#hero{padding-bottom:302px}
 #hero .wrap{position:relative;z-index:2}
-/* šířka a posun drží ukazující ruku přesně na levém okraji, ne za ním */
-#hero-photo{position:absolute;z-index:1;pointer-events:none;
-  right:-10%;bottom:-40px;width:110%;max-width:none;height:auto;margin:0}
+.hero-art{position:absolute;z-index:1;pointer-events:none;
+  right:-12%;bottom:-48px;width:112%}
+.hero-art:before{content:"";position:absolute;z-index:0;background:var(--green-deep);
+  left:31%;right:0;top:2%;bottom:0}
+#hero-photo{position:relative;z-index:1;display:block;width:100%;height:auto;margin:0;max-width:none}
 #h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-label);font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
 #h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
@@ -255,10 +258,11 @@ footer a{color:var(--blue)}
 @media(min-width:820px){
   .wrap{max-width:900px}
   /* figura vpravo v plné velikosti, zabíhá za pravý okraj; text před ní */
-  #hero{padding-bottom:calc(var(--u) * 10);min-height:620px;
+  /* výška sekce se řídí figurou, aby jí neuřízla temeno */
+  #hero{padding-bottom:calc(var(--u) * 10);min-height:772px;
     display:flex;align-items:center}
-  #hero .inner,#hero .cta,#hero .cta-note{max-width:min(470px,44%)}
-  #hero-photo{right:-6%;bottom:0;width:64%}
+  #hero .inner,#hero .cta,#hero .cta-note{max-width:min(500px,46%)}
+  .hero-art{right:-6%;bottom:0;width:68%}
   .hero-sign{margin-top:calc(var(--u) * 3)}
   .cta{max-width:420px}
   .quiz-box{padding:calc(var(--u) * 5)}
@@ -306,11 +310,13 @@ footer a{color:var(--blue)}
     <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
     <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
   </div>
-  <img id="hero-photo" src="assets/ondrej-blok.webp"
-       srcset="assets/ondrej-blok.webp 294w, assets/ondrej-blok@2x.webp 588w"
-       sizes="(max-width:820px) 122vw, 64vw"
-       width="588" height="437" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
-       fetchpriority="high" decoding="async">
+  <div class="hero-art" aria-hidden="false">
+    <img id="hero-photo" src="assets/ondrej-figura.webp"
+         srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w"
+         sizes="(max-width:820px) 112vw, 68vw"
+         width="1400" height="1069" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+         fetchpriority="high" decoding="async">
+  </div>
 </section>
 
 <!-- ═══ 2 · PROBLÉM ═══ -->
