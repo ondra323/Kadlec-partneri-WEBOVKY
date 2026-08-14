@@ -142,6 +142,29 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
   font-size:var(--t-body);line-height:1.5;color:var(--ink)}
 .promise strong{font-weight:700}
 
+/* ── STOH REFERENCÍ — karty se při scrollu vrší na sebe ──
+   Lepivé pozicování: každá karta se zastaví o kousek níž než předchozí,
+   takže pod ní zůstane vidět hrana té spodní. Žádný JavaScript. */
+.stack{margin-top:calc(var(--u) * 4);padding-bottom:calc(var(--u) * 2)}
+.stack .testi{position:sticky;top:calc(var(--u) * 9 + var(--i) * 7px);
+  background:var(--plane);border:1px solid var(--ink);border-radius:0;
+  padding:calc(var(--u) * 3);margin:0 0 calc(var(--u) * 2.5)}
+.stack .testi blockquote{font-size:var(--t-body);line-height:1.45}
+.stack .testi .who{display:block;margin-top:calc(var(--u) * 1.5);
+  font-size:var(--t-sm);font-weight:600}
+.stack .testi .who:before{content:"";display:inline-block;vertical-align:baseline;
+  width:9px;height:9px;margin-right:9px;background:var(--green)}
+
+/* ── HODNOCENÍ — číslo dopočítá, až na něj dojde řada ── */
+.score{margin-top:calc(var(--u) * 5);border-top:3px solid var(--ink);
+  padding-top:calc(var(--u) * 3);display:flex;align-items:baseline;
+  gap:calc(var(--u) * 2.5);flex-wrap:wrap}
+.score-num{font-size:var(--t-display);font-weight:500;letter-spacing:-.03em;
+  line-height:1;color:var(--green);font-variant-numeric:tabular-nums}
+.score-num .of{color:var(--ink)}
+.score-txt{font-size:var(--t-lead);color:var(--ink-2);line-height:1.35}
+.score-txt b{color:var(--ink);font-variant-numeric:tabular-nums}
+
 /* ── REFERENCE — rovnováha, ne rámečky ── */
 .testi{background:var(--plane);border:1px solid var(--rule);padding:calc(var(--u) * 3);
   margin-top:calc(var(--u) * 2.5)}
@@ -262,6 +285,8 @@ footer a{color:var(--blue)}
   .hero-art{right:-6%;bottom:0;width:68%}
   .hero-sign{margin-top:calc(var(--u) * 3)}
   .cta{max-width:420px}
+  /* reference drží čitelnou míru sazby, ne celou šířku sloupce */
+  .stack,.score{max-width:640px}
   .quiz-box{padding:calc(var(--u) * 5)}
   #kviz .wrap{max-width:660px}
 }
@@ -363,15 +388,57 @@ footer a{color:var(--blue)}
 </section>
 
 <!-- ═══ 5 · SOCIÁLNÍ DŮKAZ ═══ -->
-<section class="slide">
+<!-- Všechny reference níže jsou skutečné, doslovné, upravena jen interpunkce
+     a diakritika. Nic tu není dopsané. -->
+<section class="slide" id="reference">
   <div class="wrap">
-    <h2>Ne obecné pochvaly. Konkrétní čísla.</h2>
-    <!-- ⚠️ ČEKÁ NA PODKLAD · tři reference s plným jménem, obcí a číslem.
-         Zástupné texty byly odstraněny — falešná reference ničí důvěru víc,
-         než žádná. Stránka nesmí do reklamy, dokud tady nejsou skutečné. -->
-    <div class="testi slot">
-      <blockquote>Místo pro reference klientů z Jemnice, Moravských Budějovic a Dačic — s plným jménem, obcí a konkrétním výsledkem.</blockquote>
-      <span class="waiting">Čeká na doplnění</span>
+    <h2>Co říkají lidé, kteří to už mají za sebou.</h2>
+
+    <div class="stack">
+      <article class="testi" style="--i:0">
+        <blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote>
+        <b class="who">Martin Švanda</b>
+      </article>
+      <article class="testi" style="--i:1">
+        <blockquote>Ondřej mi pomohl zorganizovat finance a díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení. Moc děkuji!</blockquote>
+        <b class="who">Lukin Bařinka</b>
+      </article>
+      <article class="testi" style="--i:2">
+        <blockquote>Je ochotný, poradí, zařídí a je blbuvzdorný! Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil, jinak bych žil od výplaty do výplaty. Tudíž vřele doporučuji.</blockquote>
+        <b class="who">Karel Mařík</b>
+      </article>
+      <article class="testi" style="--i:3">
+        <blockquote>Ondra mi pomohl s organizováním mých financí a s porozuměním investičnímu světu. Doporučuji!</blockquote>
+        <b class="who">Míša Mátlová</b>
+      </article>
+      <article class="testi" style="--i:4">
+        <blockquote>Ondra je hodný, ochotný a milý človíček, rád poradí a pomůže. Jak zavolám, hned vyhoví. Přeji Ti hodně bohatou klientelu a ať se Ti daří.</blockquote>
+        <b class="who">Jana Samková</b>
+      </article>
+      <article class="testi" style="--i:5">
+        <blockquote>Hodně a hodně spokojených klientů, ať se daří.</blockquote>
+        <b class="who">Jana Maříková</b>
+      </article>
+      <article class="testi" style="--i:6">
+        <blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote>
+      </article>
+      <article class="testi" style="--i:7">
+        <blockquote>Perfektní spolupráce, ochota a vstřícnost.</blockquote>
+      </article>
+      <article class="testi" style="--i:8">
+        <blockquote>Spolehlivost, kompetence, vše OK.</blockquote>
+      </article>
+      <article class="testi" style="--i:9">
+        <blockquote>Skvělá komunikace a ochota.</blockquote>
+      </article>
+    </div>
+
+    <!-- ⚠️ OVĚŘ PŘED SPUŠTĚNÍM: 10/10 od 101 klientů je tvrzení, které musí
+         sedět s tím, co je doložitelné. Ideálně doplnit zdroj (Google, Facebook). -->
+    <div class="score" id="score">
+      <!-- hodnocení se zásadně nedopočítává: cestou by stránka ukazovala 1/10 -->
+      <div class="score-num">10<span class="of">/10</span></div>
+      <p class="score-txt">průměrné hodnocení od <b><span data-count="101">101</span> klientů</b></p>
     </div>
   </div>
 </section>
@@ -805,6 +872,36 @@ footer a{color:var(--blue)}
       document.getElementById('sticky').classList.remove('show');
     });
   });
+
+  // ── dopočítání hodnocení, až na něj dojde řada ──
+  (function(){
+    var box = document.getElementById('score');
+    if (!box) return;
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nums = box.querySelectorAll('[data-count]');
+    // Cílová čísla jsou v HTML. Nulujeme je až ve chvíli, kdy animace opravdu
+    // startuje, a jistíme je časovačem — když requestAnimationFrame neběží
+    // (záložka na pozadí, úsporný režim), číslo se stejně dopočítá.
+    if (reduce || !('IntersectionObserver' in window)) return;
+    function settle(){ nums.forEach(function(n){ n.textContent = n.dataset.count; }); }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        var safety = setTimeout(settle, 1400);
+        nums.forEach(function(n){ n.textContent = '0'; });
+        var t0 = 0;
+        requestAnimationFrame(function step(ts){
+          if (!t0) t0 = ts;
+          var k = Math.min((ts - t0) / 900, 1), e3 = 1 - Math.pow(1 - k, 3);
+          nums.forEach(function(n){ n.textContent = Math.round(+n.dataset.count * e3); });
+          if (k < 1) requestAnimationFrame(step);
+          else { clearTimeout(safety); settle(); }
+        });
+      });
+    }, {threshold: .6});
+    io.observe(box);
+  })();
 
   var hero = document.getElementById('hero'), kviz = document.getElementById('kviz'), st = document.getElementById('sticky');
   addEventListener('scroll', function(){
