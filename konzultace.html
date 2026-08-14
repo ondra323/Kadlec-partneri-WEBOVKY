@@ -68,19 +68,9 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 /* ── HERO — teze: figura stojí v ploše, text stojí před ní ── */
 #hero{position:relative;overflow:hidden;isolation:isolate;
   padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
-/* figura má vlastní pás dole — text ji nikde nekříží */
-#hero{padding-bottom:268px}
-/* vrstvení: plocha → figura → osa → text */
-#hero .wrap{position:relative;z-index:3}
-/* PLOCHA — plná, tvrdá hrana, sedí na spodní lince sekce */
-#hero:before{content:"";position:absolute;z-index:0;background:var(--green-deep);
-  right:0;bottom:0;width:54%;max-width:272px;height:206px}
-/* OSA — linka drží plochu i figuru v jedné kompozici, prochází přes ně */
-#hero:after{content:"";position:absolute;z-index:2;left:0;right:0;bottom:104px;
-  height:1px;background:var(--ink)}
-/* FIGURA — plná forma. Ořez hrudníku schovává spodní hrana sekce, nic se nemlží. */
-#hero-photo{position:absolute;z-index:1;right:calc(var(--u) * 2);bottom:0;
-  height:238px;width:auto;max-width:none;display:block}
+/* FIGURA — hotový blok i se svou plochou; stránka pod něj nic nepodkládá */
+#hero-photo{display:block;width:100%;max-width:420px;height:auto;
+  margin:calc(var(--u) * 5) auto 0}
 #h-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-label);font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:calc(var(--u) * 3)}
 #h-eyebrow:before{content:"";width:11px;height:11px;background:var(--blue)}
@@ -260,16 +250,15 @@ footer a{color:var(--blue)}
 /* kompozice se převažuje, nezmenšuje */
 @media(min-width:820px){
   .wrap{max-width:900px}
-  /* figura stojí vedle textu, ne pod ním */
-  #hero{padding-bottom:calc(var(--u) * 9);min-height:560px;display:flex;align-items:center}
-  #hero .inner{max-width:52%}
-  /* plocha sedí na spodní lince, nad hlavou nechává jen úzký pruh */
-  #hero:before{top:auto;bottom:0;height:480px;
-    width:32%;max-width:310px;right:calc(50% - 450px + 40px)}
-  /* osa protíná jen pravé pole, textu se nedotkne */
-  #hero:after{left:auto;width:38%;right:0;bottom:190px}
-  #hero-photo{height:432px;right:calc(50% - 450px + 36px);
-    -webkit-mask-image:none;mask-image:none}
+  /* blok stojí vedle textu, svisle na střed */
+  #hero{padding-bottom:calc(var(--u) * 9)}
+  #hero .wrap{display:grid;grid-template-columns:1fr 50%;
+    grid-template-rows:auto auto auto;gap:0 calc(var(--u) * 4);align-items:start}
+  #hero .inner{grid-column:1;grid-row:1}
+  #hero .cta{grid-column:1;grid-row:2}
+  #hero .cta-note{grid-column:1;grid-row:3}
+  #hero-photo{grid-column:2;grid-row:1 / 4;align-self:center;
+    width:100%;max-width:none;margin:0}
   .hero-sign{margin-top:calc(var(--u) * 3)}
   .cta{max-width:420px}
   .quiz-box{padding:calc(var(--u) * 5)}
@@ -316,12 +305,12 @@ footer a{color:var(--blue)}
     </div>
     <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
     <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
+    <img id="hero-photo" src="assets/ondrej-blok.webp"
+         srcset="assets/ondrej-blok.webp 294w, assets/ondrej-blok@2x.webp 588w"
+         sizes="(max-width:820px) min(420px,100vw - 48px), 420px"
+         width="588" height="437" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+         fetchpriority="high" decoding="async">
   </div>
-  <img id="hero-photo" src="assets/ondrej-hero.webp"
-       srcset="assets/ondrej-hero.webp 420w, assets/ondrej-hero@2x.webp 630w"
-       sizes="(max-width:820px) 220px, 330px"
-       width="420" height="559" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
-       fetchpriority="high" decoding="async">
 </section>
 
 <!-- ═══ 2 · PROBLÉM ═══ -->
