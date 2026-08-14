@@ -68,11 +68,17 @@ h2{font-size:var(--t-h2);margin-bottom:calc(var(--u) * 2)}
 /* ── HERO — teze: figura stojí v ploše, text stojí před ní ── */
 #hero{position:relative;overflow:hidden;isolation:isolate;
   padding:calc(var(--u) * 5) 0 calc(var(--u) * 8);border-bottom:3px solid var(--ink)}
-/* FIGURA — čistý výřez, plocha postavená v CSS.
+/* MOBIL — místo celé figury jen portrét u jména; z podpisu se stane byline */
+#hero .wrap{position:relative;z-index:2}
+.hero-art{display:none}
+.hero-sign{display:flex;align-items:center;gap:calc(var(--u) * 2.5)}
+.hero-face{flex:none;display:block}
+.hero-face img{display:block;width:96px;height:96px;
+  border-radius:50%;object-fit:cover;background:var(--table)}
+
+/* DESKTOP — čistý výřez, plocha postavená v CSS.
    Obdélník začíná až za rukou (trup startuje na 35 % šířky výřezu),
    takže ruka s gestem přesahuje přes světlou desku i přes text. */
-#hero{padding-bottom:302px}
-#hero .wrap{position:relative;z-index:2}
 .hero-art{position:absolute;z-index:1;pointer-events:none;
   right:-12%;bottom:-48px;width:112%}
 .hero-art:before{content:"";position:absolute;z-index:0;background:var(--green-deep);
@@ -261,6 +267,8 @@ footer a{color:var(--blue)}
   /* výška sekce se řídí figurou, aby jí neuřízla temeno */
   #hero{padding-bottom:calc(var(--u) * 10);min-height:772px;
     display:flex;align-items:center}
+  .hero-art{display:block}
+  .hero-face{display:none}
   #hero .inner,#hero .cta,#hero .cta-note{max-width:min(500px,46%)}
   .hero-art{right:-6%;bottom:0;width:68%}
   .hero-sign{margin-top:calc(var(--u) * 3)}
@@ -300,6 +308,10 @@ footer a{color:var(--blue)}
         <p class="sub" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.</b></p>
       </div>
       <div class="hero-sign">
+        <picture class="hero-face">
+          <source srcset="assets/ondrej-kadlec.webp" type="image/webp">
+          <img src="assets/ondrej-kadlec.jpg" width="88" height="88" decoding="async" alt="">
+        </picture>
         <div class="who">
           <b>Ondřej Kadlec</b>
           <span>Nezávislý finanční poradce</span>
@@ -310,12 +322,18 @@ footer a{color:var(--blue)}
     <a href="#kviz" class="cta" data-cta>Chci druhý názor →</a>
     <p class="cta-note">Zabere to 60 sekund · 100% nezávazné</p>
   </div>
-  <div class="hero-art" aria-hidden="false">
-    <img id="hero-photo" src="assets/ondrej-figura.webp"
-         srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w"
-         sizes="(max-width:820px) 112vw, 68vw"
-         width="1400" height="1069" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
-         fetchpriority="high" decoding="async">
+  <div class="hero-art">
+    <!-- media 820px se musí shodovat s breakpointem v CSS: pod ním se velká
+         figura vůbec nevyžádá a načte se jen průhledný pixel -->
+    <picture>
+      <source media="(min-width:820px)"
+              srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w"
+              sizes="68vw">
+      <img id="hero-photo"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           width="1400" height="1069" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+           fetchpriority="high" decoding="async">
+    </picture>
   </div>
 </section>
 
