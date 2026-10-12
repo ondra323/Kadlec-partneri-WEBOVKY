@@ -1,260 +1,645 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-05T00:00:00.000Z",
-  "title": "Design System: Kadlec — Druhý názor (konzultace.html)",
+  "generatedAt": "2026-10-12T19:05:42.919Z",
+  "title": "Design System: Kadlec — Druhý názor",
   "extensions": {
-    "scope": {
-      "governs": ["konzultace.html"],
-      "doesNotGovern": ["index.html", "admin.html", "blog.html", "gdpr.html"],
-      "note": "Only konzultace.html was rebuilt in this world (git branch bauhaus-konzultace). The other pages still carry the older green/gold identity preserved on main. konzultace.html is an intentionally standalone noindex ad landing page."
-    },
-    "acceptedExceptions": [
-      {
-        "finding": "single-font",
-        "status": "accepted",
-        "reason": "Single-alphabet typography is native to the Bauhaus foundation world. Hierarchy is carried by Jost's weight range (400/500/600/700 in the shipped build) and the clamp-based type scale. Do not resolve this by adding a second family."
-      }
-    ],
-    "measuredContrast": [
-      { "target": "primary action (white on Signal Red)", "ratio": "4.98:1" },
-      { "target": "input placeholder (#6c7176 on Plane)", "ratio": "4.93:1" },
-      { "target": "all other text", "ratio": ">=7.25:1" },
-      { "target": "tap targets", "value": ">=44px (shipped floors: 64 CTA, 62 option, 56 input/sticky, 52 chip)" }
-    ],
     "colorMeta": {
-      "red": {
+      "signal-green": {
         "role": "primary",
-        "displayName": "Signal Red",
-        "canonical": "#d8261b",
-        "assignedForm": "circle — action and active state",
-        "tonalRamp": ["#2b0704", "#4e0d07", "#71160e", "#951c14", "#b81d13", "#d8261b", "#ef6b60", "#fbc9c3"]
+        "displayName": "Signal Green",
+        "canonical": "oklch(52.5% 0.139 151.8)",
+        "tonalRamp": [
+          "#001004",
+          "#002d12",
+          "#024e24",
+          "#007137",
+          "#2c9754",
+          "#58bd78",
+          "#7fe49d",
+          "#c7ffd4"
+        ]
       },
-      "red-deep": {
+      "signal-green-deep": {
         "role": "primary",
-        "displayName": "Signal Red Deep",
-        "canonical": "#b81d13",
-        "assignedForm": "circle — primary button hover only",
-        "tonalRamp": ["#240604", "#420b07", "#60120c", "#7e1810", "#9c1c12", "#b81d13", "#e04a3e", "#f7b8b1"]
+        "displayName": "Signal Green Deep",
+        "canonical": "oklch(44.7% 0.117 152.3)",
+        "tonalRamp": [
+          "#001004",
+          "#012d13",
+          "#034d25",
+          "#14703b",
+          "#41945d",
+          "#67ba80",
+          "#8ee1a5",
+          "#c6ffd4"
+        ]
       },
-      "blue": {
-        "role": "secondary",
-        "displayName": "Structure Blue",
-        "canonical": "#1a3fd0",
-        "assignedForm": "square — structure, labels, focus ring",
-        "tonalRamp": ["#060e33", "#0b1a5c", "#102585", "#1531a8", "#1a3fd0", "#4c66e0", "#8a9cef", "#ccd4fa"]
+      "signal-green-soft": {
+        "role": "primary",
+        "displayName": "Signal Green Soft",
+        "canonical": "oklch(95.1% 0.016 154.5)",
+        "tonalRamp": [
+          "#060d08",
+          "#1e2621",
+          "#39423c",
+          "#57605a",
+          "#79837c",
+          "#9da8a0",
+          "#c3cec6",
+          "#e7f2ea"
+        ]
       },
-      "yellow": {
-        "role": "tertiary",
-        "displayName": "Warning Yellow",
-        "canonical": "#f5c400",
-        "assignedForm": "triangle — warnings and unskimmable commitments",
-        "tonalRamp": ["#332900", "#5c4a00", "#856a00", "#ad8a00", "#d6aa00", "#f5c400", "#ffd94d", "#fff0b3"]
-      },
-      "table": {
+      "on-signal": {
         "role": "neutral",
-        "displayName": "Worktable",
-        "canonical": "#f0f0ee",
-        "tonalRamp": ["#232322", "#3b3b39", "#545451", "#6e6e6a", "#909089", "#b6b6b0", "#d5d5d1", "#f0f0ee"]
+        "displayName": "On Signal",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "ledger-navy": {
+        "role": "secondary",
+        "displayName": "Ledger Navy",
+        "canonical": "oklch(33.6% 0.088 261.8)",
+        "tonalRamp": [
+          "#000827",
+          "#09214e",
+          "#243e6e",
+          "#415d8f",
+          "#6380b5",
+          "#86a5dd",
+          "#afcbff",
+          "#e6effe"
+        ]
+      },
+      "caution-yellow": {
+        "role": "tertiary",
+        "displayName": "Caution Yellow",
+        "canonical": "oklch(84.0% 0.172 90.4)",
+        "tonalRamp": [
+          "#100a00",
+          "#2e2301",
+          "#4f3d00",
+          "#735a01",
+          "#9c7c04",
+          "#c79f09",
+          "#f5c401",
+          "#ffeebe"
+        ]
+      },
+      "caution-amber": {
+        "role": "tertiary",
+        "displayName": "Caution Amber",
+        "canonical": "oklch(63.9% 0.123 72.1)",
+        "tonalRamp": [
+          "#130900",
+          "#341f01",
+          "#593801",
+          "#815200",
+          "#ad7214",
+          "#d49744",
+          "#fcbd6b",
+          "#feebd4"
+        ]
       },
       "plane": {
         "role": "neutral",
         "displayName": "Plane",
-        "canonical": "#ffffff",
-        "tonalRamp": ["#1a1a1a", "#333333", "#4d4d4d", "#737373", "#a6a6a6", "#cccccc", "#ebebeb", "#ffffff"]
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
       },
-      "ink": {
+      "board-ground": {
         "role": "neutral",
-        "displayName": "Ink",
-        "canonical": "#141618",
-        "tonalRamp": ["#0a0b0c", "#141618", "#24282b", "#3a3f44", "#4a4f54", "#787d82", "#adb2b6", "#dfe1e3"]
+        "displayName": "Board Ground",
+        "canonical": "oklch(95.5% 0.003 106.4)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#242423",
+          "#40403e",
+          "#5e5e5c",
+          "#80807e",
+          "#a5a5a3",
+          "#cacac9",
+          "#eeeeec"
+        ]
       },
-      "ink-2": {
+      "board-ink": {
         "role": "neutral",
-        "displayName": "Second Ink",
-        "canonical": "#4a4f54",
-        "tonalRamp": ["#0e0f10", "#1c1e20", "#2c3033", "#3b4044", "#4a4f54", "#767b80", "#a9adb1", "#dcdee0"]
+        "displayName": "Board Ink",
+        "canonical": "oklch(19.9% 0.005 248.1)",
+        "tonalRamp": [
+          "#090b0d",
+          "#222426",
+          "#3e4042",
+          "#5b5e60",
+          "#7e8083",
+          "#a2a5a8",
+          "#c8cbce",
+          "#eceff2"
+        ]
       },
-      "rule": {
+      "board-ink-2": {
         "role": "neutral",
-        "displayName": "Ruling Line",
-        "canonical": "#c9cbcd",
-        "tonalRamp": ["#1e1f20", "#333537", "#4b4d4f", "#666a6c", "#8b8f91", "#a9adaf", "#c9cbcd", "#e9ebec"]
+        "displayName": "Board Ink 2",
+        "canonical": "oklch(42.5% 0.011 248.1)",
+        "tonalRamp": [
+          "#080c0f",
+          "#202529",
+          "#3b4045",
+          "#595e63",
+          "#7b8186",
+          "#a0a5ab",
+          "#c5cbd1",
+          "#e9eff5"
+        ]
       },
-      "grid": {
+      "board-ink-3": {
         "role": "neutral",
-        "displayName": "Baseline Grid",
-        "canonical": "rgba(26,63,208,.07)",
-        "note": "Structure Blue at 7% alpha, drawn as a 1px line every 32px on the page background.",
-        "tonalRamp": ["#e9ecfb", "#eef0fc", "#f1f3fc", "#f3f4fd", "#f5f6fd", "#f7f8fe", "#f9fafe", "#fbfcff"]
+        "displayName": "Board Ink 3",
+        "canonical": "oklch(54.6% 0.010 248.0)",
+        "tonalRamp": [
+          "#080c0f",
+          "#202529",
+          "#3c4045",
+          "#595e63",
+          "#7c8186",
+          "#a0a5ab",
+          "#c6cbd1",
+          "#e9eff5"
+        ]
+      },
+      "board-rule": {
+        "role": "neutral",
+        "displayName": "Board Rule",
+        "canonical": "oklch(84.1% 0.004 247.9)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232426",
+          "#3e4041",
+          "#5c5e5f",
+          "#7e8082",
+          "#a3a5a7",
+          "#c9cbcd",
+          "#edeff1"
+        ]
+      },
+      "board-hatch": {
+        "role": "neutral",
+        "displayName": "Board Hatch",
+        "canonical": "oklch(92.2% 0.005 95.1)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#252421",
+          "#40403c",
+          "#5e5e5a",
+          "#81807d",
+          "#a5a5a1",
+          "#cbcac7",
+          "#efeeea"
+        ]
+      },
+      "paper-ground": {
+        "role": "neutral",
+        "displayName": "Paper Ground",
+        "canonical": "oklch(97.7% 0.007 80.7)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#262420",
+          "#423f3b",
+          "#605d59",
+          "#82807b",
+          "#a7a49f",
+          "#cdcac5",
+          "#f1eee9"
+        ]
+      },
+      "paper-recess": {
+        "role": "neutral",
+        "displayName": "Paper Recess",
+        "canonical": "oklch(94.7% 0.013 86.8)",
+        "tonalRamp": [
+          "#0d0b06",
+          "#27241d",
+          "#433f38",
+          "#615d56",
+          "#838078",
+          "#a8a49c",
+          "#cecac1",
+          "#f2eee5"
+        ]
+      },
+      "paper-ink": {
+        "role": "neutral",
+        "displayName": "Paper Ink",
+        "canonical": "oklch(23.7% 0.004 164.7)",
+        "tonalRamp": [
+          "#0a0c0b",
+          "#222524",
+          "#3e403f",
+          "#5c5e5d",
+          "#7e8180",
+          "#a3a5a4",
+          "#c8cbca",
+          "#ecefee"
+        ]
+      },
+      "paper-ink-2": {
+        "role": "neutral",
+        "displayName": "Paper Ink 2",
+        "canonical": "oklch(44.3% 0.012 140.5)",
+        "tonalRamp": [
+          "#090c08",
+          "#212520",
+          "#3d413c",
+          "#5a5f59",
+          "#7d827c",
+          "#a1a6a0",
+          "#c7ccc5",
+          "#eaf0e9"
+        ]
+      },
+      "paper-ink-3": {
+        "role": "neutral",
+        "displayName": "Paper Ink 3",
+        "canonical": "oklch(58.3% 0.012 136.6)",
+        "tonalRamp": [
+          "#090c08",
+          "#212520",
+          "#3d413b",
+          "#5a5f59",
+          "#7d827b",
+          "#a1a69f",
+          "#c7ccc5",
+          "#ebf0e9"
+        ]
+      },
+      "paper-rule": {
+        "role": "neutral",
+        "displayName": "Paper Rule",
+        "canonical": "oklch(90.2% 0.015 84.6)",
+        "tonalRamp": [
+          "#0e0b05",
+          "#27241c",
+          "#433f37",
+          "#615d55",
+          "#848077",
+          "#a9a49b",
+          "#cfcac0",
+          "#f3eee4"
+        ]
+      },
+      "paper-rule-strong": {
+        "role": "neutral",
+        "displayName": "Paper Rule Strong",
+        "canonical": "oklch(83.5% 0.019 83.1)",
+        "tonalRamp": [
+          "#0f0a03",
+          "#292319",
+          "#453f34",
+          "#635d51",
+          "#867f73",
+          "#aba497",
+          "#d1cabd",
+          "#f5eee0"
+        ]
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Hero H1 only. Lowercase, balanced wrap, with a single non-italic <em> in Signal Red." },
-      "headline": { "displayName": "Headline", "purpose": "Section H2s. Lowercase." },
-      "title": { "displayName": "Title", "purpose": "Quiz question. Sentence case — it is a spoken question, not a label." },
-      "subhead": { "displayName": "Subhead", "purpose": "Step headings and the signature name block. Explicit text-transform:none." },
-      "lead": { "displayName": "Lead", "purpose": "Hero sub (max 34ch) and the pain closer, in Second Ink." },
-      "body": { "displayName": "Body", "purpose": "Default page text. Bold is 600; 700 is reserved for the promise block and phone links." },
-      "label": { "displayName": "Label", "purpose": "Eyebrow, quiz step counter, pending-data key. Uppercase, wide-tracked, Structure Blue." },
-      "figure": { "displayName": "Figure", "purpose": "Fact-list terms. Tabular numerals so verifiable numbers align." },
-      "_unused": { "displayName": "Jost 300", "purpose": "Loaded by the font request but used nowhere in the shipped CSS. Not canonized as a role." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero H1 only; <em> renders non-italic in Signal Green. Lowercase on Board."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2s. Lowercase on Board, sentence case on Paper."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "The quiz question, in sentence case because it is spoken."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero sub and closing lines, Ink 2, max 34ch in a hero."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default text on Board landing pages."
+      },
+      "body-dense": {
+        "displayName": "Body Dense",
+        "purpose": "Admin tables and lists."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Step headings, signature name, CTA labels."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tracked captions; navy + square on Board, green + circle on Paper."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Verifiable numbers in fact lists, tabular."
+      },
+      "figure-kpi": {
+        "displayName": "Figure KPI",
+        "purpose": "Admin tile numbers; 1.5rem floor."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Literal code to be copied exactly (the Firestore rule on the admin setup card). The only second face in the system."
+      }
     },
     "shadows": [
-      { "name": "focus-stroke", "value": "inset 0 0 0 2px var(--blue)", "purpose": "Input focus, paired with a blue border. Drawn inward — not a lift." },
-      { "name": "error-stroke", "value": "inset 0 0 0 2px var(--red)", "purpose": "Invalid field, paired with a red border." },
-      { "name": "selection-stroke", "value": "inset 0 0 0 1px var(--red)", "purpose": "Selected chip; doubles border weight without moving layout." }
+      {
+        "name": "focus-outline",
+        "value": "outline: 3px solid #1c3564; outline-offset: 2px",
+        "purpose": "Every interactive element on both surfaces."
+      },
+      {
+        "name": "input-focus",
+        "value": "inset 0 0 0 2px #00803f",
+        "purpose": "Text field focus on Board, with a green border."
+      },
+      {
+        "name": "selection-stroke",
+        "value": "inset 0 0 0 1px #00803f",
+        "purpose": "Selected chip or filter; doubles the border without moving layout."
+      },
+      {
+        "name": "new-row-stroke",
+        "value": "inset 3px 0 0 #00803f",
+        "purpose": "Unhandled inquiry row in the admin."
+      }
     ],
     "motion": [
-      { "name": "state", "value": "160ms ease-out", "purpose": "Border, background and marker-radius transitions on buttons, options and chips." },
-      { "name": "press", "value": "100ms ease-out (translateY(1px))", "purpose": "Primary button active state." },
-      { "name": "panel-in", "value": "320ms cubic-bezier(.2,0,0,1)", "purpose": "Quiz panel slides 28px in from the right. Straight line, no fade-and-float." },
-      { "name": "progress", "value": "340ms cubic-bezier(.4,0,.2,1)", "purpose": "Progress bar scaleX." },
-      { "name": "sticky", "value": "300ms cubic-bezier(.2,0,0,1)", "purpose": "Sticky CTA bar translateY(125%) → 0." },
-      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { * { animation:none!important; transition:none!important; scroll-behavior:auto } }", "purpose": "Global kill switch, shipped." }
+      {
+        "name": "state",
+        "value": "160ms ease-out",
+        "purpose": "Color, border and radius changes."
+      },
+      {
+        "name": "press",
+        "value": "100ms",
+        "purpose": "1px press on buttons."
+      },
+      {
+        "name": "progress",
+        "value": "340ms cubic-bezier(.4, 0, .2, 1)",
+        "purpose": "Quiz progress bar scaleX."
+      },
+      {
+        "name": "panel-in",
+        "value": "320ms cubic-bezier(.2, 0, 0, 1)",
+        "purpose": "Quiz panel slides 28px in from the right."
+      },
+      {
+        "name": "sticky",
+        "value": "300ms",
+        "purpose": "Sticky CTA bar slide."
+      },
+      {
+        "name": "entrance",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "The one authored entrance per page; never overshoots."
+      }
     ],
     "breakpoints": [
-      { "name": "wide", "value": "820px", "purpose": "Container 600px → 900px; hero becomes 1fr 300px; quiz column caps at 660px; CTA caps at 420px." }
-    ],
-    "grid": [
-      { "name": "module", "value": "8px", "purpose": "Every spacing value is calc(var(--u) * n)." },
-      { "name": "baseline", "value": "32px", "purpose": "Visible 1px horizontal rule repeated on the page background." },
-      { "name": "container", "value": "600px / 900px, 24px gutters", "purpose": "Single column measure." }
+      {
+        "name": "board-sm",
+        "value": "560px"
+      },
+      {
+        "name": "admin-md",
+        "value": "760px"
+      },
+      {
+        "name": "board-lg",
+        "value": "820px"
+      },
+      {
+        "name": "admin-lg",
+        "value": "960px"
+      }
     ]
   },
   "components": [
     {
-      "name": "Primary Button",
+      "name": "Primary Button (Board)",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The action itself: a red field led by a white circle. Used for both CTAs and the form submit.",
-      "html": "<button class=\"ds-btn-primary\">Chci druhý názor →</button>",
-      "css": ".ds-btn-primary { display:flex; align-items:center; justify-content:center; gap:11px; width:100%; min-height:64px; background:var(--red,#d8261b); color:#fff; border:0; border-radius:0; font-family:'Jost',system-ui,sans-serif; font-size:1.09rem; font-weight:600; cursor:pointer; transition:background .16s ease-out, transform .1s ease-out; } .ds-btn-primary::before { content:\"\"; width:15px; height:15px; border-radius:50%; background:#fff; flex:none; } .ds-btn-primary:hover { background:var(--red-deep,#b81d13); } .ds-btn-primary:active { transform:translateY(1px); } .ds-btn-primary:focus-visible { outline:3px solid var(--blue,#1a3fd0); outline-offset:2px; } .ds-btn-primary:disabled { background:var(--ink-2,#4a4f54); cursor:default; }"
+      "description": "The one pressable green. Square, full width, a white circle before the label.",
+      "html": "<button class=\"ds-btn-primary\"><span class=\"ds-dot\"></span>Chci druhý názor →</button>",
+      "css": ".ds-btn-primary { font-family: Jost, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; gap: 11px; width: 100%; max-width: 420px; min-height: 64px; background: #00803f; color: #fff; border: 0; border-radius: 0; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background-color .16s ease-out, transform .1s; } .ds-btn-primary .ds-dot { width: 15px; height: 15px; border-radius: 50%; background: #fff; } .ds-btn-primary:hover { background: #006632; } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 3px solid #1c3564; outline-offset: 2px; }"
     },
     {
-      "name": "Text Back Button",
+      "name": "Primary Button (Paper)",
       "kind": "button",
-      "refersTo": "button-primary",
-      "description": "The quiz's step-back control: underlined ink, no chrome, with a padded hit area pulled back by negative margins.",
-      "html": "<button class=\"ds-btn-back\">← zpět</button>",
-      "css": ".ds-btn-back { background:none; border:0; font-family:'Jost',system-ui,sans-serif; font-size:.95rem; color:var(--ink-2,#4a4f54); cursor:pointer; padding:10px 8px; margin:-10px -8px; text-decoration:underline; text-underline-offset:3px; } .ds-btn-back:hover { color:var(--ink,#141618); } .ds-btn-back:focus-visible { outline:3px solid var(--blue,#1a3fd0); outline-offset:2px; }"
+      "refersTo": "button-primary-paper",
+      "description": "Same green on narrative Paper pages, softened to 12px.",
+      "html": "<a class=\"ds-btn-paper\" href=\"#\">Domluvit první hovor</a>",
+      "css": ".ds-btn-paper { font-family: Jost, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 60px; background: #00803f; color: #fff; text-decoration: none; border-radius: 12px; font-size: 1.12rem; font-weight: 600; transition: background-color .16s ease-out; } .ds-btn-paper:hover { background: #006632; } .ds-btn-paper:focus-visible { outline: 3px solid #1c3564; outline-offset: 2px; }"
     },
     {
       "name": "Option Row",
       "kind": "custom",
       "refersTo": "option-row",
-      "description": "Signature component. An outlined blue square marker that fills red and rounds to a circle on selection — structure becoming action.",
-      "html": "<div class=\"ds-opts\"><button class=\"ds-opt\"><span class=\"t\">Hypotéka a bydlení<small>Koupě, stavba nebo končící fixace</small></span></button><button class=\"ds-opt sel\"><span class=\"t\">Úvěry a splátky<small>Refinancování nebo sloučení</small></span></button></div>",
-      "css": ".ds-opts { display:flex; flex-direction:column; gap:12px; } .ds-opt { display:flex; align-items:center; gap:14px; width:100%; min-height:62px; padding:14px 16px; border:1px solid var(--rule,#c9cbcd); border-radius:0; background:#fff; font-family:'Jost',system-ui,sans-serif; font-size:1.05rem; text-align:left; cursor:pointer; color:var(--ink,#141618); transition:border-color .16s ease-out, background .16s ease-out; } .ds-opt::before { content:\"\"; width:15px; height:15px; background:transparent; border:1px solid var(--blue,#1a3fd0); flex:none; transition:background .16s ease-out, border-radius .16s ease-out, border-color .16s ease-out; } .ds-opt:hover { border-color:var(--ink,#141618); } .ds-opt.sel { border-color:var(--red,#d8261b); } .ds-opt.sel::before { background:var(--red,#d8261b); border-color:var(--red,#d8261b); border-radius:50%; } .ds-opt .t { flex:1; } .ds-opt .t small { display:block; font-size:.87rem; color:var(--ink-2,#4a4f54); margin-top:2px; line-height:1.3; } .ds-opt:focus-visible { outline:3px solid var(--blue,#1a3fd0); outline-offset:2px; }"
+      "description": "Signature: a navy outline square becomes a green circle when chosen.",
+      "html": "<div class=\"ds-opts\"><button class=\"ds-opt\">Hypotéka<small>splácím, ale nevím, jestli výhodně</small></button><button class=\"ds-opt ds-sel\" aria-pressed=\"true\">Pojištění<small>platím roky, nevím za co</small></button></div>",
+      "css": ".ds-opts { display: grid; gap: 8px; max-width: 420px; } .ds-opt { font-family: Jost, system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: center; column-gap: 14px; width: 100%; min-height: 62px; padding: 14px 16px; background: #fff; color: #141618; border: 1px solid #c9cbcd; border-radius: 0; font-size: 1.06rem; text-align: left; cursor: pointer; transition: border-color .16s ease-out; } .ds-opt::before { content: \"\"; width: 15px; height: 15px; border: 1px solid #1c3564; flex: none; transition: background-color .16s ease-out, border-radius .16s ease-out, border-color .16s ease-out; } .ds-opt small { flex-basis: 100%; padding-left: 29px; font-size: .87rem; color: #4a4f54; } .ds-opt:hover { border-color: #141618; } .ds-opt.ds-sel { border-color: #00803f; } .ds-opt.ds-sel::before { background: #00803f; border-color: #00803f; border-radius: 50%; } .ds-opt:focus-visible { outline: 3px solid #1c3564; outline-offset: 2px; }"
     },
     {
       "name": "Chip",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Two-column square selectors for call-time preference. Selection is a red ring, never a fill.",
-      "html": "<div class=\"ds-chips\"><button class=\"ds-chip sel\">Kdykoli</button><button class=\"ds-chip\">Dopoledne</button><button class=\"ds-chip\">Odpoledne</button><button class=\"ds-chip\">Podvečer</button></div>",
-      "css": ".ds-chips { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; } .ds-chip { min-height:52px; border:1px solid var(--rule,#c9cbcd); border-radius:0; background:#fff; font-family:'Jost',system-ui,sans-serif; font-size:.99rem; cursor:pointer; color:var(--ink-2,#4a4f54); padding:10px; transition:border-color .16s ease-out, color .16s ease-out; } .ds-chip:hover { border-color:var(--ink,#141618); } .ds-chip.sel { border-color:var(--red,#d8261b); color:var(--ink,#141618); font-weight:600; box-shadow:inset 0 0 0 1px var(--red,#d8261b); } .ds-chip:focus-visible { outline:3px solid var(--blue,#1a3fd0); outline-offset:2px; }"
+      "description": "Square choice chip; selection is a green ring, not a fill.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\">Dopoledne</button><button class=\"ds-chip ds-on\" aria-pressed=\"true\">Odpoledne</button></div>",
+      "css": ".ds-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 360px; } .ds-chip { font-family: Jost, system-ui, sans-serif; min-height: 52px; padding: 10px; background: #fff; color: #4a4f54; border: 1px solid #c9cbcd; border-radius: 0; font-size: .95rem; cursor: pointer; transition: border-color .16s ease-out, color .16s ease-out; } .ds-chip.ds-on { border-color: #00803f; box-shadow: inset 0 0 0 1px #00803f; color: #141618; font-weight: 600; } .ds-chip:focus-visible { outline: 3px solid #1c3564; outline-offset: 2px; }"
     },
     {
-      "name": "Text Field",
+      "name": "Text Input",
       "kind": "input",
       "refersTo": "input-text",
-      "description": "Square plane input. Focus is a blue border plus inset blue stroke; error is the same in red with a yellow message block.",
-      "html": "<div class=\"ds-field\"><label for=\"ds-tel\">Telefonní číslo</label><input id=\"ds-tel\" type=\"tel\" placeholder=\"777 123 456\"><span class=\"err\">Zkontrolujte prosím číslo (9 číslic).</span></div>",
-      "css": ".ds-field { margin-bottom:20px; } .ds-field label { display:block; font-family:'Jost',system-ui,sans-serif; font-size:.93rem; font-weight:600; margin-bottom:7px; color:var(--ink,#141618); } .ds-field input { width:100%; min-height:56px; padding:14px 16px; font-family:'Jost',system-ui,sans-serif; font-size:1.09rem; border:1px solid var(--rule,#c9cbcd); border-radius:0; background:#fff; color:var(--ink,#141618); } .ds-field input::placeholder { color:#6c7176; } .ds-field input:focus { outline:none; border-color:var(--blue,#1a3fd0); box-shadow:inset 0 0 0 2px var(--blue,#1a3fd0); } .ds-field .err { display:none; align-items:center; gap:8px; font-family:'Jost',system-ui,sans-serif; font-size:.9rem; color:var(--ink,#141618); background:var(--yellow,#f5c400); padding:8px 11px; margin-top:7px; font-weight:500; } .ds-field.bad input { border-color:var(--red,#d8261b); box-shadow:inset 0 0 0 2px var(--red,#d8261b); } .ds-field.bad .err { display:flex; }"
+      "description": "White sheet, square; focus turns the border green with an inset stroke.",
+      "html": "<label class=\"ds-field\"><span>Telefon</span><input class=\"ds-input\" type=\"tel\" placeholder=\"777 123 456\"></label>",
+      "css": ".ds-field { font-family: Jost, system-ui, sans-serif; display: block; max-width: 420px; } .ds-field span { display: block; font-size: .95rem; font-weight: 600; margin-bottom: 7px; color: #141618; } .ds-input { font-family: Jost, system-ui, sans-serif; width: 100%; min-height: 56px; padding: 14px 16px; font-size: 1.1rem; background: #fff; color: #141618; border: 1px solid #c9cbcd; border-radius: 0; transition: border-color .16s ease-out, box-shadow .16s ease-out; } .ds-input::placeholder { color: #6c7176; } .ds-input:focus { outline: none; border-color: #00803f; box-shadow: inset 0 0 0 2px #00803f; }"
     },
     {
-      "name": "Plane Surface",
-      "kind": "card",
-      "refersTo": "plane-surface",
-      "description": "The system's refusal of the card: a white plane laid on the worktable with a hairline rule. No radius, no shadow, no hover.",
-      "html": "<div class=\"ds-plane\"><p>Uvnitř banky se produkt nedoporučuje podle toho, co potřebujete vy.</p><p><strong>Dostanu provizi od instituce — ne od vás.</strong></p></div>",
-      "css": ".ds-plane { background:#fff; border:1px solid var(--rule,#c9cbcd); border-radius:0; padding:24px; font-family:'Jost',system-ui,sans-serif; color:var(--ink-2,#4a4f54); font-size:1.04rem; line-height:1.6; } .ds-plane p + p { margin-top:16px; } .ds-plane strong { color:var(--ink,#141618); font-weight:600; }"
-    },
-    {
-      "name": "Step List",
-      "kind": "custom",
-      "refersTo": "step-marker",
-      "description": "Signature component. Numbered blue squares threaded by a hairline rule — structure is blue and square.",
-      "html": "<div class=\"ds-steps\"><div class=\"ds-step\"><h3>Zavolám vám do 24 hodin</h3><p>Osobně já, ne call centrum.</p></div><div class=\"ds-step\"><h3>Sejdeme se na 30 minut</h3><p>V Jemnici, u vás, nebo online.</p></div></div>",
-      "css": ".ds-steps { counter-reset:s; font-family:'Jost',system-ui,sans-serif; } .ds-step { position:relative; padding:0 0 28px 46px; counter-increment:s; } .ds-step::before { content:counter(s); position:absolute; left:0; top:1px; width:30px; height:30px; background:var(--blue,#1a3fd0); color:#fff; display:flex; align-items:center; justify-content:center; font-size:.95rem; font-weight:600; } .ds-step::after { content:\"\"; position:absolute; left:15px; top:34px; bottom:4px; width:1px; background:var(--rule,#c9cbcd); } .ds-step:last-child { padding-bottom:0; } .ds-step:last-child::after { display:none; } .ds-step h3 { font-size:1.1rem; font-weight:600; margin:0 0 3px; text-transform:none; letter-spacing:-.02em; line-height:1.08; color:var(--ink,#141618); } .ds-step p { font-size:.98rem; color:var(--ink-2,#4a4f54); line-height:1.5; margin:0; }"
-    },
-    {
-      "name": "Warning Block",
+      "name": "Caution Block",
       "kind": "custom",
       "refersTo": "alert-block",
-      "description": "Yellow full-bleed block for a commitment or failure the reader must not skim. Ink text on yellow; yellow is never a text color.",
-      "html": "<div class=\"ds-warn\"><strong>Slib:</strong> Když vám nemám co nabídnout, řeknu vám to rovnou — a víc se vám neozvu.</div>",
-      "css": ".ds-warn { background:var(--yellow,#f5c400); color:var(--ink,#141618); border-radius:0; padding:20px; font-family:'Jost',system-ui,sans-serif; font-size:1.02rem; line-height:1.5; } .ds-warn strong { font-weight:700; }"
+      "description": "Board warning: full-bleed yellow with ink text and a drawn triangle.",
+      "html": "<p class=\"ds-caution\"><span class=\"ds-tr\"></span>Telefon vypadá krátký — čekám aspoň 9 číslic.</p>",
+      "css": ".ds-caution { font-family: Jost, system-ui, sans-serif; display: flex; align-items: center; gap: 10px; max-width: 420px; padding: 12px 14px; background: #f5c400; color: #141618; font-size: .95rem; font-weight: 500; } .ds-tr { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #141618; flex: none; }"
+    },
+    {
+      "name": "Step Marker List",
+      "kind": "custom",
+      "refersTo": "step-marker",
+      "description": "Structure is navy and square: numbered steps joined by a hairline.",
+      "html": "<ol class=\"ds-steps\"><li><b>Zavolám do 24 hodin</b>Krátce, osobně.</li><li><b>30 minut nad vašimi smlouvami</b>V Jemnici, u vás nebo online.</li><li><b>Srovnání písemně</b>Nic se nepodepisuje na místě.</li></ol>",
+      "css": ".ds-steps { font-family: Jost, system-ui, sans-serif; list-style: none; counter-reset: s; max-width: 460px; padding: 0; margin: 0; } .ds-steps li { counter-increment: s; position: relative; padding: 0 0 24px 48px; color: #4a4f54; font-size: 1rem; line-height: 1.5; } .ds-steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; display: grid; place-items: center; background: #1c3564; color: #fff; font-weight: 600; } .ds-steps li:not(:last-child)::after { content: \"\"; position: absolute; left: 15px; top: 30px; bottom: 0; width: 1px; background: #c9cbcd; } .ds-steps b { display: block; color: #141618; font-weight: 600; }"
     },
     {
       "name": "Unbuilt Slot",
       "kind": "custom",
       "refersTo": "plane-surface",
-      "description": "Signature component. Content that does not exist yet is drawn as visibly unfinished — hatch, dashed border, yellow triangle — so it can never be mistaken for a finished part.",
-      "html": "<div class=\"ds-slot\"><blockquote>Místo pro reference klientů — s plným jménem, obcí a konkrétním výsledkem.</blockquote><span class=\"waiting\">Čeká na doplnění</span></div>",
-      "css": ".ds-slot { background:repeating-linear-gradient(135deg,var(--table,#f0f0ee),var(--table,#f0f0ee) 9px,#e6e5e1 9px,#e6e5e1 18px); border:1px dashed var(--ink-2,#4a4f54); border-radius:0; padding:24px; font-family:'Jost',system-ui,sans-serif; color:var(--ink,#141618); } .ds-slot blockquote { margin:0; font-size:1.04rem; line-height:1.5; } .ds-slot .waiting { display:inline-flex; align-items:center; gap:8px; font-size:.83rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2,#4a4f54); margin-top:16px; } .ds-slot .waiting::before { content:\"\"; width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent; border-bottom:12px solid var(--yellow,#f5c400); flex:none; }"
+      "description": "Missing evidence drawn as visibly unfinished — hatch, dash, waiting label.",
+      "html": "<div class=\"ds-slot\"><p>Tady bude reference skutečného klienta — jméno, obec a výsledek.</p><span class=\"ds-wait\">Čeká na doplnění</span></div>",
+      "css": ".ds-slot { font-family: Jost, system-ui, sans-serif; max-width: 420px; padding: 24px; background: repeating-linear-gradient(135deg, #f0f0ee, #f0f0ee 9px, #e6e5e1 9px, #e6e5e1 18px); border: 1px dashed #4a4f54; color: #4a4f54; } .ds-slot p { margin: 0; font-size: 1rem; } .ds-wait { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; } .ds-wait::before { content: \"\"; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #f5c400; }"
     },
     {
-      "name": "Sticky Action Bar",
+      "name": "Admin Tabs",
       "kind": "nav",
-      "refersTo": "button-sticky",
-      "description": "Bottom-pinned red action on a worktable strip with a 1px ink rule. Slides up between hero and quiz; hides on success.",
-      "html": "<div class=\"ds-sticky show\"><a href=\"#kviz\">Chci druhý názor →</a></div>",
-      "css": ".ds-sticky { position:relative; padding:10px 16px; background:var(--table,#f0f0ee); border-top:1px solid var(--ink,#141618); transform:translateY(125%); transition:transform .3s cubic-bezier(.2,0,0,1); } .ds-sticky.show { transform:none; } .ds-sticky a { display:flex; align-items:center; justify-content:center; min-height:56px; background:var(--red,#d8261b); color:#fff; text-decoration:none; font-family:'Jost',system-ui,sans-serif; font-weight:600; font-size:1.05rem; } .ds-sticky a:hover { background:var(--red-deep,#b81d13); } .ds-sticky a:focus-visible { outline:3px solid var(--blue,#1a3fd0); outline-offset:2px; }"
+      "refersTo": "count-badge",
+      "description": "Paper operational nav: white bar, 3px ink cut, green underline, green circle badge.",
+      "html": "<nav class=\"ds-tabs\"><a class=\"ds-tab ds-cur\" href=\"#\">Přehled</a><a class=\"ds-tab\" href=\"#\">Návštěvy</a><a class=\"ds-tab\" href=\"#\">Poptávky <span class=\"ds-badge\">3</span></a><a class=\"ds-tab\" href=\"#\">Články</a></nav>",
+      "css": ".ds-tabs { font-family: Jost, system-ui, sans-serif; display: flex; background: #fff; border-bottom: 3px solid #1d1f1e; } .ds-tab { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 56px; padding: 0 16px; color: #50554f; font-weight: 500; text-decoration: none; } .ds-tab:hover { color: #1d1f1e; } .ds-tab.ds-cur { color: #1d1f1e; font-weight: 600; } .ds-tab.ds-cur::after { content: \"\"; position: absolute; left: 16px; right: 16px; bottom: -3px; height: 3px; background: #00803f; } .ds-badge { width: 24px; height: 24px; display: inline-grid; place-items: center; border-radius: 50%; background: #00803f; color: #fff; font-size: .8rem; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-tab:focus-visible { outline: 3px solid #1c3564; outline-offset: 2px; }"
     },
     {
-      "name": "Primary Form Marks",
+      "name": "Funnel Bar",
       "kind": "custom",
-      "refersTo": "form-square",
-      "description": "The whole icon vocabulary: blue square = structure, red circle = action, yellow triangle = warning. Drawn in CSS, never as assets.",
-      "html": "<div class=\"ds-forms\"><span class=\"ds-form-sq\"></span><span class=\"ds-form-ci\"></span><span class=\"ds-form-tr\"></span></div>",
-      "css": ".ds-forms { display:flex; align-items:flex-end; gap:16px; } .ds-form-sq, .ds-form-ci, .ds-form-tr { display:block; flex:none; } .ds-form-sq { width:14px; height:14px; background:var(--blue,#1a3fd0); } .ds-form-ci { width:14px; height:14px; border-radius:50%; background:var(--red,#d8261b); } .ds-form-tr { width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:14px solid var(--yellow,#f5c400); }"
+      "refersTo": "plane-surface",
+      "description": "One-hue magnitude; a state recolors a bar only together with words.",
+      "html": "<div class=\"ds-bars\"><div class=\"ds-bar\"><span>Detail</span><i><b style=\"width:100%\"></b></i><em>45</em></div><div class=\"ds-bar ds-warn\"><span>Spěch <small>▼ největší propad −26</small></span><i><b style=\"width:42%\"></b></i><em>19 · 42 %</em></div><div class=\"ds-bar ds-good\"><span>Odesláno <small>● poptávka</small></span><i><b style=\"width:4%\"></b></i><em>2 · 4 %</em></div></div>",
+      "css": ".ds-bars { font-family: Jost, system-ui, sans-serif; display: grid; gap: 10px; max-width: 560px; padding: 24px; background: #fff; border: 1px solid #e3ded4; } .ds-bar { display: grid; grid-template-columns: 34% 1fr 84px; align-items: center; gap: 12px; font-size: .9rem; color: #1d1f1e; } .ds-bar small { margin-left: 6px; font-size: .8rem; color: #50554f; } .ds-bar i { height: 12px; background: #f1ede4; position: relative; } .ds-bar b { position: absolute; inset: 0 auto 0 0; background: #1c3564; } .ds-bar em { font-style: normal; font-size: .84rem; color: #50554f; text-align: right; font-variant-numeric: tabular-nums; } .ds-warn b { background: #b97e26; } .ds-warn small { color: #1d1f1e; font-weight: 600; } .ds-good b { background: #00803f; } .ds-good small { color: #006632; font-weight: 600; }"
     }
   ],
   "narrative": {
-    "northStar": "The Foundation Workshop Table",
-    "overview": "This system governs exactly one surface: konzultace.html, the noindex ad landing page. It is a deliberate standalone world. index.html, admin.html, blog.html and gdpr.html still carry the older green/gold identity and are not subject to this document. Do not propagate these tokens onto those pages, and do not import their tokens here. When a second surface adopts this world, extend this file; until then, its scope is one page.\n\nThe page reads as a Bauhaus foundation-course worktable: a warm grey working surface with a visible ruled baseline, ink-black text, and three primary colors that are not a palette but a set of assigned jobs. A red circle means action and active state. A blue square means structure. A yellow triangle means warning. Nothing on the page is colored for mood; every mark is either a form doing a job or ink. Surfaces are white planes laid onto the table with a hairline rule, never cards with radius and shadow. Type is a single alphabet, lowercase in headings, tightly tracked, with hierarchy carried by size and weight alone.\n\nThe thesis behind the look is that independence gets proven by admission, not by seals. So the page refuses both the green/gold \"trustworthy finance\" funnel — no trust badges, no gold, no soft reassuring gradients — and its brutalist opposite: nothing here is ugly for effect, everything is squared because it is measured. The one genuine self-critical device in the build is the visibly unbuilt testimonial slot: hatched, dashed, labelled as waiting. The system would rather show an empty jig than a fake finished part.",
+    "northStar": "The Open Folder",
+    "overview": "The one physical thing a client ever receives from this practice is a folder: *desky* holding copies of their own contracts. The system is built as that folder opened on the table. Pages are plain sheets laid on a ground; a hairline is the edge of the paper; nothing is lacquered, embossed or lit. Whatever is on a sheet can be read, checked and handed back. That is the visual form of the position the business sells — a second opinion that includes the credible possibility of \"change nothing\" — and it is why polish is treated as a cost rather than a virtue. A wary person reads gloss as a sales signal; a plain sheet with a registration number on it reads as something they can verify.\n\nThe folder has two surfaces. **Board** is the cool grey card of the folder itself: squared, measured, a little severe, used where a stranger arrives cold from an ad and must decide in seconds (`konzultace.html`). **Paper** is the warm cream sheet inside: the same alphabet and the same colors, softer ground, used where the reader already knows who is talking and wants the story or the work (`spoluprace.html`, the override layer of `index.html`, `admin.html`). Both surfaces share one green action, one navy structure, one caution, one typeface and the three primary forms. They differ only in ground, ink temperature, heading case, and — on narrative pages — corner softness.\n\nThe system rejects three neighbouring worlds by name. It is not the green-and-gold \"trustworthy finance\" funnel the older `index.html` and `blog.html` still wear (forest green, gold, Playfair Display, trust badges, soft gradients). It is not the slick fintech app (glass, gradients, rounded shadowed cards, glowing numbers). And it is not brutalism for effect: everything is squared because it is measured, not because ugliness signals honesty.",
     "keyCharacteristics": [
-      "Three primaries with fixed semantic roles; no fourth accent, no tint variants.",
-      "Zero corner radius everywhere except true circles.",
-      "One typeface (Jost), lowercase headings, no second family.",
-      "Flat by construction: hairline rules and inset strokes instead of shadows.",
-      "A visible 32px baseline grid drawn on the page background.",
-      "Geometric marks (::before square / circle / triangle) instead of icons."
+      "One action color (Signal Green), one structure color (Ledger Navy), one warning family (Caution Yellow on Board, Caution Amber on Paper). No fourth accent.",
+      "Two neutral families, chosen per surface, never mixed on one page.",
+      "One typeface (Jost). Hierarchy by size, weight and case.",
+      "Flat by construction: sheets, hairlines and inset strokes; no drop shadows.",
+      "Square corners wherever someone works; soft corners only where someone reads a story.",
+      "Indicators are drawn forms — square, circle, triangle — never icons.",
+      "Missing evidence is shown as visibly unbuilt, never filled with plausible placeholders."
     ],
     "rules": [
-      { "name": "The Assigned Role Rule", "body": "Red is action and active state. Blue is structure. Yellow is warning. A color never takes another's job, and no element gets a primary color for emphasis alone. If a new element cannot be classified as action, structure, or warning, it is ink.", "section": "colors" },
-      { "name": "The One Pressable Red Rule", "body": "Red on a surface either is the thing you press or is the thing you just chose. The hero disc is the single sanctioned non-interactive use, because it is the circle carrying the person who acts.", "section": "colors" },
-      { "name": "The Ink-Or-Primary Rule", "body": "There are no tints, no 60%-opacity accents, no hover washes. State changes swap a whole token (red → red-deep, rule → ink, rule → red), never a transparency.", "section": "colors" },
-      { "name": "The Single Alphabet Rule", "body": "One family, full stop. Hierarchy comes from size, weight (400/500/600/700) and case, not from a paired face. Automated checks flag this build as single-font; that finding is an accepted, documented exception, not a defect. Single-alphabet typography is native to the Bauhaus foundation world and the measured ramp already separates every role. Do not \"fix\" it by adding a serif or a mono.", "section": "typography" },
-      { "name": "The Lowercase Heading Rule", "body": "H1 and H2 are lowercase, always. Anything that is a sentence addressed to the reader — step headings, the person's name — opts back into sentence case explicitly. Nothing is ALL CAPS above 0.8rem.", "section": "typography" },
-      { "name": "The Module Rule", "body": "Every spatial value is calc(var(--u) * n). A raw px margin is a bug.", "section": "layout" },
-      { "name": "The Rebalance-Not-Shrink Rule", "body": "On wider viewports the composition redistributes weight (grid split, disc grows, CTA caps). Nothing simply scales up.", "section": "layout" },
-      { "name": "The No-Lift Rule", "body": "Nothing floats. If an element needs to read as distinct, give it a plane, a rule, or a fill — never a drop shadow, and never a radius.", "section": "elevation" },
-      { "name": "The Form-Marker Rule", "body": "Every component-level indicator is one of the three primary forms, sized 10–15px, drawn in CSS as a ::before or a .form-* element. No icon fonts, no SVG pictograms, no emoji glyphs in the component layer.", "section": "components" },
-      { "name": "The Square-Becomes-Circle Rule", "body": "Selection is expressed by a blue square turning into a red circle. That transformation is the system's core interaction signature; do not replace it with a checkmark, a fill-only change, or a color-only change.", "section": "components" }
+      {
+        "name": "The Assigned Role Rule",
+        "body": "Green is action and confirmed outcome. Navy is structure and magnitude. Caution is warning. A color never takes another's job, and nothing gets a primary color for emphasis alone. If an element is not action, structure or warning, it is ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Pressable Green Rule",
+        "body": "Green on a surface is the thing you press, the thing you just chose, or the thing that went through. The deep-green plane behind the hero portrait is the single sanctioned non-interactive use, because it carries the person who acts.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Surface Per Page Rule",
+        "body": "A page is Board or Paper, never both. Board neutrals do not appear on a Paper page and the reverse.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Tint Rule",
+        "body": "Board has no tints: state changes swap whole tokens. Paper allows exactly one tint, Signal Green Soft, as the resting ground under illustrations and as the fill of a positive status chip. No other color gets a light version.",
+        "section": "colors"
+      },
+      {
+        "name": "The Color-Never-Alone Rule",
+        "body": "Green and amber sit at ΔE 6.0 for protanopes. Any state they mark also carries text or a form beside the color: `● poptávka`, `▼ největší propad`, a circle, a triangle.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single Alphabet Rule",
+        "body": "One family. Hierarchy comes from size, weight (400/500/600/700) and case. The `single-font` detector finding is an accepted, documented exception; do not answer it by adding a serif. The monospace code well is the only second face, and only for literal code.",
+        "section": "typography"
+      },
+      {
+        "name": "The Case-By-Surface Rule",
+        "body": "Board headings (H1–H3) are lowercase, always — sentences addressed to the reader opt back into sentence case explicitly. Paper headings are sentence case. Nothing anywhere is ALL CAPS above 0.8rem.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Number Rule",
+        "body": "Every number a reader might compare or check — figures, KPIs, durations, percentages, table values — uses tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Module Rule",
+        "body": "Every spatial value is a multiple of 8px.",
+        "section": "layout"
+      },
+      {
+        "name": "The Rebalance-Not-Shrink Rule",
+        "body": "Wider viewports redistribute weight (grid split, portrait grows, CTA caps). Nothing simply scales up.",
+        "section": "layout"
+      },
+      {
+        "name": "The No-Lift Rule",
+        "body": "Nothing floats. If an element must read as distinct, give it a sheet, a rule or a recess — never a drop shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Spilled Pages Exception",
+        "body": "Tilt and overlap belong to the review wall alone. Nothing else rotates.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Work-Square, Story-Soft Rule",
+        "body": "Square corners on every working surface (forms, quiz, buttons, admin). 12–14px corners only on narrative sheets. A new page picks one by its job, not by taste.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Square-Becomes-Circle Rule",
+        "body": "Selection is a navy outline square turning into a filled green circle (border-radius animating to 50% over 160ms). It is the system's interaction signature — on quiz options and on the admin's \"my visits don't count\" toggle. Do not replace it with a checkmark or a color-only change.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Form-Marker Rule",
+        "body": "Every indicator is one of the three primary forms, 10–15px, drawn in CSS. No icon fonts, no SVG pictograms, no emoji in the component layer; a typographic arrow (`→`) is the only other mark.",
+        "section": "components"
+      },
+      {
+        "name": "The One Entrance Rule",
+        "body": "One authored entrance per page, eased out, never overshooting. Everything else is a state change.",
+        "section": "components"
+      }
     ],
     "dos": [
-      "Do classify every new element as action (red circle), structure (blue square), or warning (yellow triangle) before choosing its color. If it fits none, it is ink.",
-      "Do build every spatial value as calc(var(--u) * n) on the 8px module, and keep the 32px baseline grid visible on the page ground.",
-      "Do keep radius at 0 on everything that is not literally a circle.",
-      "Do lay content on white planes with a 1px rule border and no shadow.",
-      "Do draw indicators as CSS geometry (.form-sq / .form-ci / .form-tr and their ::before equivalents) at 10–15px.",
-      "Do keep headings lowercase at 500 weight with −0.02em tracking, and let sentence-level headings opt out with text-transform:none.",
-      "Do give every interactive element the same focus treatment: 3px Structure Blue outline at 2px offset.",
-      "Do keep tap targets at 44px or more; the shipped floors are 64 (CTA), 62 (option), 56 (input, sticky), 52 (chip).",
-      "Do mark content that is genuinely missing as visibly unbuilt (hatch, dash, \"waiting\" label) rather than filling it with plausible placeholder copy.",
-      "Do use one typeface. The single-font finding on this build is an accepted exception, recorded here so it is not re-opened."
+      "**Do** classify every new element as action (green circle), structure (navy square) or warning (caution triangle) before choosing a color. If it is none of these, it is ink.",
+      "**Do** pick one surface per page — Board for cold-traffic ad landings, Paper for the story, the main site and the admin — and use only that surface's neutrals.",
+      "**Do** build every spatial value as `calc(var(--u) * n)` on the 8px module.",
+      "**Do** keep corners square on working surfaces and soften to 12–14px only on narrative sheets.",
+      "**Do** lay content on white sheets with a 1px rule and no shadow.",
+      "**Do** give every interactive element the same focus: a 3px Ledger Navy outline at 2px offset.",
+      "**Do** keep tap targets at 44px or more; shipped floors are 64 (CTA), 62 (option), 56 (input, sticky), 52 (chip), 44 (admin controls).",
+      "**Do** print the value beside every colored mark, and pair every state color with a word or a form.",
+      "**Do** use tabular numerals for every number a reader may compare.",
+      "**Do** mark genuinely missing content as visibly unbuilt (hatch, dash, \"waiting\") rather than filling it with plausible placeholders."
     ],
     "donts": [
-      "Don't swap the color roles — no blue buttons, no red section labels, no yellow text.",
-      "Don't introduce a fourth accent, a tint scale, or an opacity-based hover wash. State changes swap whole tokens.",
-      "Don't add corner radius, drop shadows, or hover lift to planes. Inset strokes are the only permitted box-shadow.",
-      "Don't use gradients as decorative surface fills. Gradients are permitted only as drafting operations — the baseline rule, the portrait mask, the hatch — because that is how this build already uses them.",
-      "Don't add icon libraries, icon fonts, or SVG pictograms. Typographic arrows (→) and the three primary forms are the entire mark vocabulary.",
-      "Don't set ALL CAPS above 0.8rem, or add a second typeface to create hierarchy.",
-      "Don't apply these tokens to index.html, admin.html, blog.html or gdpr.html; those surfaces are a different, older identity and this system does not govern them yet.",
-      "Don't lower a contrast value to make a design read better. The shipped floors are 4.98:1 on the primary action, 4.93:1 on placeholders, and ≥7.25:1 on all other text."
+      "**Don't** drift into the green-and-gold \"trustworthy finance\" funnel: no forest green with gold, no Playfair Display, no trust badges, no soft reassuring gradients.",
+      "**Don't** drift into the slick fintech app: no glass, no gradient surfaces, no rounded shadowed cards, no glowing numbers.",
+      "**Don't** be ugly for effect. Squared means measured, not provocative.",
+      "**Don't** swap color roles — no navy buttons, no green section labels on Board, no caution text.",
+      "**Don't** add a fourth accent or a tint other than Signal Green Soft on Paper.",
+      "**Don't** mix Board and Paper neutrals on one page.",
+      "**Don't** add drop shadows or hover lift, and don't tilt anything outside the review wall.",
+      "**Don't** set Caution Amber or Paper Ink 3 as body text; they fall below 4.5:1.",
+      "**Don't** add a second typeface for hierarchy, or set ALL CAPS above 0.8rem.",
+      "**Don't** let an entrance animation overshoot, or give a page more than one.",
+      "**Don't** apply this system to `blog.html` or `gdpr.html`; they still wear the older identity. `index.html` is mid-migration through its override layer and should converge on Paper.",
+      "**Don't** lower a contrast value to make a design read better. Floors: 4.98:1 on the primary action, 4.93:1 on placeholders, 4.5:1 on all body text."
     ]
   }
 }

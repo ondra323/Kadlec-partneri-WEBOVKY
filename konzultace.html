@@ -367,6 +367,8 @@ footer a{color:var(--blue)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 </style>
+<script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
+<script src="assets/track.js" defer></script>
 </head>
 <body>
 
@@ -532,7 +534,7 @@ footer a{color:var(--blue)}
   <div class="wrap">
     <h2 id="q-head">Začneme jednou otázkou</h2>
 
-    <div class="quiz-box">
+    <div class="quiz-box" data-track-form="kviz">
       <div class="bar"><i id="bar"></i></div>
 
       <div class="panel" data-q="1">
@@ -655,19 +657,7 @@ footer a{color:var(--blue)}
   const db = getFirestore(app);
   window.__inquiryDb = db;
   window.__fbInquiry = { collection, addDoc, serverTimestamp };
-  try {
-    const p = new URLSearchParams(location.search), ref = document.referrer;
-    let source = p.get('utm_source') || 'přímá';
-    if (!p.get('utm_source') && ref) {
-      if (/instagram\./i.test(ref)) source='instagram';
-      else if (/facebook\.|fb\./i.test(ref)) source='facebook';
-      else { try { source='odkaz ('+new URL(ref).hostname+')' } catch(e){} }
-    }
-    addDoc(collection(db,'pageviews'), {
-      page:'konzultace/'+(p.get('tema')||'obecne'), source, referrer:ref||'',
-      ua:navigator.userAgent.substring(0,120), timestamp:serverTimestamp(), duration:0
-    }).catch(()=>{});
-  } catch(e){}
+  // Návštěvy měří assets/track.js (doba, scroll, kliky, kroky kvízu).
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script>(function w(n){if(typeof emailjs!=='undefined'){try{emailjs.init("CPb7Fs8T2eyD6612X")}catch(e){}}else if(n<25)setTimeout(function(){w(n+1)},300)})(0);</script>
@@ -758,6 +748,7 @@ footer a{color:var(--blue)}
   var tema = P.get('tema'); if (!T[tema]) tema = null;
   var A = {topic: tema || '', detail:'', when:'', call:'kdykoli', _max:0};
   var FIRST = tema ? 2 : 1, TOTAL = tema ? 3 : 4;
+  var STEP_NAME = {1:'Téma', 2:'Detail', 3:'Spěch', 4:'Kontakt'};
 
   // Q2 větve
   var Q2 = {
@@ -809,7 +800,7 @@ footer a{color:var(--blue)}
   var bar = document.getElementById('bar'), panels = document.querySelectorAll('.panel');
 
   function show(n){
-    if (n > A._max) { A._max = n; track('krok-' + n); }
+    if (n > A._max) { A._max = n; kt('step', 'kviz', n, STEP_NAME[n]); }
     A._cur = n;
     panels.forEach(function(p){ p.classList.toggle('on', +p.dataset.q === n) });
     var idx = n - FIRST + 1;
@@ -880,30 +871,18 @@ footer a{color:var(--blue)}
       '. Termín: <b>' + (WHEN[A.when]||'') + '</b>. Podklady si připravím ještě před telefonátem.';
   }
 
-  var seen = {};
-  function track(ev){
-    if (seen[ev]) return; seen[ev] = 1;
-    try {
-      var fb = window.__fbInquiry || {}, db = window.__inquiryDb;
-      if (db && fb.addDoc) fb.addDoc(fb.collection(db,'quiz_funnel'), {
-        event: ev, tema: tema || 'obecne',
-        source: P.get('utm_source') || document.referrer || 'přímá',
-        timestamp: fb.serverTimestamp()
-      }).catch(function(){});
-    } catch(e){}
-  }
-  track('otevreno');
+  kt('open', 'kviz');
 
   document.getElementById('f').addEventListener('submit', function(e){
     e.preventDefault();
     var jm = document.getElementById('jmeno'), tl = document.getElementById('tel');
     var ok = true, dg = tl.value.replace(/\D/g,'');
     document.getElementById('fn').classList.toggle('bad', jm.value.trim().length < 2);
-    if (jm.value.trim().length < 2) ok = false;
+    if (jm.value.trim().length < 2) { ok = false; kt('error', 'kviz', 'jméno'); }
     var telOk = dg.length >= 9 && dg.length <= 13;
     document.getElementById('ft').classList.toggle('bad', !telOk);
-    if (!telOk) ok = false;
-    if (!document.getElementById('gdpr').checked) { ok = false; document.getElementById('gdpr').focus(); }
+    if (!telOk) { ok = false; kt('error', 'kviz', 'telefon'); }
+    if (!document.getElementById('gdpr').checked) { ok = false; kt('error', 'kviz', 'souhlas'); document.getElementById('gdpr').focus(); }
     if (!ok) return;
 
     var fail = document.getElementById('sendfail');
@@ -928,7 +907,8 @@ footer a{color:var(--blue)}
     var fbSave = (async function(){
       var fb = window.__fbInquiry || {}, db = window.__inquiryDb;
       if (!db || !fb.addDoc) throw new Error('Firestore není k dispozici');
-      await fb.addDoc(fb.collection(db,'inquiries'), Object.assign({}, data, {createdAt: fb.serverTimestamp()}));
+      var ref = await fb.addDoc(fb.collection(db,'inquiries'), Object.assign({}, data, {createdAt: fb.serverTimestamp()}));
+      return ref.id;
     })();
     var mail = (async function(){
       if (typeof emailjs === 'undefined' || !emailjs.send) throw new Error('EmailJS není k dispozici');
@@ -939,11 +919,12 @@ footer a{color:var(--blue)}
       btn.textContent = orig; btn.disabled = false;
       if (r[0].status === 'rejected' && r[1].status === 'rejected') {
         console.error('Lead se nepodařilo odeslat', r);
+        kt('submit', 'kviz', false);
         fail.classList.add('on');
         fail.scrollIntoView({block:'center', behavior:'smooth'});
         return;
       }
-      track('lead');
+      kt('submit', 'kviz', true, r[0].status === 'fulfilled' ? r[0].value : '');
       panels.forEach(function(p){p.classList.remove('on')});
       document.querySelector('.bar').style.display = 'none';
       document.getElementById('q-head').textContent = 'Hotovo';

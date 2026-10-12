@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Jak spolupráce probíhá | Ondřej Kadlec</title>
+<meta name="description" content="Šest kroků spolupráce s nezávislým finančním poradcem — co se stane, co budete potřebovat a co dělám já.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   JOURNEY SPOLUPRÁCE — návrh sekce pro novou hlavní stránku
+   Zelená z konzultace.html, podklad teplý (vřelost = barva, ne pohyb)
+   Pohyb vysvětluje strukturu: osa se kreslí, obrázky se rýsují,
+   detaily se rozbalují. Nic se nehýbe bez důvodu.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --green:#00803f;          /* akce a osa — stejná jako konzultace */
+  --green-deep:#006632;
+  --green-soft:#e7f2ea;     /* teplá zelená plocha pod obrázky */
+  --cream:#faf7f2;          /* teplý podklad místo šedé desky */
+  --plane:#ffffff;
+  --ink:#1d1f1e;
+  --ink-2:#50554f;
+  --ink-3:#787d76;
+  --rule:#e3ded4;           /* teplá linka */
+  --amber:#b97e26;          /* teplý akcent pro obavy */
+
+  --t-h2:clamp(1.6rem,5vw,2.35rem);
+  --t-lead:clamp(1.05rem,3.4vw,1.2rem);
+  --t-sub:1.12rem;
+  --t-body:1.05rem;
+  --t-sm:.95rem;
+  --t-label:.8rem;
+  --u:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Jost',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  line-height:1.6;font-size:var(--t-body);overflow-x:hidden}
+.wrap{width:100%;max-width:620px;margin:0 auto;padding:0 24px}
+
+/* ── hlavička sekce ── */
+.head{padding:calc(var(--u)*9) 0 calc(var(--u)*6)}
+.label{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-label);font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:calc(var(--u)*2)}
+.label:before{content:"";width:11px;height:11px;border-radius:50%;background:var(--green)}
+h2{font-size:var(--t-h2);font-weight:500;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+.head p{font-size:var(--t-lead);color:var(--ink-2);margin-top:calc(var(--u)*2);max-width:44ch}
+.head p strong{color:var(--ink);font-weight:600}
+
+/* ── OSA — kreslí se při scrollu ── */
+.journey{position:relative;padding:calc(var(--u)*2) 0 calc(var(--u)*10)}
+.rail{position:absolute;left:calc(24px + 21px);top:0;bottom:0;width:2px;background:var(--rule)}
+.rail i{display:block;width:100%;height:0;background:var(--green);transition:none}
+
+/* ── KROK ── */
+.stop{position:relative;padding:0 0 calc(var(--u)*5) calc(21px + 44px);
+  opacity:0;transform:translateY(18px);
+  transition:opacity .5s ease,transform .5s cubic-bezier(.22,.9,.3,1)}
+.stop.seen{opacity:1;transform:none}
+.stop:last-child{padding-bottom:0}
+/* uzel na ose */
+.dot{position:absolute;left:11px;top:4px;width:22px;height:22px;border-radius:50%;
+  background:var(--cream);border:2px solid var(--rule);
+  transition:border-color .4s ease,background .4s ease}
+.dot:after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--green);
+  transform:scale(0);transition:transform .35s cubic-bezier(.34,1.4,.5,1) .15s}
+.stop.seen .dot{border-color:var(--green)}
+.stop.seen .dot:after{transform:scale(1)}
+
+.stop-kicker{font-size:var(--t-label);font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:4px}
+.stop h3{font-size:var(--t-sub);font-weight:600;line-height:1.3;margin-bottom:6px}
+.stop .gist{font-size:var(--t-body);color:var(--ink-2);line-height:1.55;max-width:46ch}
+.stop .gist strong{color:var(--ink);font-weight:600}
+
+/* ── OBRÁZEK — rýsuje se, když krok vjede do výřezu ── */
+.pic{margin:calc(var(--u)*2) 0;background:var(--green-soft);border-radius:14px;
+  padding:calc(var(--u)*2.5);display:flex;justify-content:center}
+.pic svg{width:100%;max-width:270px;height:auto;display:block}
+.pic [data-draw]{fill:none;stroke:var(--green-deep);stroke-width:2.5;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--len,300);stroke-dashoffset:var(--len,300)}
+.stop.seen .pic [data-draw]{animation:draw 1s cubic-bezier(.4,0,.2,1) forwards}
+.stop.seen .pic [data-draw].d2{animation-delay:.35s}
+.stop.seen .pic [data-draw].d3{animation-delay:.7s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.pic [data-pop]{opacity:0;transform-origin:center;transform:scale(.6)}
+.stop.seen .pic [data-pop]{animation:pop .4s cubic-bezier(.34,1.4,.5,1) 1s forwards}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+
+/* papíry vjíždějící do desek (krok 3) */
+.pic .sheet{opacity:0;transform:translateY(-26px)}
+.stop.seen .pic .sheet{animation:filein .55s cubic-bezier(.3,.9,.35,1) forwards}
+.stop.seen .pic .sheet.s2{animation-delay:.5s}
+.stop.seen .pic .sheet.s3{animation-delay:.75s}
+.pic .sheet.s1{animation-delay:.25s}
+@keyframes filein{to{opacity:1;transform:translateY(0)}}
+
+/* ── OBAVA + ODPOVĚĎ — rozbalovací detail ── */
+.more{margin-top:calc(var(--u)*1.5);border:1px solid var(--rule);border-radius:12px;
+  background:var(--plane);overflow:hidden}
+.more summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+  padding:13px 16px;font-size:var(--t-sm);font-weight:600;color:var(--ink-2);user-select:none}
+.more summary::-webkit-details-marker{display:none}
+.more summary .q{color:var(--amber);font-style:italic;font-weight:500}
+.more summary .chev{margin-left:auto;flex:none;width:10px;height:10px;
+  border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);
+  transform:rotate(45deg);transition:transform .25s ease}
+.more[open] summary .chev{transform:rotate(-135deg)}
+.more .body{padding:2px 16px 15px;font-size:var(--t-sm);color:var(--ink-2);line-height:1.6}
+.more .body strong{color:var(--ink);font-weight:600}
+/* plynulé rozbalení */
+.more .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease;padding-top:0;padding-bottom:0}
+.more .body>div{overflow:hidden}
+.more[open] .body{grid-template-rows:1fr;padding-bottom:15px}
+
+/* ── závěr journey ── */
+.after{margin-top:calc(var(--u)*6);background:var(--plane);border:1px solid var(--rule);
+  border-radius:14px;padding:calc(var(--u)*3)}
+.after p{color:var(--ink-2);font-size:var(--t-body)}
+.after p strong{color:var(--ink)}
+.cta{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;min-height:60px;
+  background:var(--green);color:#fff;text-decoration:none;border-radius:12px;
+  font-size:var(--t-sub);font-weight:600;margin-top:calc(var(--u)*2.5);
+  transition:background .16s ease,transform .1s ease}
+.cta:hover{background:var(--green-deep)}
+.cta:active{transform:translateY(1px)}
+.cta-alt{display:block;text-align:center;margin-top:calc(var(--u)*1.5);font-size:var(--t-sm);color:var(--ink-2)}
+.cta-alt a{color:var(--green-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+@media(prefers-reduced-motion:reduce){
+  .stop{opacity:1;transform:none;transition:none}
+  .pic [data-draw]{stroke-dashoffset:0;animation:none!important}
+  .pic [data-pop],.pic .sheet{opacity:1;transform:none;animation:none!important}
+  .dot:after{transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+<script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
+<script src="assets/track.js" defer></script>
+</head>
+<body>
+
+<section class="head">
+  <div class="wrap">
+    <span class="label">Jak spolupráce probíhá</span>
+    <h2>Šest kroků. U každého víte předem, co se stane.</h2>
+    <p>Nikam se nespěchá a nic se nepodepisuje na první schůzce. <strong>Tohle je celá cesta — včetně toho, co se děje potom.</strong></p>
+  </div>
+</section>
+
+<section class="journey" id="journey">
+  <div class="rail"><i id="rail-fill"></i></div>
+  <div class="wrap">
+
+    <!-- ══ 1 · PRVNÍ KONTAKT ══ -->
+    <article class="stop">
+      <span class="dot"></span>
+      <div class="stop-kicker">Krok 1 · telefonát</div>
+      <h3>Zavolám vám do 24 hodin</h3>
+      <div class="pic">
+        <svg viewBox="0 0 270 120" role="img" aria-label="Telefonát">
+          <path data-draw style="--len:220" d="M52 28c-6 2-10 8-9 15 2 16 10 31 22 43s27 20 43 22c7 1 13-3 15-9l3-9c1-4-1-8-5-10l-12-6c-3-2-7-1-9 2l-4 5c-9-4-17-12-21-21l5-4c3-2 4-6 2-9l-6-12c-2-4-6-6-10-5z"/>
+          <path data-draw class="d2" style="--len:120" d="M150 38h68M150 56h52M150 74h60"/>
+          <circle data-pop cx="238" cy="30" r="7" fill="var(--green)"/>
+        </svg>
+      </div>
+      <p class="gist">Osobně já, ne call centrum. Deset minut — řeknete mi, co řešíte, a domluvíme se, jestli má schůzka smysl.</p>
+      <details class="more">
+        <summary><span class="q">„Začne mě otravovat?"</span><span class="chev"></span></summary>
+        <div class="body"><div>
+          Ne. Volám <strong>jednou</strong>. Když se nedovolám, zkusím to ještě jednou další den a pak napíšu jednu SMS.
+          Když se neozvete, <strong>tím to končí</strong> — žádné další volání, žádný seznam, žádný spam.
+        </div></div>
+      </details>
+    </article>
+
+    <!-- ══ 2 · SCHŮZKA ══ -->
+    <article class="stop">
+      <span class="dot"></span>
+      <div class="stop-kicker">Krok 2 · 30 minut</div>
+      <h3>Sejdeme se — v Jemnici, u vás, nebo online</h3>
+      <div class="pic">
+        <svg viewBox="0 0 270 120" role="img" aria-label="Schůzka u kávy">
+          <path data-draw style="--len:200" d="M96 44h64v28c0 14-11 25-25 25h-14c-14 0-25-11-25-25z"/>
+          <path data-draw class="d2" style="--len:70" d="M160 50h12c8 0 14 6 14 14s-6 14-14 14h-14"/>
+          <path data-draw class="d2" style="--len:60" d="M112 30c0-6 6-6 6-12M134 30c0-6 6-6 6-12"/>
+          <path data-draw class="d3" style="--len:110" d="M74 108h124"/>
+        </svg>
+      </div>
+      <p class="gist">Nic si nepřipravujete a nic nenosíte. Povíme si, kde stojíte a co chcete — <strong>na místě se nikdy nic nepodepisuje.</strong></p>
+      <details class="more">
+        <summary><span class="q">„Bude na mě tlačit?"</span><span class="chev"></span></summary>
+        <div class="body"><div>
+          První schůzka je seznámení, ne prodej. Neexistuje nic, co byste na ní mohli koupit, i kdybyste chtěli —
+          <strong>návrh vzniká až potom</strong>, z podkladů. Když si po schůzce řeknete, že dál nechcete, stačí to říct. Nebo neříct nic.
+        </div></div>
+      </details>
+    </article>
+
+    <!-- ══ 3 · PODKLADY — desky ══ -->
+    <article class="stop">
+      <span class="dot"></span>
+      <div class="stop-kicker">Krok 3 · vaše smlouvy</div>
+      <h3>Založíme vám desky</h3>
+      <div class="pic">
+        <svg viewBox="0 0 270 130" role="img" aria-label="Papíry se skládají do desek">
+          <g class="sheet s1"><rect x="105" y="8" width="56" height="36" rx="3" fill="#fff" stroke="var(--green-deep)" stroke-width="2"/><path d="M113 18h40M113 26h30" stroke="var(--green-deep)" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+          <g class="sheet s2"><rect x="120" y="14" width="56" height="36" rx="3" fill="#fff" stroke="var(--green-deep)" stroke-width="2"/><path d="M128 24h40M128 32h26" stroke="var(--green-deep)" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+          <path data-draw style="--len:330" d="M62 58h58l10 12h78a8 8 0 0 1 8 8v34a8 8 0 0 1-8 8H62a8 8 0 0 1-8-8V66a8 8 0 0 1 8-8z"/>
+          <path data-draw class="d3" style="--len:40" d="M150 96l8 8 16-16" fill="none" stroke="var(--green)"/>
+        </svg>
+      </div>
+      <p class="gist">Přinesete, co doma najdete — pojistky, úvěry, penzijko. Uděláme kopie a <strong>dostanete je zpátky srovnané v deskách.</strong> Od té chvíle máte všechno na jednom místě.</p>
+      <details class="more">
+        <summary><span class="q">„Co po mně bude chtít?"</span><span class="chev"></span></summary>
+        <div class="body"><div>
+          Jen existující smlouvy — <strong>nic nevyplňujete a nic nedohledáváte</strong>. Když něco nenajdete,
+          vyžádám si to od instituce já na základě plné moci k nahlížení. Ta neumožňuje nic měnit, jen se dívat.
+        </div></div>
+      </details>
+    </article>
+
+    <!-- ══ 4 · NÁVRH ══ -->
+    <article class="stop">
+      <span class="dot"></span>
+      <div class="stop-kicker">Krok 4 · srovnání</div>
+      <h3>Dostanete srovnání, kterému rozumíte</h3>
+      <div class="pic">
+        <svg viewBox="0 0 270 130" role="img" aria-label="Srovnání dvou sloupců">
+          <path data-draw style="--len:280" d="M58 24h154v88H58z"/>
+          <path data-draw class="d2" style="--len:90" d="M135 24v88M58 52h154"/>
+          <path data-draw class="d3" style="--len:80" d="M74 70h44M74 84h34M152 70h44M152 84h28"/>
+          <circle data-pop cx="196" cy="38" r="8" fill="var(--green)"/>
+        </svg>
+      </div>
+      <p class="gist">Co máte teď vedle toho, co nabízí trh — čísla vedle čísel, bez žargonu. <strong>Když vychází líp to, co už máte, je to tam napsané taky.</strong></p>
+      <details class="more">
+        <summary><span class="q">„Pochopím to vůbec?"</span><span class="chev"></span></summary>
+        <div class="body"><div>
+          To je moje práce, ne vaše. Návrh projdeme spolu nahlas a <strong>necháte si ho doma</strong> —
+          klidně ho ukažte komukoli, komu věříte. Rozhodujete se u svého stolu, ne u mého.
+        </div></div>
+      </details>
+    </article>
+
+    <!-- ══ 5 · REALIZACE ══ -->
+    <article class="stop">
+      <span class="dot"></span>
+      <div class="stop-kicker">Krok 5 · vyřízení</div>
+      <h3>Papírování beru na sebe</h3>
+      <div class="pic">
+        <svg viewBox="0 0 270 120" role="img" aria-label="Podpis dokumentu">
+          <path data-draw style="--len:240" d="M84 16h78l24 24v64H84z"/>
+          <path data-draw class="d2" style="--len:40" d="M162 16v24h24"/>
+          <path data-draw class="d2" style="--len:70" d="M100 52h60M100 66h44"/>
+          <path data-draw class="d3" style="--len:60" d="M100 88c8-8 12 4 20-4s12 4 20-4"/>
+        </svg>
+      </div>
+      <p class="gist">Jednání s institucemi, formuláře, výpovědi starých smluv — <strong>všechno obíhám já.</strong> Vy podepisujete finální dokumenty, ostatní čas trávíte po svém.</p>
+      <details class="more">
+        <summary><span class="q">„Kolik práce to bude?"</span><span class="chev"></span></summary>
+        <div class="body"><div>
+          Z vaší strany obvykle <strong>dva podpisy a jedna schůzka</strong>. Všechno ostatní — komunikace s bankou
+          či pojišťovnou, termíny, urgence — je moje starost. O každém kroku víte, ale žádný neděláte.
+        </div></div>
+      </details>
+    </article>
+
+    <!-- ══ 6 · POTOM ══ -->
+    <article class="stop">
+      <span class="dot"></span>
+      <div class="stop-kicker">Krok 6 · dlouhodobě</div>
+      <h3>Nezmizím. To je celá pointa.</h3>
+      <div class="pic">
+        <svg viewBox="0 0 270 120" role="img" aria-label="Kalendář s připomínkou">
+          <path data-draw style="--len:260" d="M74 30h122v74H74z"/>
+          <path data-draw class="d2" style="--len:150" d="M74 52h122M96 30V16M174 30V16"/>
+          <path data-draw class="d3" style="--len:40" d="M120 78l10 10 20-20"/>
+          <circle data-pop cx="196" cy="30" r="8" fill="var(--green)"/>
+        </svg>
+      </div>
+      <p class="gist">Jednou ročně se ozvu sám a projdeme, jestli všechno pořád sedí. Když se změní sazby nebo zákon, <strong>volám dřív.</strong> A když se cokoli stane vám, máte jedno číslo.</p>
+      <details class="more">
+        <summary><span class="q">„Zmizí, až dostane provizi?"</span><span class="chev"></span></summary>
+        <div class="body"><div>
+          Právě naopak — <strong>servis je důvod, proč tohle dělám v malém regionu pod vlastním jménem.</strong>
+          Klienti, kterým zmizel poradce, jsou nejčastější noví příchozí. Kdybych mizel já,
+          v Jemnici by se to vědělo do týdne.
+        </div></div>
+      </details>
+    </article>
+
+  </div>
+
+  <!-- závěr -->
+  <div class="wrap">
+    <div class="after">
+      <p><strong>To je celé.</strong> Žádný krok nezavazuje k dalšímu — po telefonátu, po schůzce i po návrhu se můžete rozhodnout, že dál nejdete.</p>
+      <a href="konzultace.html" class="cta">Domluvit první telefonát →</a>
+      <span class="cta-alt">Radši si to nejdřív spočítáte sami? <a href="index.html#hypoteka">Otevřít kalkulačky</a></span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── odkrývání kroků ──
+  var stops = [].slice.call(document.querySelectorAll('.stop'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -18% 0px', threshold:.15});
+    stops.forEach(function(s){ io.observe(s); });
+  } else {
+    stops.forEach(function(s){ s.classList.add('seen'); });
+  }
+
+  // ── osa se kreslí podle scrollu ──
+  var journey = document.getElementById('journey');
+  var fill = document.getElementById('rail-fill');
+  function rail(){
+    var r = journey.getBoundingClientRect();
+    var vh = innerHeight;
+    var done = Math.min(Math.max((vh*0.62 - r.top) / r.height, 0), 1);
+    fill.style.height = (done*100) + '%';
+  }
+  if (!reduce) {
+    addEventListener('scroll', rail, {passive:true});
+    addEventListener('resize', rail, {passive:true});
+  } else { fill.style.height = '100%'; }
+  rail();
+
+  // ── jen jeden detail otevřený najednou (volitelné, drží přehlednost) ──
+  var mores = [].slice.call(document.querySelectorAll('.more'));
+  mores.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if (d.open) mores.forEach(function(o){ if (o !== d) o.open = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
