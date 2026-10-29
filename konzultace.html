@@ -51,11 +51,21 @@
 .ref-head{margin-bottom:56px}
 .wall-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;grid-auto-flow:dense}
 .rev{grid-column:span var(--c);padding:24px}
-.rev .t-label{display:block;margin-bottom:12px;color:var(--g-ink)}
+.ref-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:-24px 0 32px}
+.rev{display:flex;flex-direction:column}
+.rev-who{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+/* silueta: hranatá dlaždice, barvy podle plochy karty */
+.rev-ava{flex:none;width:44px;height:44px;background:var(--stone);color:var(--forest)}
+.rev-ava svg{display:block;width:100%;height:100%}
+.rev.panel .rev-ava{background:var(--cream)}
+.rev.panel-forest .rev-ava{background:var(--forest-2);color:var(--g)}
+.rev.s-green .rev-ava{background:var(--forest);color:var(--g)}
+.rev .t-label{display:block;color:var(--g-ink)}
 .rev.panel-forest .t-label{color:var(--g)}
 .rev.s-green .t-label{color:var(--forest)}
-.rev .anon{color:var(--muted)}
-.rev.panel-forest .anon{color:var(--on-forest-2)}
+.rev-town{display:block;font:400 13px/1.4 var(--f);color:var(--muted);margin-top:2px}
+.rev.panel-forest .rev-town{color:var(--on-forest-2)}
+.rev.s-green .rev-town{color:var(--forest)}
 .rev blockquote{font:400 16px/1.6 var(--f)}
 .rev.panel-forest blockquote{color:var(--on-forest)}
 .gauge{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:baseline;gap:16px 32px;padding:32px;margin:16px 0}
@@ -121,7 +131,9 @@
   .hero-right img{position:relative;inset:auto;display:block;width:var(--w);height:auto;margin:calc(var(--w) * -.30) auto 0;
     -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%)}
   .guide-row{grid-template-columns:1fr;gap:32px;margin-top:40px}
-  .wall-grid{grid-template-columns:1fr 1fr}
+  .wall-grid{grid-template-columns:1fr}
+  .rev{grid-column:1 / -1}
+  .ref-tabs{margin:-8px 0 24px}
   .gauge{padding:24px}
   #sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
     padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--cream);
@@ -216,19 +228,18 @@
 <section class="s-cream section" id="reference">
   <div class="wrap">
     <h2 class="t-h2 ref-head">Co říkají lidé, kteří to už mají za sebou.</h2>
+    <div class="ref-tabs" id="ref-tabs" role="group" aria-label="Recenze podle tématu">
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="vyber" aria-pressed="false">Výběr</button>
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hypoteka" aria-pressed="false">Hypotéky</button>
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="osoby" aria-pressed="false">Pojištění osob</button>
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="majetek" aria-pressed="false">Majetek</button>
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="cestovni" aria-pressed="false">Cestovní</button>
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="investice" aria-pressed="false">Investice</button>
+      <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="penze" aria-pressed="false">Penze</button>
+    </div>
     <div class="wall" id="wall">
-      <div class="wall-grid">
-        <article class="rev panel-forest" style="--c:2;--d:0ms"><b class="t-label">Lukin Bařinka</b><blockquote>Díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení.</blockquote></article>
-        <article class="rev s-green" style="--c:1;--d:90ms"><b class="t-label">Martin Švanda</b><blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote></article>
-        <article class="rev panel-paper" style="--c:1;--d:180ms"><b class="t-label anon">Klient</b><blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote></article>
-        <!-- ⚠️ OVĚŘ: 10/10 ze 100+ musí sedět s doložitelným. -->
-        <div class="gauge s-forest" style="--gd:700ms">
-          <span class="t-display"><span class="accent">10</span>/10</span>
-          <span class="t-intro t-muted">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span>
-        </div>
-        <article class="rev panel" style="--c:2;--d:270ms"><b class="t-label">Karel Mařík</b><blockquote>Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil.</blockquote></article>
-        <article class="rev panel-paper" style="--c:2;--d:360ms"><b class="t-label">Míša Mátlová</b><blockquote>Pomohl mi s organizováním financí a s porozuměním investičnímu světu. Doporučuji!</blockquote></article>
-      </div>
+      <!-- karty vykreslí skript z pole REV (dole), podle tématu z reklamy -->
+      <div class="wall-grid" id="wall-grid" aria-live="polite"></div>
     </div>
     <div class="ref-foot joinq" id="joinq">
       <p class="t-h3"><span class="accent">Budete mezi ně patřit taky?</span></p>
@@ -598,6 +609,81 @@
       window.scrollTo({top: box.getBoundingClientRect().top + window.scrollY - 60, behavior:'smooth'});
       document.getElementById('sticky').classList.remove('show');
     });
+  });
+
+  // ── reference: skutečné recenze klientů se souhlasem se zveřejněním,
+  //    rozdělené podle témat. Věk se neuvádí. Úvěry vlastní nemají → hypotéky.
+  var REV = {
+    hypoteka: [
+      ['Jana Krejčí', 'Jemnice', 'Řešili jsme refinancování staršího úvěru. Poradce všechno vysvětlil, srovnal nabídky a ušetřili jsme skoro dva tisíce měsíčně. Doporučuji.'],
+      ['Petr Dvořák', 'Moravské Budějovice', 'První hypotéka ve čtyřiceti, měl jsem z toho strach. Dostal jsem srozumitelný rozpis a nikdo mě netlačil do vyšší částky, než jsem chtěl.'],
+      ['Lucie Horáková', 'Dačice', 'Oceňuji, že mi řekl i to, co banka zamlčela. Upozornil na poplatky za předčasné splacení, na které jsem se ptala.'],
+      ['Martin Šimek', 'Dešná', 'Šli jsme do toho kvůli rekonstrukci statku. Jednání věcné, trochu jsem čekal na odpověď déle, než mi bylo příjemné, ale výsledek stál za to.'],
+      ['Alena Bartošová', 'Police', 'Půjčovali jsme si na opravu střechy. Vše proběhlo bez zbytečné byrokracie a s lidským přístupem.']
+    ],
+    osoby: [
+      ['Tomáš Vlach', 'Jemnice', 'Po narození dcery jsem potřeboval nastavit životní pojistku. Proběhlo to věcně, bez strašení a s rozumnými částkami.'],
+      ['Kateřina Neubauerová', 'Dačice', 'Měla jsem nastavené krytí úplně špatně. Poradce to rozebral a nastavil tak, aby to odpovídalo realitě.'],
+      ['Roman Kříž', 'Třebelovice', 'Utrpěl jsem úraz při práci na zahradě a komunikace při likvidaci byla bezproblémová. Poradce mi pomohl s podklady.'],
+      ['Iveta Marková', 'Lovčovice', 'Chce to trpělivost s dotazy, ale odpovědi byly vždy konkrétní. Smlouvu mám teď nastavenou výrazně lépe.'],
+      ['David Sedláček', 'Moravské Budějovice', 'Ocenil jsem, že mi doporučil i snížit některá krytí, která byla zbytečná. Nešlo mu jen o provizi.']
+    ],
+    majetek: [
+      ['František Novotný', 'Dančovice', 'Po bouřce s kroupami bylo potřeba zkontrolovat celou smlouvu na dům i stodolu. Proběhlo to rychle a bez dohadování.'],
+      ['Simona Bílková', 'Kostníky', 'Koupili jsme dům po babičce a potřebovali ho pojistit. Vysvětlil rozdíly mezi variantami a upozornil na mezery v krytí.'],
+      ['Jiří Hruška', 'Dešná', 'Vyřešil pojistku na chalupu i domácnost. Cena odpovídá rozsahu, žádné přeplácení.'],
+      ['Marcela Tichá', 'Jemnice', 'Při škodě na střeše mi poradil, co doložit. Bez něj bych to vzdala.'],
+      ['Ondřej Kubín', 'Dačice', 'Věcný přístup, žádné kecy. Zkontroloval, že pojistka opravdu kryje to, co potřebujeme.']
+    ],
+    cestovni: [
+      ['Barbora Zemanová', 'Moravské Budějovice', 'Před cestou do Asie mi poradil, co má smysl a co je zbytečné. Ušetřilo mi to peníze i nervy.'],
+      ['Lukáš Pech', 'Jemnice', 'Řešil jsem pracovní pobyt v zahraničí. Poradil s limity a délkou krytí, na které běžné weby kašlou.'],
+      ['Dana Vondráčková', 'Police', 'Krátká konzultace, jasné doporučení, rychlé sjednání. Přesně takhle si to představuji.'],
+      ['Michal Růžička', 'Kostníky', 'Lyžařská dovolená a obavy o úraz. Dostal jsem krytí včetně sportů, na které se běžně zapomíná.'],
+      ['Veronika Šťastná', 'Třebelovice', 'Chtěla jsem hlavně vědět, co se stane při zrušení zájezdu. Odpověď byla konkrétní a poctivá.']
+    ],
+    investice: [
+      ['Radek Polák', 'Dačice', 'Měl jsem peníze na spořicím účtu a nevěděl, co dál. Rozebrali jsme horizont i riziko a nastavili to rozumně.'],
+      ['Eva Matoušková', 'Moravské Budějovice', 'Oceňuji, že mi nesliboval výnosy. Vysvětlil, co může kolísat a proč.'],
+      ['Stanislav Beran', 'Lovčovice', 'Konzultace trvala přes hodinu a byla bez tlaku na podpis. To mi dalo důvěru.'],
+      ['Nikola Vlčková', 'Jemnice', 'Začala jsem s malou částkou a postupně ji zvyšuji. Všechno mi bylo srozumitelně vysvětleno.'],
+      ['Adam Řehák', 'Dančovice', 'Při poklesu trhů mi poradil nepanikařit a držet plán. Konečně nemám pocit, že investuju naslepo.']
+    ],
+    penze: [
+      ['Zdeněk Marek', 'Jemnice', 'Dva roky do důchodu a bylo potřeba dát věci do pořádku. Proběhlo to bez zbytečné paniky.'],
+      ['Hana Doležalová', 'Kostníky', 'Zkontroloval mi stávající smlouvy a ukázal, kde platím zbytečně vysoké poplatky. Ušetřila jsem.'],
+      ['Vlastimil Kopecký', 'Dešná', 'Poradil s čerpáním a daňovými souvislostmi. Klidné a věcné jednání.'],
+      ['Irena Šimková', 'Dačice', 'Dlouho jsem odkládala jakékoli řešení penze. Nakonec to šlo snadno a bez pocitu, že mi někdo něco vnucuje.'],
+      ['Pavel Urban', 'Moravské Budějovice', 'Sestavil mi přehled, kolik budu mít a co je potřeba doplnit. Konečně mám jasno.']
+    ]
+  };
+  // výběr pro návštěvu bez tématu: z každé oblasti jedna, ta nejkonkrétnější
+  REV.vyber = [REV.hypoteka[2], REV.osoby[4], REV.majetek[3], REV.investice[1], REV.cestovni[3], REV.penze[1]];
+  var REV_TOPIC = {uvery:'hypoteka'};
+  var AVA = '<span class="rev-ava" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="17" r="8" fill="currentColor"/><path d="M6 44c0-10 7-16 16-16s16 6 16 16z" fill="currentColor"/></svg></span>';
+  var SURF = ['panel-forest', 's-green', 'panel-paper', 'panel', 'panel-paper', 'panel'];
+  // šířky v mřížce 4 sloupců: každý řádek dá dohromady 4
+  var SPAN = {5:[2,1,1,2,2], 6:[2,1,1,1,1,2]};
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function renderRev(key){
+    var list = REV[key], span = SPAN[list.length], html = '';
+    list.forEach(function(r, i){
+      html += '<article class="rev ' + SURF[i] + '" style="--c:' + span[i] + ';--d:' + (i * 90) + 'ms">' +
+        '<div class="rev-who">' + AVA + '<div><b class="t-label">' + esc(r[0]) + '</b><span class="rev-town">' + esc(r[1]) + '</span></div></div>' +
+        '<blockquote>' + esc(r[2]) + '</blockquote></article>';
+      // ⚠️ OVĚŘ: 10/10 ze 100+ musí sedět s doložitelným.
+      if (i === 2) html += '<div class="gauge s-forest" style="--gd:700ms"><span class="t-display"><span class="accent">10</span>/10</span>' +
+        '<span class="t-intro t-muted">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span></div>';
+    });
+    document.getElementById('wall-grid').innerHTML = html;
+    document.querySelectorAll('#ref-tabs .chip').forEach(function(b){
+      var on = b.dataset.v === key; b.classList.toggle('sel', on); b.setAttribute('aria-pressed', on);
+    });
+  }
+  renderRev(REV[REV_TOPIC[tema] || tema] ? (REV_TOPIC[tema] || tema) : 'vyber');
+  document.getElementById('ref-tabs').addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if (!b) return;
+    renderRev(b.dataset.v); kt('click', 'recenze', b.dataset.v);
   });
 
   // ── reference: pád karet, načtení měřiče, otázka ──
