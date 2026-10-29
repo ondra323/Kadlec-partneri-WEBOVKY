@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Klientská zóna | Ondřej Kadlec &amp; partneři</title>
+<!--
+  Vstup do klientské zóny z webu. Tlačítko „Klientská zóna“ na profil.html
+  vede sem a odtud se přesměruje do samostatné klientské zóny
+  (repo REA-MODUS, portal.html; obsah zveřejňuje poradce z REA).
+
+  PORTAL_URL: ostrá adresa klientské zóny. Na localhost se přesměruje
+  na vývojový server REA (:5179). Když je PORTAL_URL prázdná a nejde
+  o localhost, ukáže se tahle stránka s kontaktem, nic se nerozbije.
+  Hash (#…) se předává dál, takže odkaz z pozvánky #pozvanka/… projde.
+-->
+<script>
+  (function () {
+    var PORTAL_URL = 'https://rea-modus.vercel.app/portal.html';
+    var lokalne = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    var cil = lokalne ? 'http://localhost:5179/portal.html' : PORTAL_URL;
+    if (cil) location.replace(cil + location.hash);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ui-kit/kit.css">
+<style>
+  .zona{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+  .zona > div{padding:48px 32px;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+  .zona .obsah{justify-content:center}
+  .zona h1{max-width:12ch}
+  .zona .akce{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
+  @media (max-width:980px){.zona{grid-template-columns:1fr}.zona > div{padding:32px 24px}}
+</style>
+</head>
+<body>
+<main class="zona">
+  <div class="s-green">
+    <a class="brand" href="profil.html"><span>Ondřej Kadlec</span><span>&amp; partneři</span></a>
+    <h1 class="t-hero">Klientská zóna</h1>
+    <p class="t-small">Vázaný zástupce INSIA a.s. a ININVEST pod dohledem ČNB · IČO 14311569</p>
+  </div>
+  <div class="s-cream obsah">
+    <p class="t-intro">Klientskou zónu právě spouštíme. Přístup dostanete pozvánkou ode mě. Do té doby vám všechno pošlu přímo.</p>
+    <div class="akce">
+      <a class="btn btn-dark" href="tel:+420733651217">Zavolat 733 651 217</a>
+      <a class="btn btn-ghost btn--noarrow" href="profil.html">Zpět na web</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

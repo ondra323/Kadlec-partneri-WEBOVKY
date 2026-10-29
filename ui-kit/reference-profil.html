@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Druhý názor na vaše peníze | Ondřej Kadlec</title>
+<meta name="description" content="Ondřej Kadlec, finanční poradce z Jemnice. Porovnám, co máte, s tím, co dnes nabízí trh — a řeknu vám to na rovinu, i když vyjde, že nic neměnit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  Vizuální jazyk převzat z landing page dvorakzednik.cz (struktura, rytmus polí,
+  tvar tlačítek, typografie), žlutá nahrazena jasnou zelenou. Obsah je vlastní.
+  Display písmo BelyDisplay (placené) nahrazeno volným Gloock.
+-->
+<style>
+:root{
+  --ink:#1c1a17; --cream:#f4eee3; --stone:#ebe3d4; --forest:#0f3b2a; --forest-2:#164d37; --g:#2bd47f; --g-deep:#1fb86a; --g-ink:#0d6b3e; --paper:#fffaf1; --muted:#5c564d;
+  --f-display:'Gloock', Georgia, serif;
+  --f:'Montserrat', system-ui, sans-serif;
+  --pill:0 9999px 9999px 0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{overflow-x:clip;font-family:var(--f);font-size:16px;line-height:1.5;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:3px solid var(--g);outline-offset:3px}
+.on-green :focus-visible,.on-stone :focus-visible,.on-cream :focus-visible,.hero-right :focus-visible{outline-color:var(--forest)}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 32px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ── tlačítko: rovná levá, půlkruhová pravá strana ── */
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:14px 30px 14px 22px;border-radius:var(--pill);
+  font:600 15px/1.2 var(--f);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid transparent;cursor:pointer;
+  transition:background-color .2s,color .2s,border-color .2s,transform .2s}
+.btn::after{content:"→";font-weight:500;transition:transform .2s}
+.btn:hover::after{transform:translateX(4px)}
+.btn-dark{background:var(--forest);color:var(--g)}
+.btn-dark:hover{background:var(--forest-2)}
+.btn-green{background:var(--g);color:var(--ink)}
+.btn-green:hover{background:var(--g-deep)}
+.btn-ghost-g{border-color:var(--g);color:var(--g)}
+.btn-ghost-g:hover{background:var(--g);color:var(--ink)}
+.btn-ghost-d{border-color:var(--ink);color:var(--ink)}
+.btn-ghost-d:hover{background:var(--forest);color:var(--g)}
+.tag{display:inline-block;padding:8px 22px 8px 14px;border-radius:var(--pill);font:600 14px/1.3 var(--f);letter-spacing:.05em;text-transform:uppercase}
+
+/* ── hero ── */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);min-height:min(820px,100vh)}
+.hero-left{background:var(--g);display:flex;flex-direction:column;padding:28px 56px 56px}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.zone-link{flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;padding:8px 18px 8px 12px;border:2px solid var(--ink);border-radius:var(--pill);font:600 13px/1.2 var(--f);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .2s,color .2s}
+.zone-link svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.zone-link:hover{background:var(--forest);border-color:var(--forest);color:var(--g)}
+.brand{font:700 20px/1.05 var(--f);letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.brand span{display:block}
+.hero-copy{margin-top:auto;padding-top:56px;max-width:560px}
+.hero h1{font:400 clamp(3rem,6.2vw,5.4rem)/1.02 var(--f-display);letter-spacing:-.01em;margin-bottom:28px}
+.hero h1 em{font-style:normal;display:block}
+.hero p{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.55;max-width:30ch;margin-bottom:36px}
+.hero-right{position:relative;background:var(--stone);overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.monogram{position:absolute;right:-4%;top:50%;transform:translateY(-46%);font:400 clamp(26rem,46vw,46rem)/.8 var(--f-display);color:var(--g);opacity:.9;pointer-events:none;user-select:none}
+.portrait{position:relative;z-index:1;width:min(92%,700px);filter:grayscale(1) contrast(1.08);margin-bottom:-2px}
+.menu{position:absolute;z-index:3;top:28px;right:32px;width:220px;list-style:none}
+.menu a{display:block;padding:9px 14px;border:1px solid var(--ink);margin-top:-1px;color:var(--ink);font:500 13px/1.3 var(--f);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;background:rgba(244,238,227,.82);transition:background-color .2s,color .2s}
+.menu a:hover{background:var(--forest);color:var(--g)}
+.menu-mobile{display:none}
+
+/* ── sekce ── */
+section{position:relative}
+.on-dark{background:var(--forest);color:var(--cream)}
+.on-cream{background:var(--cream);color:var(--ink)}
+.on-stone{background:var(--stone);color:var(--ink)}
+.on-green{background:var(--g);color:var(--ink)}
+.pad{padding:120px 0}
+.kicker{font:600 15px/1.3 var(--f);letter-spacing:.08em;text-transform:uppercase}
+.lead-h{font:400 clamp(1.6rem,3vw,2.4rem)/1.3 var(--f);max-width:30ch}
+.on-cream .lead-h{color:var(--forest)}
+
+/* komu pomáhám */
+.who-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:72px;align-items:start}
+.who-note{margin-top:28px;font-size:16px;line-height:1.7;color:var(--muted);max-width:42ch}
+.acc details{border-top:1px solid rgba(28,26,23,.2)}
+.acc details:last-child{border-bottom:1px solid rgba(28,26,23,.2)}
+.acc summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;cursor:pointer;font:500 clamp(1.1rem,1.8vw,1.5rem)/1.3 var(--f)}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"";flex:none;width:12px;height:12px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translate(-3px,-3px);transition:transform .25s}
+.acc details[open] summary::after{transform:rotate(-135deg) translate(-3px,-3px)}
+.acc details p{padding:0 48px 26px 0;font-size:16px;line-height:1.7;max-width:56ch}
+.acc details p{color:var(--muted)}
+.acc summary:hover{color:var(--g-ink)}
+.facts{margin-top:96px;padding-top:28px;border-top:1px solid rgba(28,26,23,.2);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.facts dt{font:600 13px/1.3 var(--f);letter-spacing:.08em;text-transform:uppercase;color:var(--g-ink);margin-bottom:8px}
+.facts dd{font-size:16px;line-height:1.55;color:var(--muted)}
+.facts a{color:var(--ink)}
+
+/* služby */
+.svc-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:72px;margin-bottom:72px;align-items:end}
+.svc-head p{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.55;max-width:34ch;margin:18px 0 28px}
+.svc{border-top:1px solid var(--ink)}
+.svc details{border-bottom:1px solid var(--ink)}
+.svc summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) 24px;gap:72px;align-items:center;padding:30px 0;cursor:pointer}
+.svc summary::-webkit-details-marker{display:none}
+.svc h3{font:600 16px/1.3 var(--f);letter-spacing:.08em;text-transform:uppercase}
+.svc .sum{font-size:16px;line-height:1.6;max-width:52ch}
+.svc summary::after{content:"+";font:400 30px/1 var(--f);justify-self:end;transition:transform .25s}
+.svc details[open] summary::after{transform:rotate(45deg)}
+.svc .more{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) 24px;gap:72px;padding:0 0 34px}
+.svc .more div{grid-column:2}
+.svc .more p{max-width:52ch;line-height:1.7;margin-bottom:22px}
+
+/* postup */
+.steps-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:72px}
+.steps-grid h2{font:400 clamp(2.4rem,5vw,4rem)/1.05 var(--f)}
+.step{display:grid;grid-template-columns:56px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid rgba(10,2,3,.25)}
+.step:first-child{border-top:1px solid rgba(10,2,3,.25)}
+.step .n{font:400 44px/1 var(--f-display)}
+.step .tag{background:var(--forest);color:var(--g);margin-bottom:12px}
+.step p{line-height:1.65;max-width:52ch}
+.steps-cta{margin-top:44px}
+.steps-intro{margin-top:24px;font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.55;max-width:26ch}
+.step-core{background:var(--forest);color:var(--cream);border:0!important;margin-top:28px;padding:36px 36px 40px 28px}
+.step-core .n{color:var(--g)}
+.step-core .tag{background:var(--g);color:var(--forest)}
+.step-core h3{font:400 clamp(1.7rem,2.8vw,2.4rem)/1.1 var(--f-display);margin:4px 0 16px;color:var(--paper)}
+.step-core p{color:#cfe0d5;margin-bottom:20px}
+.core-list{list-style:none;margin:0 0 28px}
+.core-list li{position:relative;padding:10px 0 10px 28px;border-top:1px solid rgba(43,212,127,.25)}
+.core-list li::before{content:"";position:absolute;left:2px;top:17px;width:12px;height:7px;border-left:2px solid var(--g);border-bottom:2px solid var(--g);transform:rotate(-45deg)}
+
+/* sdělení */
+.statement h2{font:400 clamp(2.4rem,5.2vw,4.4rem)/1.08 var(--f-display);max-width:20ch;color:var(--paper)}
+.statement h2 em{font-style:normal;color:var(--g)}
+.statement-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:72px;margin-top:64px;align-items:end}
+.statement-row p{color:#cfe0d5;line-height:1.75;max-width:52ch}
+
+/* kontakt */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px}
+.contact-grid h2{font:400 clamp(2.4rem,5vw,4rem)/1.05 var(--f);margin-bottom:28px}
+.big-tel{display:inline-block;font:400 clamp(2.2rem,4.4vw,3.6rem)/1 var(--f-display);text-decoration:none;border-bottom:3px solid var(--ink);margin-bottom:20px}
+.contact-list{list-style:none;margin-top:28px}
+.contact-list li{padding:14px 0;border-top:1px solid rgba(10,2,3,.25);font-size:16px}
+.contact-list li:last-child{border-bottom:1px solid rgba(10,2,3,.25)}
+.contact-list b{display:inline-block;min-width:110px;font:600 13px/1 var(--f);letter-spacing:.08em;text-transform:uppercase}
+.blog-card{background:var(--forest);color:var(--cream);padding:40px;align-self:start}
+.blog-card .kicker{color:var(--g);margin-bottom:16px}
+.blog-card p{line-height:1.7;margin-bottom:28px;color:#cfe0d5}
+
+/* region */
+.region-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:72px;align-items:end;margin-bottom:56px}
+.region-head h2{font:400 clamp(2.4rem,5vw,4rem)/1.05 var(--f-display);color:var(--forest)}
+.region-head p{font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.6;color:var(--muted);max-width:44ch}
+.region-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:260px 260px;gap:16px}
+.region-grid figure{position:relative;overflow:hidden;background:var(--stone)}
+.region-grid figure:first-child{grid-row:1/3}
+.region-grid figure:nth-child(4){grid-column:2/4}
+.region-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.region-grid figure:hover img{transform:scale(1.04)}
+.region-grid .ph-town{position:absolute;inset:0;display:grid;place-items:center;padding:16px 16px 56px;text-align:center;font:400 clamp(1.4rem,3vw,3rem)/1.05 var(--f-display);color:rgba(15,59,42,.22)}
+.region-grid figcaption{position:absolute;left:0;bottom:0;padding:8px 20px 8px 14px;border-radius:var(--pill);margin:0 0 16px 0;background:var(--cream);font:600 13px/1.3 var(--f);letter-spacing:.06em;text-transform:uppercase}
+.region-grid figcaption small{font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--muted);margin-left:6px}
+footer{background:var(--forest);color:#b9cbbf;font-size:13px;line-height:1.7;padding:36px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 36px;justify-content:space-between}
+footer a{color:var(--cream)}
+
+/* ── mobil ── */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero-left{padding:22px 24px 44px}
+  .hero-copy{padding-top:56px}
+  .hero-right{min-height:520px}
+  .menu{display:none}
+  .menu-mobile{display:block;position:absolute;top:22px;right:24px;z-index:4}
+  .menu-mobile summary{list-style:none;cursor:pointer;padding:9px 18px 9px 14px;border-radius:var(--pill);background:var(--forest);color:var(--g);font:600 13px/1.2 var(--f);letter-spacing:.06em;text-transform:uppercase}
+  .menu-mobile summary::-webkit-details-marker{display:none}
+  .menu-mobile ul{list-style:none;margin-top:8px;background:var(--forest);min-width:200px}
+  .menu-mobile a{display:block;padding:13px 16px;color:var(--g);text-decoration:none;font:500 14px/1.3 var(--f);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(43,212,127,.25)}
+  .pad{padding:80px 0}
+  .wrap{padding:0 24px}
+  .who-grid,.svc-head,.steps-grid,.statement-row,.contact-grid,.region-head{grid-template-columns:1fr;gap:40px}
+  .facts{grid-template-columns:1fr 1fr;margin-top:64px}
+  .svc summary{grid-template-columns:1fr 24px;gap:12px}
+  .svc .sum{grid-column:1/-1;grid-row:2}
+  .svc summary::after{grid-row:1;grid-column:2}
+  .svc .more{grid-template-columns:1fr}
+  .svc .more div{grid-column:1}
+  .blog-card{padding:28px}
+  .region-grid{grid-template-columns:1fr 1fr;grid-template-rows:300px 180px 180px}
+  .region-grid figure:first-child{grid-column:1/3;grid-row:auto}
+  .region-grid figure:nth-child(4){grid-column:1/3}
+}
+@media (max-width:520px){ .facts{grid-template-columns:1fr} .acc details p{padding-right:0} }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-left on-green">
+    <div class="topbar">
+      <a class="brand" href="#top" id="top"><span>Ondřej Kadlec</span><span>&amp; partneři</span></a>
+      <a class="zone-link" href="klientska-zona.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Klientská zóna</a>
+    </div>
+    <div class="hero-copy">
+      <h1>Druhý názor <em>na vaše peníze.</em></h1>
+      <p>Porovnám, co máte, s tím, co dnes nabízí trh. A řeknu vám to na rovinu — i když vyjde, že nic neměnit.</p>
+      <a class="btn btn-dark" href="konzultace.html">Chci druhý názor</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="monogram" aria-hidden="true">K</div>
+    <img class="portrait" src="assets/ondrej-figura@2x.webp" srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w" sizes="(max-width:980px) 92vw, 50vw" width="1400" height="1069" alt="Ondřej Kadlec">
+    <nav aria-label="Hlavní">
+      <ul class="menu">
+        <li><a href="#sluzby">Služby</a></li>
+        <li><a href="#postup">Jak to funguje</a></li>
+        <li><a href="#o-mne">O mně</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <details class="menu-mobile">
+        <summary>Menu</summary>
+        <ul>
+          <li><a href="#sluzby">Služby</a></li>
+          <li><a href="#postup">Jak to funguje</a></li>
+          <li><a href="#o-mne">O mně</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="klientska-zona.html">Klientská zóna</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="on-cream pad" aria-labelledby="komu">
+    <div class="wrap who-grid">
+      <div>
+        <h2 class="lead-h" id="komu">Pomáhám lidem, kteří mají smlouvy podepsané před lety a už nevědí, jestli jsou pořád v pořádku.</h2>
+        <p class="who-note">Nepřicházím s produktem. Přicházím s porovnáním: co platíte dnes a co by za stejné peníze nabídl trh. Někdy vyjde změna, někdy ne — v obou případech to uslyšíte.</p>
+      </div>
+      <div class="acc">
+        <details open><summary>Splácím hypotéku a blíží se refixace</summary><p>Banka vám pošle nabídku a čeká, že ji podepíšete. Než to uděláte, porovnám ji s tím, co by vám dnes daly ostatní banky — včetně možnosti zůstat, pokud je nabídka férová.</p></details>
+        <details><summary>Platím pojistky roky a nevím, za co</summary><p>Starší životní pojistky často kryjí málo a stojí hodně. Projdu, co přesně máte, a řeknu, co dává smysl ponechat, upravit nebo zrušit.</p></details>
+        <details><summary>Mám víc úvěrů a splátky mě dusí</summary><p>Spočítám, jestli by sloučení úvěrů snížilo splátku i celkovou přeplacenou částku — a kdy se naopak nevyplatí.</p></details>
+        <details><summary>Spořím, ale nevím, jestli mi peníze rostou</summary><p>Podívám se na poplatky a výnosy toho, kam dnes ukládáte, a porovnám je s alternativami podle toho, kdy budete peníze potřebovat.</p></details>
+        <details><summary>Myslím na důchod</summary><p>Spočítáme, kolik budete potřebovat, a jak využít penzijní spoření a daňové odpočty, na které máte nárok.</p></details>
+      </div>
+    </div>
+    <div class="wrap">
+      <dl class="facts">
+        <div><dt>Kdo mě platí</dt><dd>Odměnu dostávám od finanční instituce, ne od vás.</dd></div>
+        <div><dt>Dohled</dt><dd>Vázaný zástupce INSIA a.s. a ININVEST pod dohledem ČNB.</dd></div>
+        <div><dt>Ověření</dt><dd><a href="https://apl.cnb.cz/apljerrsdad/JERRS.WEB45.LOGIN_A?p_lang=cz&amp;p_err=8" target="_blank" rel="noopener">Registr ČNB</a> · IČO 14311569</dd></div>
+        <div><dt>Kde</dt><dd>V Jemnici nebo u vás doma.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="on-stone pad" id="sluzby" aria-labelledby="sluzby-h">
+    <div class="wrap">
+      <div class="svc-head">
+        <div>
+          <h2 class="kicker" id="sluzby-h">Služby</h2>
+          <p>Pět oblastí, ve kterých lidé nejčastěji přeplácejí, aniž by o tom věděli.</p>
+          <a class="btn btn-green" href="konzultace.html">Chci druhý názor</a>
+        </div>
+      </div>
+      <div class="svc">
+        <details><summary><h3>Pojištění</h3><span class="sum">Životní, majetkové i odpovědnost. Zjistím, jestli vás pojistky kryjí tam, kde to potřebujete.</span></summary>
+          <div class="more"><div><p>Projdu vaše stávající smlouvy a porovnám krytí i cenu s aktuální nabídkou trhu. Pokud je to, co máte, dobré, řeknu vám to.</p><a class="btn btn-green" href="konzultace.html?tema=pojisteni">Chci zkontrolovat pojistky</a></div></div></details>
+        <details><summary><h3>Hypotéky</h3><span class="sum">Nová hypotéka, refixace i refinancování. Srovnání napříč bankami.</span></summary>
+          <div class="more"><div><p>Před podpisem nabídky od vaší banky ji porovnám s ostatními. Rozdíl pár desetin procenta dělá za dobu splácení desítky tisíc.</p><a class="btn btn-green" href="konzultace.html?tema=hypoteka">Chci srovnat hypotéku</a></div></div></details>
+        <details><summary><h3>Úvěry</h3><span class="sum">Spotřebitelské úvěry a jejich sloučení do jedné splátky.</span></summary>
+          <div class="more"><div><p>Spočítám, jestli konsolidace sníží měsíční splátku i celkovou cenu, a upozorním na poplatky, které by výhodu sežraly.</p><a class="btn btn-green" href="konzultace.html?tema=uvery">Chci prověřit úvěry</a></div></div></details>
+        <details><summary><h3>Investice</h3><span class="sum">Pravidelné i jednorázové investování s ohledem na poplatky a časový horizont.</span></summary>
+          <div class="more"><div><p>Podívám se, kolik vás dnes stojí správa peněz a jestli výnos odpovídá riziku, které nesete.</p><a class="btn btn-green" href="konzultace.html?tema=investice">Chci zkontrolovat investice</a></div></div></details>
+        <details><summary><h3>Penze</h3><span class="sum">Penzijní spoření, DIP a daňové odpočty, které vám náleží.</span></summary>
+          <div class="more"><div><p>Spočítáme, kolik budete potřebovat, a nastavíme spoření tak, abyste využili státní příspěvek i odpočet ze základu daně.</p><a class="btn btn-green" href="konzultace.html?tema=penze">Chci plán na důchod</a></div></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="on-green pad" id="postup" aria-labelledby="postup-h">
+    <div class="wrap steps-grid">
+      <div>
+        <h2 id="postup-h">Jak to funguje?</h2>
+        <p class="steps-intro">Dvě schůzky na začátku. Pak spolupráce, která nekončí podpisem.</p>
+      </div>
+      <div>
+        <div class="step"><div class="n">1</div><div><span class="tag">Domluvíme schůzku</span><p>Ozvu se do 24 hodin a najdeme termín. Sejdeme se v Jemnici, nebo přijedu za vámi domů.</p></div></div>
+        <div class="step"><div class="n">2</div><div><span class="tag">Projdeme vaše cíle</span><p>Nejdřív to, kam chcete dojít — bydlení, rezerva, děti, důchod. Teprve potom se díváme, jestli vás tam vaše smlouvy dovedou. Na schůzce se nic nepodepisuje.</p></div></div>
+        <div class="step step-core"><div class="n">3</div><div>
+          <span class="tag">Zůstanu u vás</span>
+          <h3>Vaše finance pod dohledem. Trvale.</h3>
+          <p>Většina poradců zmizí po podpisu. Já ne. Pravidelně dostáváte report, jak si vaše peníze vedou proti cílům, které jsme si stanovili. A v klientské zóně máte smlouvy, dokumenty i přehled na jednom místě — kdykoli si je otevřete.</p>
+          <ul class="core-list">
+            <li>Pravidelný report o stavu vašich financí</li>
+            <li>Klientská zóna se smlouvami a dokumenty</li>
+            <li>Upozorním vás, když se na trhu objeví něco lepšího</li>
+          </ul>
+          <a class="btn btn-ghost-g" href="klientska-zona.html">Prohlédnout klientskou zónu</a>
+        </div></div>
+        <div class="steps-cta"><a class="btn btn-dark" href="konzultace.html">Domluvit první schůzku</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="on-cream pad" id="region" aria-labelledby="region-h">
+    <div class="wrap">
+      <div class="region-head">
+        <h2 id="region-h">Jsem odsud.</h2>
+        <p>Schůzky dělám v Jemnici nebo u vás doma. Za klienty jezdím po celém okolí — nemusíte nikam do města.</p>
+      </div>
+      <div class="region-grid">
+        <figure><span class="ph-town" aria-hidden="true">Jemnice</span><img src="assets/region/jemnice.jpg" alt="Jemnice" loading="lazy" onerror="this.remove()"><figcaption>Jemnice<small>kancelář, Polická 1106</small></figcaption></figure>
+        <figure><span class="ph-town" aria-hidden="true">Moravské Budějovice</span><img src="assets/region/moravske-budejovice.jpg" alt="Moravské Budějovice" loading="lazy" onerror="this.remove()"><figcaption>Moravské Budějovice<small></small></figcaption></figure>
+        <figure><span class="ph-town" aria-hidden="true">Dačice</span><img src="assets/region/dacice.jpg" alt="Dačice" loading="lazy" onerror="this.remove()"><figcaption>Dačice<small></small></figcaption></figure>
+        <figure><span class="ph-town" aria-hidden="true">Okolí Jemnice</span><img src="assets/region/okoli.jpg" alt="Okolí Jemnice" loading="lazy" onerror="this.remove()"><figcaption>Okolí Jemnice<small>přijedu za vámi</small></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="on-dark pad statement" id="o-mne" aria-labelledby="o-mne-h">
+    <div class="wrap">
+      <h2 id="o-mne-h">Když je nejlepší nic neměnit, řeknu vám to. <em>I když přijdu o provizi.</em></h2>
+      <div class="statement-row">
+        <p>Začínal jsem v bance a viděl, že doporučení na pobočce se řídí prodejním plánem, ne potřebou klienta. Proto jsem odešel. Dnes mi odměnu platí finanční instituce, ne vy — a říkám to hned na začátku. Když vyjde, že je nejlepší nic neměnit, nevydělám nic. Právě proto má druhý názor smysl.</p>
+        <a class="btn btn-ghost-g" href="#kontakt">Ozvěte se mi</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="on-green pad" id="kontakt" aria-labelledby="kontakt-h">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 id="kontakt-h">Zavolejte mi</h2>
+        <a class="big-tel" href="tel:+420733651217">733 651 217</a>
+        <ul class="contact-list">
+          <li><b>E-mail</b> <a href="mailto:kadlec.ondrej@insia.com">kadlec.ondrej@insia.com</a></li>
+          <li><b>Adresa</b> Polická 1106, 675 31 Jemnice</li>
+          <li><b>Schůzka</b> v Jemnici nebo u vás doma</li>
+          <li><b>Klienti</b> <a href="klientska-zona.html">Přihlásit se do klientské zóny</a></li>
+        </ul>
+      </div>
+      <div class="blog-card">
+        <div class="kicker">Z blogu</div>
+        <p>Píšu o tom, na co si dát pozor u hypoték, pojistek a investic — bez prodejních řečí.</p>
+        <a class="btn btn-ghost-g" href="blog.html">Číst články</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span>
+    <span>Vázaný zástupce INSIA a.s. a ININVEST pod dohledem ČNB · <a href="gdpr.html">Ochrana osobních údajů</a></span>
+  </div>
+</footer>
+</body>
+</html>

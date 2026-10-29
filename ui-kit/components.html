@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kadlec UI kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css">
+<style>
+/* jen pro tuto ukázkovou stránku */
+.kit-h{display:flex;align-items:baseline;gap:16px;margin-bottom:40px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.s-forest .kit-h{border-color:var(--line-on-forest)}
+.kit-h code{font:500 13px/1 ui-monospace,Menlo,monospace;color:var(--muted)}
+.s-forest .kit-h code{color:var(--on-forest-2)}
+.row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.sw{border:1px solid var(--line)}
+.sw i{display:block;height:96px}
+.sw div{padding:12px 14px;font-size:13px;line-height:1.5;background:var(--paper)}
+.sw b{display:block;font-weight:600}
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.pair{padding:22px;font-weight:600;line-height:1.4}
+.pair small{display:block;font-weight:400;font-size:13px;margin-top:6px;opacity:.85}
+.bad{outline:3px dashed var(--danger);outline-offset:-3px}
+.spec{display:grid;grid-template-columns:200px 1fr;gap:12px 32px;align-items:baseline}
+.spec > code{font:500 12px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.photo-demo{height:220px}
+@media (max-width:980px){.spec,.grid2{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="s-green" id="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="#"><span>Ondřej Kadlec</span><span>&amp; partneři</span></a>
+      <a class="zone-link" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Klientská zóna</a>
+    </div>
+    <div style="padding:72px 0 88px">
+      <p class="t-kicker" style="margin-bottom:20px">UI kit · v1</p>
+      <h1 class="t-hero" style="margin-bottom:24px">Vzory rozhraní</h1>
+      <p class="t-intro" style="margin-bottom:32px">Každý prvek na této stránce používá jen třídy z <b>kit.css</b>. Co tu není, nevymýšlej — skládej z toho, co tu je.</p>
+      <div class="row"><a class="btn btn-dark" href="#">Primární akce</a><a class="btn btn-ghost" href="#">Vedlejší akce</a></div>
+    </div>
+  </div>
+</header>
+
+<section class="s-cream section" id="barvy">
+  <div class="wrap">
+    <div class="kit-h"><h2 class="t-h2">01 Barvy</h2><code>--cream --stone --paper --forest --g --ink …</code></div>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--cream)"></i><div><b>cream</b>#f4eee3 · hlavní pozadí</div></div>
+      <div class="sw"><i style="background:var(--stone)"></i><div><b>stone</b>#ebe3d4 · druhé pozadí</div></div>
+      <div class="sw"><i style="background:var(--paper)"></i><div><b>paper</b>#fffaf1 · inputy</div></div>
+      <div class="sw"><i style="background:var(--g)"></i><div><b>g</b>#2bd47f · zelená plocha</div></div>
+      <div class="sw"><i style="background:var(--g-deep)"></i><div><b>g-deep</b>#1fb86a · hover</div></div>
+      <div class="sw"><i style="background:var(--g-ink)"></i><div><b>g-ink</b>#0d6b3e · zelený text</div></div>
+      <div class="sw"><i style="background:var(--forest)"></i><div><b>forest</b>#0f3b2a · tmavá plocha</div></div>
+      <div class="sw"><i style="background:var(--forest-2)"></i><div><b>forest-2</b>#164d37 · hover</div></div>
+      <div class="sw"><i style="background:var(--ink)"></i><div><b>ink</b>#1c1a17 · jen text</div></div>
+      <div class="sw"><i style="background:var(--muted)"></i><div><b>muted</b>#5c564d · vedlejší text</div></div>
+      <div class="sw"><i style="background:var(--danger)"></i><div><b>danger</b>#a8321e · chyba</div></div>
+    </div>
+    <h3 class="t-label" style="margin:56px 0 20px">Povolené kombinace (poměr kontrastu)</h3>
+    <div class="pairs">
+      <div class="pair" style="background:var(--cream);color:var(--ink);border:1px solid var(--line)">Ink na cream<small>15.0 : 1 · běžný text</small></div>
+      <div class="pair" style="background:var(--cream);color:var(--g-ink);border:1px solid var(--line)">G-ink na cream<small>5.7 : 1 · zelený text</small></div>
+      <div class="pair" style="background:var(--g);color:var(--ink)">Ink na zelené<small>9.0 : 1</small></div>
+      <div class="pair" style="background:var(--g);color:var(--forest)">Forest na zelené<small>6.4 : 1</small></div>
+      <div class="pair" style="background:var(--forest);color:var(--paper)">Paper na forest<small>12.0 : 1</small></div>
+      <div class="pair" style="background:var(--forest);color:var(--g)">Zelená na forest<small>6.4 : 1 · akcent</small></div>
+    </div>
+    <h3 class="t-label" style="margin:40px 0 20px;color:var(--danger)">Zakázané</h3>
+    <div class="pairs">
+      <div class="pair bad" style="background:var(--cream);color:var(--g)">Zelená na cream<small>1.7 : 1 · nečitelné</small></div>
+      <div class="pair bad" style="background:var(--g);color:#fff">Bílá na zelené<small>1.9 : 1 · nečitelné</small></div>
+      <div class="pair bad" style="background:#0a0203;color:var(--cream)">Černá plocha<small>nepoužívat · tmavá = forest</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="s-stone section" id="typo">
+  <div class="wrap">
+    <div class="kit-h"><h2 class="t-h2">02 Typografie</h2><code>Gloock 400 · Montserrat 400/500/600/700</code></div>
+    <div class="spec">
+      <code>.t-hero · Gloock</code><p class="t-hero">Druhý názor.</p>
+      <code>.t-display · Gloock</code><p class="t-display">Řeknu vám to <em class="accent">na rovinu.</em></p>
+      <code>.t-h2 · Gloock</code><p class="t-h2">Nadpis sekce</p>
+      <code>.t-h2-sans · Montserrat</code><p class="t-h2-sans">Jak to funguje?</p>
+      <code>.t-h3 · Gloock</code><p class="t-h3">Nadpis karty</p>
+      <code>.t-lead · Montserrat</code><p class="t-lead">Úvodní věta sekce, která nese hlavní myšlenku.</p>
+      <code>.t-intro</code><p class="t-intro">Perex pod nadpisem. Krátký, maximálně dvě věty, šířka do 44 znaků.</p>
+      <code>.t-body</code><p class="t-body">Běžný odstavec. Montserrat 16 px, proklad 1.7, šířka nejvýš 56 znaků, aby se dobře četl i na velkém monitoru.</p>
+      <code>.t-kicker</code><p class="t-kicker">Nadtitulek sekce</p>
+      <code>.t-label</code><p class="t-label">Popisek pole</p>
+      <code>.t-num · Gloock</code><p class="t-num">1 2 3</p>
+      <code>.t-small</code><p class="t-small t-muted">Drobný text, patička, poznámky.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s-cream section" id="tlacitka">
+  <div class="wrap">
+    <div class="kit-h"><h2 class="t-h2">03 Tlačítka a štítky</h2><code>--pill: 0 9999px 9999px 0</code></div>
+    <div class="grid2">
+      <div>
+        <p class="t-label t-muted" style="margin-bottom:16px">Na světlé</p>
+        <div class="row" style="margin-bottom:20px"><a class="btn btn-dark" href="#">Primární</a><a class="btn btn-green" href="#">Zelené</a></div>
+        <div class="row" style="margin-bottom:20px"><a class="btn btn-ghost" href="#">Ghost</a><a class="btn btn-dark btn--noarrow" href="#">Bez šipky</a></div>
+        <div class="row" style="margin-bottom:28px"><a class="btn btn-dark btn--sm" href="#">Malé</a><button class="btn btn-dark" disabled>Neaktivní</button></div>
+        <div class="row"><span class="tag tag-dark">Štítek dark</span><span class="tag tag-green">Štítek zelený</span><span class="tag tag-line">Obrys</span></div>
+      </div>
+      <div class="s-forest" style="padding:32px">
+        <p class="t-label t-muted" style="margin-bottom:16px">Na forest</p>
+        <div class="row" style="margin-bottom:20px"><a class="btn btn-green" href="#">Zelené</a><a class="btn btn-ghost-g" href="#">Ghost zelené</a></div>
+        <div class="row"><span class="tag tag-green">Štítek</span><span class="tag tag-cream">Krémový</span><span class="tag tag-line" style="color:var(--g)">Obrys</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-stone section" id="formulare">
+  <div class="wrap">
+    <div class="kit-h"><h2 class="t-h2">04 Formuláře</h2><code>.field .input .select .textarea .check</code></div>
+    <div class="grid2">
+      <form class="panel-paper" onsubmit="return false">
+        <div class="field"><label for="a">Jméno</label><input class="input" id="a" placeholder="Jan Novák"></div>
+        <div class="field"><label for="b">Telefon</label><input class="input" id="b" value="733 651 217"></div>
+        <div class="field is-error"><label for="c">E-mail</label><input class="input" id="c" value="jan@"><span class="hint">Zkontrolujte prosím e-mail.</span></div>
+        <div class="field"><label for="d">Téma</label><select class="select" id="d"><option>Hypotéka</option><option>Pojištění</option></select></div>
+        <div class="field"><label for="e">Zpráva</label><textarea class="textarea" id="e" placeholder="Stručně, co řešíte"></textarea></div>
+        <label class="check" style="margin-bottom:24px"><input type="checkbox" checked> Souhlasím se zpracováním osobních údajů.</label>
+        <button class="btn btn-dark">Odeslat</button>
+      </form>
+      <div style="display:grid;gap:16px;align-content:start">
+        <div class="notice">Hotovo. Ozvu se vám do 24 hodin.</div>
+        <div class="notice notice-error">Formulář se nepodařilo odeslat. Zkuste to prosím znovu.</div>
+        <div class="notice notice-forest">Nový dokument ve vaší klientské zóně.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-cream section" id="data">
+  <div class="wrap">
+    <div class="kit-h"><h2 class="t-h2">05 Data a panely</h2><code>.metrics .table .panel .panel-forest .facts</code></div>
+    <nav class="tabs" style="margin-bottom:40px"><a href="#" aria-current="page">Přehled</a><a href="#">Smlouvy</a><a href="#">Dokumenty</a><a href="#">Report</a></nav>
+    <div class="metrics" style="margin-bottom:56px">
+      <div class="metric"><p class="t-label">Smlouvy</p><strong>6</strong><span>aktivní</span></div>
+      <div class="metric"><p class="t-label">Měsíčně platíte</p><strong>4 820 Kč</strong><span>vše dohromady</span></div>
+      <div class="metric"><p class="t-label">Další revize</p><strong>03/2027</strong><span>refixace hypotéky</span></div>
+    </div>
+    <div class="table-scroll" style="margin-bottom:56px"><table class="table">
+      <thead><tr><th>Smlouva</th><th>Instituce</th><th>Stav</th><th class="num">Měsíčně</th></tr></thead>
+      <tbody>
+        <tr><td>Hypotéka</td><td>Banka A</td><td><span class="tag tag-green">V pořádku</span></td><td class="num">12 400 Kč</td></tr>
+        <tr><td>Životní pojištění</td><td>Pojišťovna B</td><td><span class="tag tag-dark">K revizi</span></td><td class="num">1 250 Kč</td></tr>
+        <tr><td>Penzijní spoření</td><td>Fond C</td><td><span class="tag tag-line">Čeká</span></td><td class="num">1 000 Kč</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid2" style="margin-bottom:56px">
+      <div class="panel"><p class="t-kicker" style="margin-bottom:12px;color:var(--g-ink)">Panel stone</p><p class="t-h3" style="margin-bottom:12px">Ostré rohy, bez stínu</p><p class="t-body t-muted">Odlišení plochou, ne rámečkem a stínem.</p></div>
+      <div class="panel-forest"><p class="t-kicker" style="margin-bottom:12px;color:var(--g)">Panel forest</p><p class="t-h3" style="margin-bottom:16px;color:var(--paper)">Zvýrazněný obsah</p>
+        <ul class="checklist" style="margin-bottom:24px"><li>Pravidelný report</li><li>Smlouvy na jednom místě</li></ul><a class="btn btn-ghost-g btn--sm" href="#">Otevřít</a></div>
+    </div>
+    <dl class="facts">
+      <div><dt>Label</dt><dd>Krátká faktická hodnota.</dd></div>
+      <div><dt>Dohled</dt><dd>Regulační informace.</dd></div>
+      <div><dt>IČO</dt><dd>14311569</dd></div>
+      <div><dt>Kde</dt><dd>Jemnice</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="s-green section" id="vzory">
+  <div class="wrap">
+    <div class="kit-h" style="border-color:var(--line-on-g)"><h2 class="t-h2-sans">06 Vzory</h2><code style="color:var(--forest)">.split .step .acc .menu-box .photo</code></div>
+    <div class="split" style="margin-bottom:72px">
+      <div><p class="t-h2-sans">Kroky</p></div>
+      <div>
+        <div class="step"><div class="t-num">1</div><div><span class="tag tag-dark">Krok</span><p class="t-body">Číslo v Gloocku, štítek a text. Linky mezi kroky.</p></div></div>
+        <div class="step"><div class="t-num">2</div><div><span class="tag tag-dark">Krok</span><p class="t-body">Klíčový krok může být .panel-forest.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-cream section">
+  <div class="wrap split">
+    <div>
+      <p class="t-lead" style="color:var(--forest);margin-bottom:32px">Accordion a boxované menu</p>
+      <ul class="menu-box"><li><a href="#" aria-current="page">Přehled</a></li><li><a href="#">Smlouvy</a></li><li><a href="#">Dokumenty</a></li><li><a href="#">Kontakt</a></li></ul>
+    </div>
+    <div class="acc">
+      <details open><summary>Otevřená položka</summary><div>Obsah položky. Chevron se otočí, text je muted.</div></details>
+      <details><summary>Zavřená položka</summary><div>Obsah.</div></details>
+      <details><summary>Další položka</summary><div>Obsah.</div></details>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:72px">
+    <div class="grid2">
+      <figure class="photo photo-demo"><figcaption>Popisek fotky</figcaption></figure>
+      <figure class="photo photo-demo" style="background:var(--forest)"><figcaption>Ostré rohy</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="s-forest section">
+  <div class="wrap">
+    <h2 class="t-display" style="margin-bottom:40px">Velké sdělení. <em class="accent">Klíčová část zeleně.</em></h2>
+    <p class="t-body t-muted" style="margin-bottom:32px">Tmavá sekce je vždy forest, nikdy černá. Odstavce v on-forest.</p>
+    <a class="btn btn-ghost-g" href="#">Akce na tmavé</a>
+  </div>
+</section>
+
+<footer class="footer"><div class="wrap"><span>Ondřej Kadlec · IČO 14311569 · Jemnice</span><span>Vázaný zástupce INSIA a.s. a ININVEST · <a href="#">Ochrana osobních údajů</a></span></div></footer>
+</body>
+</html>

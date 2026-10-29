@@ -40,6 +40,7 @@
         <button class="tab" role="tab" data-action="tab" data-tab="prehled" id="tabbtn-prehled" aria-controls="panel-prehled">Přehled</button>
         <button class="tab" role="tab" data-action="tab" data-tab="navstevy" id="tabbtn-navstevy" aria-controls="panel-navstevy">Návštěvy</button>
         <button class="tab" role="tab" data-action="tab" data-tab="poptavky" id="tabbtn-poptavky" aria-controls="panel-poptavky">Poptávky <span class="badge" id="badge-inquiries" hidden></span></button>
+        <button class="tab" role="tab" data-action="tab" data-tab="odkazy" id="tabbtn-odkazy" aria-controls="panel-odkazy">Odkazy</button>
         <button class="tab" role="tab" data-action="tab" data-tab="clanky" id="tabbtn-clanky" aria-controls="panel-clanky">Články</button>
       </nav>
       <div class="top-right">
@@ -96,6 +97,23 @@
           <p class="meta">„Cesta" ukáže, odkud člověk přišel a co na webu udělal, než se ozval.</p>
         </div>
         <div id="inquiries"></div>
+      </section>
+
+      <!-- ODKAZY — funnel konzultace.html podle tématu a kanálu -->
+      <section id="panel-odkazy" role="tabpanel" aria-labelledby="tabbtn-odkazy" hidden>
+        <div class="page-head">
+          <h1>Odkazy</h1>
+          <div class="range" role="group" aria-label="Období">
+            <button data-action="range" data-days="1">Dnes</button>
+            <button data-action="range" data-days="7">7 dní</button>
+            <button data-action="range" data-days="30">30 dní</button>
+            <button data-action="range" data-days="90">90 dní</button>
+          </div>
+          <button class="btn" data-action="refresh">Obnovit</button>
+          <p class="meta">Jeden funnel, jiný odkaz pro každé téma a kanál. Výkon <span class="range-label">za 7 dní</span>.</p>
+        </div>
+        <div id="links-gen"></div>
+        <div id="links-perf" aria-live="polite"></div>
       </section>
 
       <!-- ČLÁNKY -->
@@ -186,6 +204,16 @@
     </section>
   </main>
 </div>
+
+<dialog id="qr-dialog" class="qr-dialog" aria-labelledby="qr-title">
+  <h2 id="qr-title">QR kód odkazu</h2>
+  <img id="qr-img" alt="QR kód odkazu na konzultaci" width="320" height="320">
+  <p class="hint" id="qr-url"></p>
+  <div class="qr-actions">
+    <a class="btn btn-primary" id="qr-download" href="#" download>Stáhnout PNG</a>
+    <button class="btn" data-action="qr-close">Zavřít</button>
+  </div>
+</dialog>
 
 <div id="loading" class="loading" aria-hidden="true"></div>
 <div id="tip" class="tip" role="tooltip" hidden></div>
