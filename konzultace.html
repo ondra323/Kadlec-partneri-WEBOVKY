@@ -27,7 +27,6 @@
 .hero-right{position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
 .hero-right .monogram{position:absolute;right:-4%;top:50%;transform:translateY(-46%)}
 .hero-right img{position:relative;z-index:1;width:min(92%,700px);margin-bottom:-2px}
-.byline{display:none}
 
 /* ── PROBLÉM ── */
 .prob-close{margin-top:32px}
@@ -108,12 +107,19 @@
 #sticky{display:none}
 
 @media (max-width:980px){
-  .hero{grid-template-columns:1fr;min-height:0}
-  .hero-left{padding:22px var(--gutter) 48px}
-  .hero-right{display:none}
-  .byline{display:flex;gap:16px;align-items:center;margin:0 0 32px}
-  .byline img{width:72px;height:72px;object-fit:cover}
-  .byline b{display:block;font-weight:600}
+  /* TELEFON — fotka z profil.html (kamenná plocha, K, figura) je pozadím
+     celého hera. Text leží v horní volné části, figura pod ním: silueta se
+     nikdy nepřekryje, ani u nejdelšího nadpisu varianty z reklamy.
+     Ruka ukazuje nahoru doleva — přímo na nadpis, proto fotka není zrcadlená. */
+  .hero{grid-template-columns:1fr;min-height:0;position:relative;overflow:hidden;
+    background:var(--stone)}
+  .hero-left.s-green{background:transparent;position:relative;z-index:2;
+    padding:22px var(--gutter) 0}
+  .hero-copy{padding-top:36px}
+  #h-sub{max-width:34ch}
+  .hero-right.s-stone{background:transparent;position:static;display:block;overflow:visible}
+  .hero-right .monogram{right:-18%;top:auto;bottom:-2%;transform:none;z-index:0}
+  .hero-right img{z-index:1;width:100%;max-width:520px;margin:8px auto -2px}
   .guide-row{grid-template-columns:1fr;gap:32px;margin-top:40px}
   .wall-grid{grid-template-columns:1fr 1fr}
   .gauge{padding:24px}
@@ -141,29 +147,19 @@
       <p class="t-kicker" id="h-eyebrow">Jemnice a okolí</p>
       <h1 class="t-hero" id="h-title">Druhý názor <em>na vaše smlouvy.</em></h1>
       <p class="t-intro" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>A řeknu vám to na rovinu — i když vyjde, že nic neměnit.</b></p>
-      <div class="byline">
-        <picture>
-          <source srcset="assets/ondrej-kadlec.webp" type="image/webp">
-          <img class="portrait-bw" src="assets/ondrej-kadlec.jpg" width="72" height="72" decoding="async" alt="">
-        </picture>
-        <p class="t-small"><b>Ondřej Kadlec</b>Nezávislý finanční poradce · Jemnice</p>
-      </div>
       <a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a>
       <p class="t-small hero-note">Jméno a telefon. Zavolám osobně do 24 hodin.</p>
     </div>
   </div>
   <div class="hero-right s-stone">
     <div class="monogram" aria-hidden="true">K</div>
-    <!-- media 981px = breakpoint kitu: pod ním se figura vůbec nevyžádá -->
-    <picture>
-      <source media="(min-width:981px)"
-              srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w"
-              sizes="50vw">
-      <img id="hero-photo" class="portrait-bw"
-           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-           width="1400" height="1069" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
-           fetchpriority="high" decoding="async">
-    </picture>
+    <!-- stejná fotka jako hero na profil.html; na telefonu tvoří pozadí celého hera -->
+    <img id="hero-photo" class="portrait-bw"
+         src="assets/ondrej-figura.webp"
+         srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w"
+         sizes="(max-width:980px) 100vw, 50vw"
+         width="1400" height="1069" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+         fetchpriority="high" decoding="async">
   </div>
 </header>
 
