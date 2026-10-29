@@ -6,9 +6,10 @@ import { esc, html, raw, $, toDate, num, pct, dur, clock, when, median, countBy 
 
 /* ─── Formuláře, které web měří, a jejich kroky ─────────────────────────── */
 export const FORMS = {
+  // dnešní formulář funnelu: jméno + telefon, téma a spěch jsou nepovinné
   kviz: {
-    name: 'Kvíz', where: 'konzultace.html',
-    steps: [['open', 'Otevřeno'], [1, 'Téma'], [2, 'Detail'], [3, 'Spěch'], [4, 'Kontakt'], ['ok', 'Odesláno']]
+    name: 'Formulář funnelu', where: 'konzultace.html',
+    steps: [['open', 'Viděli formulář'], ['touch', 'Začali vyplňovat'], ['ok', 'Odesláno']]
   },
   konzultace: {
     name: 'Formulář konzultace', where: 'hlavní stránka',
@@ -341,7 +342,6 @@ function formChip(s) {
     const name = (FORMS[id] && FORMS[id].name) || id;
     if (f.ok === true) out.push(html`<span class="chip chip-good">● ${name}: odesláno</span>`);
     else if (f.ok === false) out.push(html`<span class="chip chip-warn">▲ ${name}: selhalo</span>`);
-    else if (id === 'kviz' && f.max) out.push(html`<span class="chip">${name}: krok ${f.max}/4</span>`);
     else if (f.touch >= 0) out.push(html`<span class="chip">${name}: rozepsaný</span>`);
     else if (f.open >= 0) out.push(html`<span class="chip chip-quiet">${name}: otevřel</span>`);
   });

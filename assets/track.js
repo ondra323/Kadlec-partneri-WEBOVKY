@@ -98,7 +98,9 @@
       landing: clip(pathNow(), 160),
       referrer: clip(document.referrer, 160),
       source: src.source, medium: src.medium,
-      campaign: clip(p.get('utm_campaign') || '', 80),
+      // utm_content (která reklama / který odkaz z adminu) jede v poli campaign
+      // za lomítkem — pravidla Firestore nové pole nepustí, admin ho zase rozdělí
+      campaign: clip([p.get('utm_campaign') || '', p.get('utm_content') || ''].filter(Boolean).join(' / '), 80),
       tema: clip(p.get('tema') || '', 40),
       device: deviceClass(), vw: innerWidth, vh: innerHeight,
       lang: (navigator.language || '').slice(0, 5),
