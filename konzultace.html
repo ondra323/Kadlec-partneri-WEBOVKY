@@ -361,78 +361,107 @@
 <script>
 (function(){
   // ═══ TÉMATA — shoda sdělení s reklamou (message match) ═══
+  // ═══ TÉMATA — shoda sdělení s reklamou (message match) ═══
+  // Klíč = hodnota ?tema= v odkazu z reklamy. Nadpis stránky musí říkat totéž
+  // co reklama (viz REKLAMY-FB.md). U úvěrů a hypoték se nadpis nikdy neptá na
+  // osobní finanční situaci („Máte dluhy?") — Facebook to v reklamách zakazuje.
   var T = {
-    pojisteni:{
-      eyebrow:'Pojištění',
-      title:'Víte, co vaše pojistka<br><em>doopravdy kryje?</em>',
-      sub:'Podívám se, na co máte nárok a co už dnes umí novější smlouvy. <b>Když je vaše v pořádku, řeknu vám to a necháme ji být.</b>',
-      cta:'Chci zkontrolovat svou pojistku',
-      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že tomu nikdo nerozumí.',
-      pain:[
-        ['Smlouvu jste podepsali před lety','a od té doby jste do ní nekoukli. Nevíte, co v ní vlastně je.'],
-        ['Platíte každý měsíc','a netušíte, jestli za peníze, které dávají smysl.'],
-        ['Když se něco stane','zjistíte podmínky až ve chvíli, kdy je pozdě je měnit.'],
-        ['Přepsat to zní jako práce','na kterou nikdo nemá čas ani chuť.']
-      ],
-      close:'A tak to zůstává, jak to je. <strong>Nejdražší pojistka je ta, která v den úrazu neplní.</strong>'
-    },
-    hypoteka:{
-      eyebrow:'Hypotéka',
-      title:'Kolik by vaše hypotéka<br>stála <em>u jiné banky?</em>',
-      sub:'Srovnám vaši sazbu s nabídkou celého trhu. <b>Když máte dobrou, řeknu vám to a měnit nebudeme nic.</b>',
-      cta:'Chci srovnat svou hypotéku',
-      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.',
-      pain:[
-        ['Fixace končí','a vy nevíte, jestli je nabídka banky férová, nebo počítá s tím, že se nebudete ptát.'],
-        ['Splátka odchází každý měsíc','a nikdo vám nikdy neřekl, jestli platíte normálně.'],
-        ['Obíhat patnáct bank','nemá kdo. Tak vezmete to, co vám nabídnou.'],
-        ['Bojíte se, že vás doběhnou','a nemáte to s kým probrat.']
-      ],
-      close:'A tak to zůstává, jak to je. <strong>Na hypotéce se rozdíl v desetinách procenta počítá ve stovkách tisíc.</strong>'
-    },
-    uvery:{
-      eyebrow:'Úvěry',
-      title:'Platíte za své půjčky víc,<br>než je <em>dnes běžné?</em>',
-      sub:'Projdu vaše splátky a srovnám je s aktuálním trhem. <b>Když je máte nastavené dobře, řeknu vám to.</b>',
-      cta:'Chci spočítat své splátky',
-      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že v tom není vidět.',
-      pain:[
-        ['Splátky odcházejí každý měsíc','a vy nevíte, kolik z nich jsou jenom úroky.'],
-        ['Máte to na víc místech','a přehled o celkové částce vlastně nemáte.'],
-        ['Kreditka nebo kontokorent','jsou nejdražší peníze na trhu a používají se nejsnáz.'],
-        ['Řešit to zní jako ostuda','přitom je to jenom počítání.']
-      ],
-      close:'A tak to zůstává, jak to je. <strong>Nejdražší není špatné rozhodnutí — nejdražší je žádné.</strong> To se platí každý měsíc.'
-    },
     investice:{
-      eyebrow:'Úspory',
-      title:'Leží vaše úspory tam,<br>kde jim <em>inflace ubírá?</em>',
-      sub:'Podívám se, kde peníze máte a co si za ně platíte. <b>Když je to nastavené dobře, řeknu vám to.</b>',
-      cta:'Chci se na své úspory podívat',
+      eyebrow:'Úspory a investice',
+      title:'Leží vaše úspory tam, <em>kde jim inflace ubírá?</em>',
+      sub:'Podívám se, kde peníze máte a kolik si za to instituce bere. <b>Když je to nastavené dobře, řeknu vám to.</b>',
+      cta:'Chci se na úspory podívat',
       ptitle:'Nejde o to, že byste byli nezodpovědní. Jde o to, že chyba stojí peníze.',
       pain:[
         ['Peníze leží na spořáku','a každý rok tiše ztrácejí hodnotu.'],
         ['Investovat? Ale kam','a co když to zvoráte. Tak radši nic.'],
-        ['Když už něco máte','netušíte, kolik si za to instituce bere.'],
         ['Každý radí něco jiného','a každý na tom vydělává.']
       ],
       close:'A tak to zůstává, jak to je. <strong>Peníze, které nikam nejdou, se každý rok scvrknou o inflaci.</strong>'
     },
     penze:{
       eyebrow:'Penze',
-      title:'Víte, kolik vám stát<br>v penzi <em>doopravdy pošle?</em>',
-      sub:'Spočítáme to a podíváme se, co s tím jde dělat. <b>Když už máte dobře nastaveno, řeknu vám to.</b>',
+      title:'Víte, kolik vám stát v penzi <em>doopravdy pošle?</em>',
+      sub:'Spočítáme to a podíváme se, co s tím jde dělat — včetně daňových úlev. <b>Když už máte dobře nastaveno, řeknu vám to.</b>',
       cta:'Chci vědět, jak na tom budu',
       ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že je to strašně daleko.',
       pain:[
-        ['Na penzi to nějak vyjde','— nebo taky ne. A zjistíte to, až s tím nepůjde nic dělat.'],
-        ['Staré penzijko','vám možná vydělává míň, než je inflace.'],
+        ['Staré penzijko','může vydělávat míň, než je inflace.'],
         ['DIP, DPS, transformované fondy','— tři zkratky a nikdo pořádně nevysvětlí rozdíl.'],
-        ['Daňové úlevy','nejspíš nevyužíváte naplno, protože o nich nikdo neřekne.']
+        ['Daňové úlevy','se často nevyužívají naplno, protože o nich nikdo neřekne.']
       ],
       close:'A tak to zůstává, jak to je. <strong>U penze je jediná drahá věc čas, který proteče.</strong>'
+    },
+    osoby:{
+      eyebrow:'Životní a úrazové pojištění',
+      title:'Vyplatí vaše pojistka, <em>když to bude potřeba?</em>',
+      sub:'Projdu, na co máte nárok, jaké jsou výluky a kolik za to platíte. <b>Když je smlouva v pořádku, řeknu vám to a necháme ji být.</b>',
+      cta:'Chci zkontrolovat pojistku',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že smlouvu nikdo nečte.',
+      pain:[
+        ['Smlouvu jste podepsali před lety','a od té doby do ní nikdo nekoukl.'],
+        ['Platíte každý měsíc','a nevíte, kolik z toho je pojištění a kolik poplatky.'],
+        ['Podmínky se zjistí','až po úrazu, kdy už je pozdě je měnit.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Nejdražší pojistka je ta, která v den úrazu neplní.</strong>'
+    },
+    majetek:{
+      eyebrow:'Pojištění domu a domácnosti',
+      title:'Je váš dům pojištěný <em>na dnešní ceny?</em>',
+      sub:'Ceny oprav a stavebních prací šly nahoru, pojistné částky ve starších smlouvách často ne. Podívám se, jestli by vám pojišťovna při škodě zaplatila celou opravu. <b>Když je to v pořádku, řeknu vám to.</b>',
+      cta:'Chci zkontrolovat pojištění domu',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že na to člověk myslí až po škodě.',
+      pain:[
+        ['Pojistná částka','se počítala podle cen z doby, kdy jste smlouvu podepsali.'],
+        ['Při podpojištění','pojišťovna krátí plnění, i když platíte každý měsíc.'],
+        ['Odpovědnost za škodu','sousedům nebo v nájmu v balíčku často chybí.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Pojistka se pozná až při škodě. Lepší to vědět dřív.</strong>'
+    },
+    cestovni:{
+      eyebrow:'Cestovní pojištění',
+      title:'Zaplatí cestovní pojištění <em>i nemocnici v zahraničí?</em>',
+      sub:'Pojištění ke kartě i roční smlouvy mají limity, o kterých se často ví až v nemocnici. Projdu, co máte, a řeknu vám, jestli to stačí. <b>Když stačí, nic nového vám nesjednám.</b>',
+      cta:'Chci zkontrolovat pojištění',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že limity nikdo nečte.',
+      pain:[
+        ['Pojištění ke kartě','platí jen za podmínek, které málokdo zná.'],
+        ['Limit léčebných výloh','může být nižší, než stojí hospitalizace mimo Evropu.'],
+        ['Hory a sporty','bývají výlukou, pokud nejsou připojištěné.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Cestovní pojištění je levné. Drahé je to, které nekryje.</strong>'
+    },
+    hypoteka:{
+      eyebrow:'Hypotéka',
+      title:'Kolik by hypotéka stála <em>u jiné banky?</em>',
+      sub:'Srovnám sazbu i podmínky s nabídkou celého trhu — při končící fixaci, refinancování i nové koupi. <b>Když je vaše nabídka dobrá, řeknu vám to a měnit nebudeme nic.</b>',
+      cta:'Chci srovnat hypotéku',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.',
+      pain:[
+        ['Fixace končí','a nabídka banky počítá s tím, že se nikdo nebude ptát.'],
+        ['Obíhat patnáct bank','nemá kdo. Tak se vezme to, co přijde poštou.'],
+        ['Rozdíl v desetinách procenta','se na hypotéce počítá ve statisících.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Nejdražší je podepsat první nabídku bez srovnání.</strong>'
+    },
+    uvery:{
+      eyebrow:'Úvěry a splátky',
+      title:'Víc splátek jde někdy sloučit <em>do jedné, levnější.</em>',
+      sub:'Projdu úvěry, kreditky i kontokorent a spočítám, jestli se dají spojit výhodněji. <b>Když je to nastavené dobře, řeknu vám to.</b>',
+      cta:'Chci spočítat splátky',
+      ptitle:'Nejde o to, že byste to zanedbali. Jde o to, že v tom není vidět.',
+      pain:[
+        ['Splátky na víc místech','a celkovou částku nikdo nesečetl.'],
+        ['Kreditka a kontokorent','jsou nejdražší peníze na trhu a používají se nejsnáz.'],
+        ['Řešit to zní jako ostuda','přitom je to jenom počítání.']
+      ],
+      close:'A tak to zůstává, jak to je. <strong>Nejdražší není špatné rozhodnutí — nejdražší je žádné.</strong>'
     }
   };
+  // staré odkazy ?tema=pojisteni dál fungují
+  var ALIAS = {pojisteni:'osoby'};
+  // téma z reklamy → volba ve formuláři (tři druhy pojištění sdílí jednu)
+  var CHIP = {osoby:'pojisteni', majetek:'pojisteni', cestovni:'pojisteni'};
   var DEF_PAIN = [
     ['Fixace, smlouvy, splátky','— každá věc zvlášť dává smysl, dohromady se v tom nedá vyznat.'],
     ['Nikdo vám neřekne','jestli platíte normálně, nebo o desítky tisíc navíc.'],
@@ -440,8 +469,8 @@
   ];
 
   var P = new URLSearchParams(location.search);
-  var tema = P.get('tema'); if (!T[tema]) tema = null;
-  var A = {topic: tema || '', when:'', call:'kdykoli'};
+  var tema = P.get('tema'); tema = ALIAS[tema] || tema; if (!T[tema]) tema = null;
+  var A = {topic: tema ? (CHIP[tema] || tema) : '', when:'', call:'kdykoli'};
 
   // ── vykreslení problému + hera podle tématu ──
   function paint(){
@@ -483,7 +512,7 @@
   var setTopic = chipGroup('topic', 'topic', true, function(){ kt('step', 'kviz', 1, 'Téma'); });
   chipGroup('urg', 'when', true, function(){ kt('step', 'kviz', 3, 'Spěch'); });
   chipGroup('when', 'call', false);
-  if (tema) { setTopic(tema); var ex = document.querySelector('.extra details'); if (ex) ex.open = true; }          // z reklamy už víme, o čem je řeč
+  if (tema) { setTopic(CHIP[tema] || tema); var ex = document.querySelector('.extra details'); if (ex) ex.open = true; }          // z reklamy už víme, o čem je řeč
 
   // první dotek kontaktního pole = začátek vyplňování
   var started = false;
