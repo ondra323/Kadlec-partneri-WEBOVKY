@@ -308,3 +308,32 @@ table.data { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
   .links .t-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--u); white-space: normal; }
   .links .t-actions .btn + .btn, .links .t-actions .btn + a { margin-left: 0; }
 }
+
+/* ─── statistiky ────────────────────────────────────────────────────────── */
+#stats > .tiles, #zona > .tiles { margin-bottom: calc(var(--u) * 3); }
+#stats > .block, #stats > .cols, #zona > .block, #zona > .cols, #zona > .setup { margin-bottom: calc(var(--u) * 3); }
+.chart { display: block; width: 100%; height: auto; overflow: visible; }
+.chart [data-tip]:hover, .chart [data-tip]:focus { fill: rgba(28, 53, 100, .06); outline: none; }
+.chart-tools { display: inline-flex; gap: 6px; margin-left: var(--u); vertical-align: middle; }
+.chart-tools .btn { min-height: 32px; }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; vertical-align: 0; }
+.cost-form { display: grid; grid-template-columns: 150px 200px 140px minmax(0, 1fr) auto; gap: 0 calc(var(--u) * 2); align-items: end; margin-bottom: calc(var(--u) * 2); }
+.cost-form .btn { margin-bottom: calc(var(--u) * 2.5); min-height: 52px; }
+.tile-warn .tile-num { color: var(--amber); }
+/* ─── klientská zóna ────────────────────────────────────────────────────── */
+.z-fail { color: var(--amber); font-weight: 600; }
+.alert-block { border-top: 3px solid var(--amber); }
+.z-visit { border-top: 1px solid var(--rule); padding: var(--u) 0; }
+.z-visit:first-child { border-top: 0; }
+.z-visit summary { cursor: pointer; font-size: var(--t-sm); font-weight: 500; padding: 4px 0; }
+.z-visit[open] summary { margin-bottom: var(--u); }
+@media (max-width: 960px) {
+  .cost-form { grid-template-columns: 1fr 1fr; }
+  .cost-form .btn { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  /* široký graf návštěv: na telefonu radši posouvat do strany než číst drobné písmo */
+  #chart-navstevy { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #chart-navstevy .chart { min-width: 640px; }
+  .cost-form { grid-template-columns: 1fr; }
+}

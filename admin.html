@@ -40,7 +40,9 @@
         <button class="tab" role="tab" data-action="tab" data-tab="prehled" id="tabbtn-prehled" aria-controls="panel-prehled">Přehled</button>
         <button class="tab" role="tab" data-action="tab" data-tab="navstevy" id="tabbtn-navstevy" aria-controls="panel-navstevy">Návštěvy</button>
         <button class="tab" role="tab" data-action="tab" data-tab="poptavky" id="tabbtn-poptavky" aria-controls="panel-poptavky">Poptávky <span class="badge" id="badge-inquiries" hidden></span></button>
+        <button class="tab" role="tab" data-action="tab" data-tab="statistiky" id="tabbtn-statistiky" aria-controls="panel-statistiky">Statistiky</button>
         <button class="tab" role="tab" data-action="tab" data-tab="odkazy" id="tabbtn-odkazy" aria-controls="panel-odkazy">Odkazy</button>
+        <button class="tab" role="tab" data-action="tab" data-tab="zona" id="tabbtn-zona" aria-controls="panel-zona">Klientská zóna</button>
         <button class="tab" role="tab" data-action="tab" data-tab="clanky" id="tabbtn-clanky" aria-controls="panel-clanky">Články</button>
       </nav>
       <div class="top-right">
@@ -99,6 +101,23 @@
         <div id="inquiries"></div>
       </section>
 
+      <!-- STATISTIKY — co dlouhodobě funguje v marketingu -->
+      <section id="panel-statistiky" role="tabpanel" aria-labelledby="tabbtn-statistiky" hidden>
+        <div class="page-head">
+          <h1>Statistiky</h1>
+          <div class="range" role="group" aria-label="Období">
+            <button data-action="stat-range" data-days="30">30 dní</button>
+            <button data-action="stat-range" data-days="90">90 dní</button>
+            <button data-action="stat-range" data-days="180">půl roku</button>
+            <button data-action="stat-range" data-days="365">rok</button>
+          </div>
+          <button class="btn" data-action="stat-refresh">Obnovit</button>
+          <button class="btn btn-primary" data-action="stat-summary">Kopírovat souhrn</button>
+          <p class="meta">Souhrn je text s tabulkami — vložte ho do chatu k posouzení. U každého grafu je PNG a CSV.</p>
+        </div>
+        <div id="stats" aria-live="polite"></div>
+      </section>
+
       <!-- ODKAZY — funnel konzultace.html podle tématu a kanálu -->
       <section id="panel-odkazy" role="tabpanel" aria-labelledby="tabbtn-odkazy" hidden>
         <div class="page-head">
@@ -114,6 +133,23 @@
         </div>
         <div id="links-gen"></div>
         <div id="links-perf" aria-live="polite"></div>
+      </section>
+
+      <!-- KLIENTSKÁ ZÓNA — přihlášení a pohyb klientů -->
+      <section id="panel-zona" role="tabpanel" aria-labelledby="tabbtn-zona" hidden>
+        <div class="page-head">
+          <h1>Klientská zóna</h1>
+          <div class="range" role="group" aria-label="Období">
+            <button data-action="zona-range" data-days="7">7 dní</button>
+            <button data-action="zona-range" data-days="30">30 dní</button>
+            <button data-action="zona-range" data-days="90">90 dní</button>
+            <button data-action="zona-range" data-days="365">rok</button>
+          </div>
+          <button class="btn" data-action="zona-refresh">Obnovit</button>
+          <button class="btn btn-ghost" data-action="purge-old" title="Údaje o používání se podle zásad drží nejvýš 12 měsíců">Smazat data starší 12 měsíců</button>
+          <p class="meta">Kdo se přihlásil, kde v zóně byl a na co klikl. Hesla ani to, co klient píše, se nezaznamenávají.</p>
+        </div>
+        <div id="zona" aria-live="polite"></div>
       </section>
 
       <!-- ČLÁNKY -->

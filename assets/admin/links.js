@@ -58,6 +58,7 @@ export function channelOf(s) {
   if (src === 'klient') return 'Klientům napřímo';
   if (src === 'tisk') return 'Leták / vizitka';
   if (src === 'přímá') return 'Přímý vstup';
+  if (src === 'google' || src === 'seznam') return src[0].toUpperCase() + src.slice(1) + (med === 'reklama' ? ' reklama' : '');
   return src;
 }
 const contentOf = (s) => { const i = (s.campaign || '').indexOf(' / '); return i < 0 ? '' : s.campaign.slice(i + 3); };

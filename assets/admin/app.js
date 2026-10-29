@@ -6,8 +6,10 @@ import * as An from './analytics.js';
 import * as Inq from './inquiries.js';
 import * as Art from './articles.js';
 import * as Ln from './links.js';
+import * as St from './stats.js';
+import * as Zn from './portal.js';
 
-const TABS = ['prehled', 'navstevy', 'poptavky', 'odkazy', 'clanky'];
+const TABS = ['prehled', 'navstevy', 'poptavky', 'statistiky', 'odkazy', 'zona', 'clanky'];
 const OPT_OUT_KEY = 'kt_off';
 const state = { tab: 'prehled', days: readDays(), data: null, loadedDays: 0, filter: 'vse', loading: false };
 
@@ -76,6 +78,8 @@ function goTab(tab, replace) {
   if (tab === 'odkazy' && !$('#links-gen').innerHTML) $('#links-gen').innerHTML = Ln.renderGenerator();
   if (tab === 'prehled' || tab === 'navstevy' || tab === 'odkazy') ensureData();
   if (tab === 'poptavky') Inq.loadInquiries();
+  if (tab === 'statistiky') St.ensure();
+  if (tab === 'zona') Zn.ensure();
 }
 addEventListener('popstate', () => { if (auth.currentUser) goTab(location.hash.replace('#', ''), true); });
 
@@ -192,6 +196,17 @@ const ACTIONS = {
   'link-copy': (b) => Ln.copy(b.dataset.url, b),
   'link-qr': (b) => Ln.showQr(b.dataset.url, b.dataset.name),
   'qr-close': () => $('#qr-dialog').close(),
+  'stat-range': (b) => St.setDays(+b.dataset.days),
+  'stat-refresh': () => St.ensure(true),
+  'stat-summary': (b) => St.copySummary(b),
+  'stat-png': (b) => St.exportPng(b.dataset.chart),
+  'stat-csv': (b) => St.exportCsv(b.dataset.chart),
+  'cost-del': (b) => St.delCost(b.dataset.id),
+  'zona-range': (b) => Zn.setDays(+b.dataset.days),
+  'zona-refresh': () => Zn.ensure(true),
+  'zona-toggle': (b) => Zn.toggle(b.dataset.email),
+  'purge-old': (b) => Zn.purgeOld(b),
+  'zona-rules': async (b) => { try { await navigator.clipboard.writeText(Zn.RULES); b.textContent = 'Zkopírováno'; } catch (e) { b.textContent = 'Označte a zkopírujte ručně'; } },
   logout: () => logout(),
   'inq-done': (b) => Inq.markDone(b.dataset.id),
   'inq-delete': (b) => Inq.remove(b.dataset.id),
@@ -217,7 +232,7 @@ document.addEventListener('click', (e) => {
 // řádky návštěv a záložky ovladatelné klávesnicí
 document.addEventListener('keydown', (e) => {
   const row = e.target.closest && e.target.closest('tr.s-row');
-  if (row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleSessionRow(row.dataset.id); return; }
+  if (row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); if (row.dataset.email) Zn.toggle(row.dataset.email); else toggleSessionRow(row.dataset.id); return; }
   const tabBtn = e.target.closest && e.target.closest('[role="tab"]');
   if (tabBtn && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
     const i = TABS.indexOf(tabBtn.dataset.tab);
@@ -229,6 +244,7 @@ document.addEventListener('keydown', (e) => {
 
 $('#f-crosssell').addEventListener('change', Art.previewCta);
 document.addEventListener('input', (e) => { if (e.target.id === 'link-tag') Ln.setTag(e.target.value); });
+document.addEventListener('submit', (e) => { if (e.target.id === 'cost-form') { e.preventDefault(); St.addCost(e.target); } });
 $('#img-url-input').addEventListener('input', Art.imageFromUrl);
 $('#img-file-input').addEventListener('change', (e) => Art.imageFromFile(e.target));
 addEventListener('beforeunload', (e) => { if (Art.isDirty()) { e.preventDefault(); e.returnValue = ''; } });
