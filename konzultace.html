@@ -24,9 +24,9 @@
 #h-sub{margin-bottom:32px;max-width:32ch}
 #h-sub b{font-weight:600}
 .hero-note{margin-top:16px}
-.hero-right{position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
-.hero-right .monogram{position:absolute;right:-4%;top:50%;transform:translateY(-46%)}
-.hero-right img{position:relative;z-index:1;width:min(92%,700px);margin-bottom:-2px}
+.hero-right{position:relative;overflow:hidden}
+/* fotka má poměr skoro 9:10 jako pravý sloupec; ořez drží figuru i celé K */
+.hero-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:35% 100%}
 
 /* ── PROBLÉM ── */
 .prob-close{margin-top:32px}
@@ -107,19 +107,19 @@
 #sticky{display:none}
 
 @media (max-width:980px){
-  /* TELEFON — fotka z profil.html (kamenná plocha, K, figura) je pozadím
-     celého hera. Text leží v horní volné části, figura pod ním: silueta se
-     nikdy nepřekryje, ani u nejdelšího nadpisu varianty z reklamy.
-     Ruka ukazuje nahoru doleva — přímo na nadpis, proto fotka není zrcadlená. */
+  /* TELEFON — fotka vyjede pod text: horních 30 % (nebe, věž, vršek K) leží
+     za textem a rozplývá se do kamenné plochy. Hlava začíná ve 37,5 % výšky
+     fotky, takže mezi textem a siluetou zbývá vždy rezerva 7,5 % — nezávisle
+     na délce nadpisu varianty. Nezrcadlit: převrátilo by se i písmeno K. */
   .hero{grid-template-columns:1fr;min-height:0;position:relative;overflow:hidden;
     background:var(--stone)}
   .hero-left.s-green{background:transparent;position:relative;z-index:2;
     padding:22px var(--gutter) 0}
   .hero-copy{padding-top:36px}
   #h-sub{max-width:34ch}
-  .hero-right.s-stone{background:transparent;position:static;display:block;overflow:visible}
-  .hero-right .monogram{right:-18%;top:auto;bottom:-2%;transform:none;z-index:0}
-  .hero-right img{z-index:1;width:100%;max-width:520px;margin:8px auto -2px}
+  .hero-right.s-stone{background:transparent;overflow:visible;--w:min(100vw,560px)}
+  .hero-right img{position:relative;inset:auto;display:block;width:var(--w);height:auto;margin:calc(var(--w) * -.30) auto 0;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%)}
   .guide-row{grid-template-columns:1fr;gap:32px;margin-top:40px}
   .wall-grid{grid-template-columns:1fr 1fr}
   .gauge{padding:24px}
@@ -152,13 +152,12 @@
     </div>
   </div>
   <div class="hero-right s-stone">
-    <div class="monogram" aria-hidden="true">K</div>
-    <!-- stejná fotka jako hero na profil.html; na telefonu tvoří pozadí celého hera -->
-    <img id="hero-photo" class="portrait-bw"
-         src="assets/ondrej-figura.webp"
-         srcset="assets/ondrej-figura.webp 700w, assets/ondrej-figura@2x.webp 1400w"
-         sizes="(max-width:980px) 100vw, 50vw"
-         width="1400" height="1069" alt="Ondřej Kadlec, nezávislý finanční poradce z Jemnice"
+    <!-- fotka už nese zelené K i náměstí v Jemnici, proto bez .monogram a bez .portrait-bw -->
+    <img id="hero-photo"
+         src="assets/ondrej-jemnice-900.webp"
+         srcset="assets/ondrej-jemnice-600.webp 600w, assets/ondrej-jemnice-900.webp 900w, assets/ondrej-jemnice-1400.webp 1400w"
+         sizes="(max-width:980px) min(100vw, 560px), 52vw"
+         width="1400" height="1551" alt="Ondřej Kadlec opřený o písmeno K na náměstí v Jemnici"
          fetchpriority="high" decoding="async">
   </div>
 </header>
