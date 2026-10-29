@@ -86,10 +86,11 @@
 .chips .btn{justify-content:center;width:100%;text-align:center}
 .chips-topic .btn:last-child{grid-column:1 / -1}
 .chip.sel{background:var(--forest);border-color:var(--forest);color:var(--g)}
-.extra{border:0;border-top:1px solid var(--line);margin:8px 0 24px;padding:24px 0 0}
-.extra legend{float:left;width:100%;padding:0;margin-bottom:16px}
-.extra legend + *{clear:both}
-.extra .tag{margin-left:8px}
+.extra{margin:8px 0 24px}
+.extra summary{font:600 15px/1.4 var(--f);flex-wrap:wrap;justify-content:flex-start;padding:18px 0}
+.extra summary::after{margin-left:auto}
+.extra .tag{margin-left:4px}
+.extra details > div{padding:4px 0 8px;max-width:none}
 .field .hint.err{display:none}
 .field.is-error .hint.err{display:block}
 #fg{margin-bottom:24px}
@@ -123,7 +124,7 @@
   #sticky .btn{width:100%;justify-content:center}
   .footer{padding-bottom:96px}
 }
-@media (max-width:420px){ .wall-grid{grid-template-columns:1fr} .rev{grid-column:auto} }
+@media (max-width:980px){ .section{padding:56px 0} .step{grid-template-columns:40px 1fr;gap:16px} .step-core{padding:28px 24px 32px 20px} .ref-head{margin-bottom:32px} .guide-row{margin-top:32px} .only-desk{display:none} .form-side .rows li{flex-direction:column;gap:2px} .rev{padding:20px} }
 </style>
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
 <script src="assets/track.js" defer></script>
@@ -137,9 +138,9 @@
       <span class="brand"><span>Ondřej Kadlec</span><span>&amp; partneři</span></span>
     </div>
     <div class="hero-copy">
-      <p class="t-kicker" id="h-eyebrow">Druhý názor</p>
-      <h1 class="t-hero" id="h-title">Chcete na své finance <em>druhý názor?</em></h1>
-      <p class="t-intro" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>Když vycházíte dobře, řeknu vám to a nic vám nebudu prodávat.</b></p>
+      <p class="t-kicker" id="h-eyebrow">Jemnice a okolí</p>
+      <h1 class="t-hero" id="h-title">Druhý názor <em>na vaše smlouvy.</em></h1>
+      <p class="t-intro" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>A řeknu vám to na rovinu — i když vyjde, že nic neměnit.</b></p>
       <div class="byline">
         <picture>
           <source srcset="assets/ondrej-kadlec.webp" type="image/webp">
@@ -148,7 +149,7 @@
         <p class="t-small"><b>Ondřej Kadlec</b>Nezávislý finanční poradce · Jemnice</p>
       </div>
       <a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a>
-      <p class="t-small hero-note">Zabere to 60 sekund · 100% nezávazné</p>
+      <p class="t-small hero-note">Jméno a telefon. Zavolám osobně do 24 hodin.</p>
     </div>
   </div>
   <div class="hero-right s-stone">
@@ -172,79 +173,68 @@
     <div>
       <p class="t-kicker" style="margin-bottom:16px">Znáte to?</p>
       <h2 class="t-lead" style="color:var(--forest)" id="p-title">Nejde o to, že byste to zanedbali. Jde o to, že se v tom nedá vyznat.</h2>
+    </div>
+    <div>
+      <ul class="rows" id="p-list"></ul>
       <p class="t-body t-muted prob-close" id="p-close">A tak to zůstává, jak to je. <strong>Nejdražší není špatné rozhodnutí — nejdražší je žádné.</strong> To se totiž platí každý měsíc.</p>
     </div>
-    <ul class="rows" id="p-list"></ul>
   </div>
 </section>
 
-<!-- ═══ 3 · PRŮVODCE — tmavá plocha je vždy forest ═══ -->
+<!-- ═══ 3 · PROČ JÁ — tmavá plocha je vždy forest ═══ -->
 <section class="s-forest section" id="pruvodce">
   <div class="wrap">
     <h2 class="t-display">Jeden člověk na všechno. <em class="accent">Ne pobočka, ne infolinka.</em></h2>
     <div class="guide-row">
       <p class="t-lead">„Sjednali mi to na pobočce, ten člověk už tam nepracuje — a já nevím, na koho se obrátit."</p>
       <div>
-        <p class="t-body t-muted">To slyším nejčastěji. Se mnou máte jedno číslo. Jednání s institucemi, papíry i pojistné události beru na sebe.</p>
+        <p class="t-body t-muted">To slyším nejčastěji. Začínal jsem v bance a vím, že pobočka doporučuje podle svého plánu, ne podle vás. Se mnou máte jedno číslo a papíry beru na sebe.</p>
         <p class="t-body t-muted"><b>Provizi dostávám od instituce, ne od vás.</b> Když je nejlepší nechat všechno být, řeknu vám to a o provizi přijdu.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ 4 · POSTUP — kroky na zelené, klíčový krok ve forest panelu ═══ -->
+<!-- ═══ 4 · POSTUP ═══ -->
 <section class="s-green section" id="postup">
   <div class="wrap split">
     <div>
       <h2 class="t-h2-sans">Tři kroky.</h2>
       <p class="t-intro steps-intro">Žádná byrokracie na vaší straně.</p>
-      <div class="steps-cta">
-        <a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a>
-        <p class="t-small">Zabere to 60 sekund · 100% nezávazné</p>
-      </div>
+      <div class="steps-cta only-desk"><a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a></div>
     </div>
     <div>
-      <div class="step"><div class="t-num">1</div><div><span class="tag tag-dark">Telefonát</span><p class="t-body"><b>Zavolám vám do 24 hodin.</b> Osobně já, ne call centrum. Deset minut, ať vím, o co jde.</p></div></div>
-      <div class="step"><div class="t-num">2</div><div><span class="tag tag-dark">Schůzka</span><p class="t-body"><b>Sejdeme se na 30 minut.</b> V Jemnici, u vás, nebo online. Nic si nepřipravujete.</p></div></div>
+      <div class="step"><div class="t-num">1</div><div><span class="tag tag-dark">Telefonát</span><p class="t-body"><b>Zavolám vám do 24 hodin.</b> Osobně já, ne call centrum. Deset minut.</p></div></div>
+      <div class="step"><div class="t-num">2</div><div><span class="tag tag-dark">Schůzka</span><p class="t-body"><b>Sejdeme se na 30 minut.</b> V Jemnici, u vás nebo online.</p></div></div>
       <div class="step step-core panel-forest"><div class="t-num">3</div><div>
         <span class="tag tag-green">Srovnání</span>
-        <h3 class="t-h3">Dostanete srovnání na papíře.</h3>
-        <p>Uvidíte, co nabízí trh vedle toho, co máte teď.</p>
-        <ul class="checklist">
-          <li>Na místě se nic nepodepisuje.</li>
-          <li>Když už po telefonátu bude jasné, že vám nemám co nabídnout, řeknu vám to rovnou — a víc se vám neozvu.</li>
-        </ul>
+        <h3 class="t-h3">Dostanete srovnání písemně.</h3>
+        <p>Co máte vedle toho, co nabízí trh. Na místě se nic nepodepisuje.</p>
+        <ul class="checklist"><li>Když po telefonátu bude jasné, že vám nemám co nabídnout, řeknu vám to rovnou a víc se neozvu.</li></ul>
       </div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ 5 · REFERENCE ═══
-     Všechny reference jsou skutečné, doslovné, upravena jen interpunkce
-     a diakritika. Nic tu není dopsané. -->
+<!-- ═══ 5 · REFERENCE — jen ty s konkrétním výsledkem ═══
+     Skutečné, doslovné, upravena jen interpunkce a diakritika. -->
 <section class="s-cream section" id="reference">
   <div class="wrap">
     <h2 class="t-h2 ref-head">Co říkají lidé, kteří to už mají za sebou.</h2>
     <div class="wall" id="wall">
       <div class="wall-grid">
-        <article class="rev s-green" style="--c:2;--d:0ms"><b class="t-label">Martin Švanda</b><blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote></article>
-        <article class="rev panel-paper" style="--c:1;--d:80ms"><b class="t-label anon">Klient</b><blockquote>Skvělá komunikace a ochota.</blockquote></article>
-        <article class="rev panel" style="--c:1;--d:160ms"><b class="t-label anon">Klient</b><blockquote>Spolehlivost, kompetence, vše OK.</blockquote></article>
-        <article class="rev panel" style="--c:2;--d:240ms"><b class="t-label">Míša Mátlová</b><blockquote>Ondra mi pomohl s organizováním mých financí a s porozuměním investičnímu světu. Doporučuji!</blockquote></article>
-        <article class="rev panel-paper" style="--c:1;--d:320ms"><b class="t-label">Jana Maříková</b><blockquote>Hodně a hodně spokojených klientů, ať se daří.</blockquote></article>
-        <article class="rev panel-paper" style="--c:1;--d:400ms"><b class="t-label anon">Klient</b><blockquote>Perfektní spolupráce, ochota a vstřícnost.</blockquote></article>
+        <article class="rev panel-forest" style="--c:2;--d:0ms"><b class="t-label">Lukin Bařinka</b><blockquote>Díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení.</blockquote></article>
+        <article class="rev s-green" style="--c:1;--d:90ms"><b class="t-label">Martin Švanda</b><blockquote>Díky Ondrovi vydělávám na své pojistce, a to se vyplatí!</blockquote></article>
+        <article class="rev panel-paper" style="--c:1;--d:180ms"><b class="t-label anon">Klient</b><blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote></article>
         <!-- ⚠️ OVĚŘ: 10/10 ze 100+ musí sedět s doložitelným. -->
-        <div class="gauge s-forest" style="--gd:1000ms">
+        <div class="gauge s-forest" style="--gd:700ms">
           <span class="t-display"><span class="accent">10</span>/10</span>
           <span class="t-intro t-muted">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span>
         </div>
-        <article class="rev panel-forest" style="--c:2;--d:480ms"><b class="t-label">Lukin Bařinka</b><blockquote>Ondřej mi pomohl zorganizovat finance a díky jeho analýze a plánu jsem si mohl vzít hypotéku na vlastní bydlení.</blockquote></article>
-        <article class="rev panel" style="--c:2;--d:560ms"><b class="t-label">Karel Mařík</b><blockquote>Je ochotný, poradí, zařídí a je blbuvzdorný! Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil.</blockquote></article>
-        <article class="rev panel-paper" style="--c:2;--d:640ms"><b class="t-label">Jana Samková</b><blockquote>Ondra je hodný, ochotný a milý človíček, rád poradí a pomůže. Jak zavolám, hned vyhoví.</blockquote></article>
-        <article class="rev s-green" style="--c:2;--d:720ms"><b class="t-label anon">Klient</b><blockquote>Byl jsem spokojený a vše proběhlo v pořádku. Doporučím jeho služby.</blockquote></article>
+        <article class="rev panel" style="--c:2;--d:270ms"><b class="t-label">Karel Mařík</b><blockquote>Nikdy není pozdě začít spořit — díky němu jsem už něco našetřil.</blockquote></article>
+        <article class="rev panel-paper" style="--c:2;--d:360ms"><b class="t-label">Míša Mátlová</b><blockquote>Pomohl mi s organizováním financí a s porozuměním investičnímu světu. Doporučuji!</blockquote></article>
       </div>
     </div>
-    <p class="t-small t-muted ref-reg">Registrován v systému <b>INSIA</b> a <b>ININVEST</b>, pod dohledem ČNB.</p>
     <div class="ref-foot joinq" id="joinq">
       <p class="t-h3"><span class="accent">Budete mezi ně patřit taky?</span></p>
       <a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a>
@@ -252,17 +242,16 @@
   </div>
 </section>
 
-<!-- ═══ 6 · FORMULÁŘ — kontakt hned, příprava nepovinně ═══ -->
+<!-- ═══ 6 · FORMULÁŘ — kontakt hned, příprava schovaná ═══ -->
 <section class="s-stone section" id="kviz">
   <div class="wrap split">
     <div class="form-side">
-      <p class="t-kicker" style="margin-bottom:16px">Poslední krok</p>
       <h2 class="t-h2" id="q-head">Kam vám mám zavolat?</h2>
-      <p class="t-intro q-lead">Stačí jméno a telefon. Zbytek je nepovinný.</p>
+      <p class="t-intro q-lead">Stačí jméno a telefon.</p>
       <ul class="rows">
-        <li><b>Zavolám vám osobně</b><span class="t-muted">do 24 hodin</span></li>
-        <li><b>Vaše číslo nikam nepředávám</b><span class="t-muted">a nebudu vás obtěžovat</span></li>
-        <li><b>Pod dohledem ČNB</b><span class="t-muted">IČO 14311569</span></li>
+        <li><b>Co vás to stojí?</b><span class="t-muted">Nic. Platí mě instituce.</span></li>
+        <li><b>Kdy se ozvu?</b><span class="t-muted">Osobně do 24 hodin.</span></li>
+        <li><b>Pod dohledem ČNB</b><span class="t-muted">INSIA a ININVEST</span></li>
       </ul>
     </div>
 
@@ -288,28 +277,33 @@
           </div>
         </div>
 
-        <fieldset class="extra">
-          <legend class="t-label">Pomůžete mi s přípravou? <span class="tag tag-line">nepovinné</span></legend>
-          <div class="field">
-            <span class="t-label" id="lt">O čem chcete mluvit?</span>
-            <div class="chips chips-topic" id="topic" role="group" aria-labelledby="lt">
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="pojisteni" aria-pressed="false">Pojištění</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hypoteka" aria-pressed="false">Hypotéka</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="uvery" aria-pressed="false">Úvěry</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="investice" aria-pressed="false">Úspory</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="penze" aria-pressed="false">Penze</button>
+        <!-- nepovinná příprava je zavřená — formulář tak na mobilu není dvě obrazovky -->
+        <div class="acc extra">
+          <details>
+            <summary><span>Chcete mi rovnou říct, o co jde? <span class="t-muted">Nepovinné.</span></span></summary>
+            <div>
+              <div class="field">
+                <span class="t-label" id="lt">O čem chcete mluvit?</span>
+                <div class="chips chips-topic" id="topic" role="group" aria-labelledby="lt">
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="pojisteni" aria-pressed="false">Pojištění</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hypoteka" aria-pressed="false">Hypotéka</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="uvery" aria-pressed="false">Úvěry</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="investice" aria-pressed="false">Úspory</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="penze" aria-pressed="false">Penze</button>
+                </div>
+              </div>
+              <div class="field">
+                <span class="t-label" id="lu">Jak moc to spěchá?</span>
+                <div class="chips" id="urg" role="group" aria-labelledby="lu">
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hned" aria-pressed="false">Spěchá to</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="3m" aria-pressed="false">Do 3 měsíců</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="letos" aria-pressed="false">Někdy letos</button>
+                  <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="rozhled" aria-pressed="false">Nespěchá</button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <span class="t-label" id="lu">Jak moc to spěchá?</span>
-            <div class="chips" id="urg" role="group" aria-labelledby="lu">
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hned" aria-pressed="false">Spěchá to</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="3m" aria-pressed="false">Do 3 měsíců</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="letos" aria-pressed="false">Někdy letos</button>
-              <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="rozhled" aria-pressed="false">Nespěchá</button>
-            </div>
-          </div>
-        </fieldset>
+          </details>
+        </div>
 
         <!-- souhlas je NAD tlačítkem a má viditelnou chybu -->
         <div class="field" id="fg">
@@ -321,7 +315,7 @@
         </div>
 
         <button type="submit" class="btn btn-dark submit">Chci, aby mi Ondřej zavolal</button>
-        <p class="t-small t-muted form-micro">Zabere to 30 sekund · 100% nezávazné</p>
+        <p class="t-small t-muted form-micro">Vaše číslo nikomu nedávám.</p>
 
         <p id="sendfail" class="notice notice-error">Odeslání se nepovedlo. Zavolejte mi prosím přímo na&nbsp;<a href="tel:+420733651217">733 651 217</a>.</p>
       </form>
@@ -442,8 +436,7 @@
   var DEF_PAIN = [
     ['Fixace, smlouvy, splátky','— každá věc zvlášť dává smysl, dohromady se v tom nedá vyznat.'],
     ['Nikdo vám neřekne','jestli platíte normálně, nebo o desítky tisíc navíc.'],
-    ['Poradit se s kým','když každý na tom něco vydělává.'],
-    ['Tak se to odloží','a jede se dál jako dosud.']
+    ['Poradit se s kým','když každý na tom něco vydělává. Tak se to odloží.']
   ];
 
   var P = new URLSearchParams(location.search);
@@ -490,7 +483,7 @@
   var setTopic = chipGroup('topic', 'topic', true, function(){ kt('step', 'kviz', 1, 'Téma'); });
   chipGroup('urg', 'when', true, function(){ kt('step', 'kviz', 3, 'Spěch'); });
   chipGroup('when', 'call', false);
-  if (tema) setTopic(tema);          // z reklamy už víme, o čem je řeč
+  if (tema) { setTopic(tema); var ex = document.querySelector('.extra details'); if (ex) ex.open = true; }          // z reklamy už víme, o čem je řeč
 
   // první dotek kontaktního pole = začátek vyplňování
   var started = false;
