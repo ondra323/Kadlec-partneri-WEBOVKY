@@ -159,7 +159,7 @@
       <p class="t-kicker" id="h-eyebrow">Jemnice a okolí</p>
       <h1 class="t-hero" id="h-title">Druhý názor <em>na vaše smlouvy.</em></h1>
       <p class="t-intro" id="h-sub">Srovnám, co máte, s tím, co dnes nabízí trh. <b>A řeknu vám to na rovinu — i když vyjde, že nic neměnit.</b></p>
-      <a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a>
+      <a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · úvod">Chci druhý názor</a>
       <p class="t-small hero-note">Jméno a telefon. Zavolám osobně do 24 hodin.</p>
     </div>
   </div>
@@ -208,7 +208,7 @@
     <div>
       <h2 class="t-h2-sans">Tři kroky.</h2>
       <p class="t-intro steps-intro">Žádná byrokracie na vaší straně.</p>
-      <div class="steps-cta only-desk"><a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a></div>
+      <div class="steps-cta only-desk"><a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · postup">Chci druhý názor</a></div>
     </div>
     <div>
       <div class="step"><div class="t-num">1</div><div><span class="tag tag-dark">Telefonát</span><p class="t-body"><b>Zavolám vám do 24 hodin.</b> Osobně já, ne call centrum. Deset minut.</p></div></div>
@@ -243,7 +243,7 @@
     </div>
     <div class="ref-foot joinq" id="joinq">
       <p class="t-h3"><span class="accent">Budete mezi ně patřit taky?</span></p>
-      <a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a>
+      <a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · recenze">Chci druhý názor</a>
     </div>
   </div>
 </section>
@@ -344,7 +344,7 @@
   </div>
 </footer>
 
-<div id="sticky"><a class="btn btn-dark" href="#kviz" data-cta>Chci druhý názor</a></div>
+<div id="sticky"><a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · lišta">Chci druhý názor</a></div>
 
 <!-- ═══ SKRIPTY — až pod čarou ponoru (lazy) ═══ -->
 <script type="module">
@@ -533,7 +533,15 @@
   var WHEN = {hned:'co nejdřív', '3m':'do tří měsíců', letos:'letos', rozhled:'bez spěchu'};
   var CALL = {kdykoli:'Kdykoli', dopoledne:'Dopoledne', odpoledne:'Odpoledne', podvecer:'Podvečer'};
 
-  kt('open', 'kviz');
+  // „otevřeno" = formulář byl opravdu vidět, ne jen načtená stránka
+  (function(){
+    var box = document.querySelector('[data-track-form="kviz"]');
+    if (!box || !('IntersectionObserver' in window)) { kt('open', 'kviz'); return; }
+    var io = new IntersectionObserver(function(en){
+      if (en.some(function(e){ return e.isIntersecting; })) { io.disconnect(); kt('open', 'kviz'); }
+    }, {threshold: .3});
+    io.observe(box);
+  })();
 
   document.getElementById('f').addEventListener('submit', function(e){
     e.preventDefault();
@@ -570,7 +578,8 @@
       service: LBL[A.topic] || 'Konzultace', term: CALL[A.call] || 'Kdykoli',
       note: [A.topic ? 'téma: ' + LBL[A.topic] : 'téma nevybral',
              A.when ? 'spěch: ' + WHEN[A.when] : 'spěch neuvedl',
-             tema ? 'z reklamy: ' + tema : '', utm].filter(Boolean).join(' · '),
+             tema ? 'z reklamy: ' + tema : '', utm,
+             P.get('utm_content') ? 'odkaz: ' + P.get('utm_content').slice(0, 40) : ''].filter(Boolean).join(' · '),
       source: 'konzultace/' + (tema || 'obecne'), status: 'new'
     };
 
@@ -683,7 +692,7 @@
   renderRev(REV[REV_TOPIC[tema] || tema] ? (REV_TOPIC[tema] || tema) : 'vyber');
   document.getElementById('ref-tabs').addEventListener('click', function(e){
     var b = e.target.closest('.chip'); if (!b) return;
-    renderRev(b.dataset.v); kt('click', 'recenze', b.dataset.v);
+    renderRev(b.dataset.v); kt('event', 'recenze: ' + b.dataset.v);
   });
 
   // ── reference: pád karet, načtení měřiče, otázka ──

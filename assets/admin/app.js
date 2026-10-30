@@ -5,8 +5,9 @@ import { $, $$, toast, setBusy, html } from './util.js';
 import * as An from './analytics.js';
 import * as Inq from './inquiries.js';
 import * as Art from './articles.js';
+import * as Ln from './links.js';
 
-const TABS = ['prehled', 'navstevy', 'poptavky', 'clanky'];
+const TABS = ['prehled', 'navstevy', 'poptavky', 'odkazy', 'clanky'];
 const OPT_OUT_KEY = 'kt_off';
 const state = { tab: 'prehled', days: readDays(), data: null, loadedDays: 0, filter: 'vse', loading: false };
 
@@ -72,7 +73,8 @@ function goTab(tab, replace) {
     b.tabIndex = t === tab ? 0 : -1;
   });
   history[replace ? 'replaceState' : 'pushState'](null, '', '#' + tab);
-  if (tab === 'prehled' || tab === 'navstevy') ensureData();
+  if (tab === 'odkazy' && !$('#links-gen').innerHTML) $('#links-gen').innerHTML = Ln.renderGenerator();
+  if (tab === 'prehled' || tab === 'navstevy' || tab === 'odkazy') ensureData();
   if (tab === 'poptavky') Inq.loadInquiries();
 }
 addEventListener('popstate', () => { if (auth.currentUser) goTab(location.hash.replace('#', ''), true); });
@@ -109,11 +111,13 @@ function render() {
     $('#setup-slot').innerHTML = An.renderSetup();
     $('#overview').innerHTML = An.renderLegacy(d, state.days);
     $('#sessions').innerHTML = '<p class="empty">Seznam návštěv s jejich cestou se zobrazí, až bude v databázi povolená kolekce sessions — návod je v Přehledu.</p>';
+    $('#links-perf').innerHTML = Ln.renderPerformance(d, state.days, An.rangeLabel);
     return;
   }
   $('#setup-slot').innerHTML = '';
   $('#overview').innerHTML = An.renderOverview(An.aggregate(d.sessions), state.days);
   renderSessions();
+  $('#links-perf').innerHTML = Ln.renderPerformance(d, state.days, An.rangeLabel);
 }
 
 function renderSessions() {
@@ -136,7 +140,7 @@ function toggleSessionRow(id, forceOpen) {
    (ukazatel „právě na webu" jinak rychle zastará). */
 let auto = 0;
 function startAuto() { stopAuto(); auto = setInterval(() => {
-  if (document.visibilityState === 'visible' && (state.tab === 'prehled' || state.tab === 'navstevy')) ensureData(true);
+  if (document.visibilityState === 'visible' && ['prehled', 'navstevy', 'odkazy'].includes(state.tab)) ensureData(true);
 }, 60000); }
 function stopAuto() { clearInterval(auto); }
 
@@ -184,6 +188,10 @@ const ACTIONS = {
     syncOptOut();
     toast(optedOut() ? 'Vaše návštěvy webu z tohoto zařízení se nebudou počítat.' : 'Vaše návštěvy z tohoto zařízení se budou počítat.');
   },
+  'link-ch': (b) => Ln.setChannel(b.dataset.ch),
+  'link-copy': (b) => Ln.copy(b.dataset.url, b),
+  'link-qr': (b) => Ln.showQr(b.dataset.url, b.dataset.name),
+  'qr-close': () => $('#qr-dialog').close(),
   logout: () => logout(),
   'inq-done': (b) => Inq.markDone(b.dataset.id),
   'inq-delete': (b) => Inq.remove(b.dataset.id),
@@ -220,6 +228,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 $('#f-crosssell').addEventListener('change', Art.previewCta);
+document.addEventListener('input', (e) => { if (e.target.id === 'link-tag') Ln.setTag(e.target.value); });
 $('#img-url-input').addEventListener('input', Art.imageFromUrl);
 $('#img-file-input').addEventListener('change', (e) => Art.imageFromFile(e.target));
 addEventListener('beforeunload', (e) => { if (Art.isDirty()) { e.preventDefault(); e.returnValue = ''; } });
