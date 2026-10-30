@@ -47,52 +47,79 @@
 .step-core .t-h3{color:var(--paper);margin:4px 0 16px}
 .step-core p{margin-bottom:24px}
 
-/* ── REFERENCE — hustá stěna, plochy z kitu, ostré rohy ── */
-.ref-head{margin-bottom:56px}
-.wall-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;grid-auto-flow:dense}
-.rev{grid-column:span var(--c);padding:24px}
-.ref-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:-24px 0 32px}
-.rev{display:flex;flex-direction:column}
-.rev-who{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-/* silueta: hranatá dlaždice, barvy podle plochy karty */
-.rev-ava{flex:none;width:44px;height:44px;background:var(--stone);color:var(--forest)}
-.rev-ava svg{display:block;width:100%;height:100%}
-.rev.panel .rev-ava{background:var(--cream)}
-.rev.panel-forest .rev-ava{background:var(--forest-2);color:var(--g)}
-.rev.s-green .rev-ava{background:var(--forest);color:var(--g)}
-.rev .t-label{display:block;color:var(--g-ink)}
-.rev.panel-forest .t-label{color:var(--g)}
-.rev.s-green .t-label{color:var(--forest)}
+/* ── REFERENCE — jedna velká výpověď s výsledkem, zbytek jako řada karet.
+      Plocha karty nic nekóduje, proto jen dvě: forest pro hlavní, paper pro ostatní. ── */
+.ref-head{margin-bottom:16px}
+.ref-towns{max-width:56ch;margin-bottom:32px}
+.ref-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.ref-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.wall-grid{display:grid;gap:16px}
+.rev{display:flex;flex-direction:column;padding:24px;background:var(--paper);border:1px solid var(--line)}
+.rev-tag{align-self:flex-start;margin-bottom:16px;font:600 12px/1.3 var(--f);letter-spacing:.06em;text-transform:uppercase;color:var(--g-ink)}
+.rev blockquote{font:400 16px/1.6 var(--f);margin-bottom:24px}
+.rev-who{display:flex;align-items:center;gap:12px;margin-top:auto}
+.rev-name{display:block;font:600 15px/1.3 var(--f);color:var(--forest)}
 .rev-town{display:block;font:400 13px/1.4 var(--f);color:var(--muted);margin-top:2px}
-.rev.panel-forest .rev-town{color:var(--on-forest-2)}
-.rev.s-green .rev-town{color:var(--forest)}
-.rev blockquote{font:400 16px/1.6 var(--f)}
-.rev.panel-forest blockquote{color:var(--on-forest)}
-.gauge{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:baseline;gap:16px 32px;padding:32px;margin:16px 0}
-.gauge .t-display{color:var(--paper);max-width:none}
-.gauge .t-intro{max-width:none}
+/* silueta hlavy a ramen; výřezy (brýle, límec) mají barvu dlaždice přes --ava-bg */
+.rev-ava{--ava-bg:var(--stone);flex:none;width:48px;height:48px;background:var(--ava-bg);color:var(--forest);overflow:hidden}
+.rev-ava svg{display:block;width:100%;height:100%;fill:currentColor}
+/* hlavní výpověď */
+.rev-lead{background:var(--forest);border:0;color:var(--cream);padding:40px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 48px;align-items:end}
+.rev-lead .rev-tag{grid-column:1 / -1;justify-self:start;margin:0;color:var(--forest);background:var(--g);padding:7px 14px;font-size:13px}
+.rev-lead blockquote{font:400 clamp(1.45rem,2.5vw,2.1rem)/1.32 var(--f-display);color:var(--paper);margin:0;max-width:34ch;text-indent:-.42em}
+.rev-lead .rev-who{margin:0}
+.rev-lead .rev-ava{--ava-bg:var(--forest-2);color:var(--g);width:56px;height:56px}
+.rev-lead .rev-name{color:var(--paper)}
+.rev-lead .rev-town{color:var(--on-forest)}
+.rev-track{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:16px}
+.rev-dots{display:none}
 .ref-foot{margin-top:40px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center;justify-content:space-between}
 .ref-foot .t-h3{max-width:20ch}
-.ref-reg{margin-top:16px}
 
-/* nálet stěny: jen přechody (transform, opacity, výsek) — výchozí stav je
-   viditelný, skrývá se až třídou .anim, kterou přidá skript */
-.wall.anim .rev{opacity:0;transform:translate3d(0,24px,0);will-change:transform,opacity;
-  transition:opacity .4s var(--ease) var(--d),transform .6s var(--ease) var(--d)}
-.wall.anim.in .rev{opacity:1;transform:none}
-.wall.anim .gauge{clip-path:inset(0 100% 0 0);will-change:clip-path;
-  transition:clip-path .9s var(--ease) var(--gd)}
-.wall.anim.in .gauge{clip-path:inset(0 0 0 0)}
-.joinq.anim{opacity:0;transform:translate3d(0,16px,0);will-change:transform,opacity;
-  transition:opacity .4s var(--ease) .2s,transform .5s var(--ease) .2s}
-.joinq.anim.in{opacity:1;transform:none}
+/* ── POHYB — výchozí stav je vždy viditelný; animuje se až skriptem (WAAPI)
+      nebo klíčovými snímky s fill:backwards, takže nefunkční skript nic neschová.
+      prefers-reduced-motion vypíná vše už v kitu. ── */
+@keyframes rise{from{opacity:0;transform:translate3d(0,18px,0)}}
+@keyframes settle{from{transform:scale(1.07)}}
+.hero-copy > *{animation:rise .7s cubic-bezier(.16,1,.3,1) backwards}
+#h-eyebrow{animation-delay:.05s} #h-title{animation-delay:.12s} #h-sub{animation-delay:.24s}
+.hero-copy .btn{animation-delay:.34s} .hero-note{animation-delay:.42s}
+.hero-right img{animation:settle 1.6s cubic-bezier(.16,1,.3,1) backwards;transform-origin:35% 100%}
+/* zvýrazňovač: bolesti se „podtrhnou“, když na ně čtenář dojede */
+#p-list strong{background:linear-gradient(var(--g),var(--g)) 0 92%/0 38% no-repeat;
+  transition:background-size .8s cubic-bezier(.16,1,.3,1) var(--d,0s)}
+#p-list.hl strong{background-size:100% 38%}
+/* volby: odezva na stisk */
+.chip{transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease),transform .1s var(--ease)}
+.chip:active{transform:scale(.97)}
 
-/* ── FORMULÁŘ ── */
-.form-side .t-intro{margin:24px 0 40px}
-.form-side .rows li{display:flex;gap:16px;justify-content:space-between}
-.form-side .rows b{font-weight:600}
+/* ── FORMULÁŘ — na mobilu jde formulář hned pod nadpis, fakta až za něj ── */
+#kviz .split{grid-template-areas:"side box" "facts box";grid-template-rows:auto 1fr;row-gap:0}
+.form-side{grid-area:side}
+.quiz-box{grid-area:box}
+.form-facts{grid-area:facts;margin-top:40px}
+.form-side .t-intro{margin:24px 0 0}
+.form-facts .rows li{display:flex;gap:16px;justify-content:space-between}
+.form-facts .rows b{font-weight:600}
+.call-now{margin-top:24px}
+.call-now a{font-weight:600;color:var(--forest);white-space:nowrap}
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chip{min-height:44px}
 .chips .btn{justify-content:center;width:100%;text-align:center}
+.extra-pick{color:var(--g-ink)}
+.field.is-error .hint.err{animation:rise .25s var(--ease)}
+/* hotovo: zaškrtnutí se dokreslí, pak karta s číslem, ze kterého volám */
+.done-check{width:56px;height:56px;margin-bottom:20px}
+.done-check circle{fill:var(--forest)}
+.done-check path{fill:none;stroke:var(--g);stroke-width:3.5;stroke-linecap:square;stroke-dasharray:30;stroke-dashoffset:0;animation:draw .5s .15s cubic-bezier(.16,1,.3,1) backwards}
+@keyframes draw{from{stroke-dashoffset:30}}
+#done.on > *{animation:rise .6s cubic-bezier(.16,1,.3,1) backwards}
+#done.on > :nth-child(2){animation-delay:.12s} #done.on > :nth-child(3){animation-delay:.24s}
+.caller{display:flex;align-items:center;gap:16px;margin-top:24px;padding:20px;background:var(--forest);color:var(--cream)}
+.caller img{flex:none;width:56px;height:56px;object-fit:cover;object-position:50% 20%;background:var(--forest-2)}
+.caller b{display:block;color:var(--paper);font:400 1.5rem/1.2 var(--f-display);margin-top:2px}
+.caller .t-small{color:var(--on-forest)}
+.done-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .chips-topic .btn:last-child{grid-column:1 / -1}
 .chip.sel{background:var(--forest);border-color:var(--forest);color:var(--g)}
 .extra{margin:8px 0 24px}
@@ -109,7 +136,8 @@
 .form-micro{margin-top:12px}
 #sendfail{display:none;margin-top:16px}
 #sendfail.on{display:flex}
-#done{display:none}
+#done{display:none;outline:0}
+#done.on{display:block}
 #done .t-h3{margin-bottom:8px}
 #done p + p{margin-top:12px}
 
@@ -131,18 +159,33 @@
   .hero-right img{position:relative;inset:auto;display:block;width:var(--w);height:auto;margin:calc(var(--w) * -.30) auto 0;
     -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%)}
   .guide-row{grid-template-columns:1fr;gap:32px;margin-top:40px}
-  .wall-grid{grid-template-columns:1fr}
-  .rev{grid-column:1 / -1}
-  .ref-tabs{margin:-8px 0 24px}
-  .gauge{padding:24px}
-  #sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
+  /* témata recenzí: jeden posuvný řádek místo tří řádků tlačítek */
+  .ref-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--gutter) * -1) 20px;
+    padding:0 var(--gutter);scroll-padding:0 var(--gutter);
+    -webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+  .ref-tabs::-webkit-scrollbar{display:none}
+  .ref-tabs .chip{flex:none}
+  .rev-lead{grid-template-columns:1fr;padding:28px 24px;gap:24px}
+  /* ostatní recenze: karusel na palec, kus další karty vykukuje */
+  .rev-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+    margin:0 calc(var(--gutter) * -1);padding:0 var(--gutter) 4px;scroll-padding:0 var(--gutter)}
+  .rev-track::-webkit-scrollbar{display:none}
+  .rev-track .rev{flex:0 0 84%;scroll-snap-align:start}
+  .rev-dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
+  .rev-dots i{width:8px;height:8px;background:var(--line);transition:background-color .2s var(--ease),width .3s cubic-bezier(.16,1,.3,1)}
+  .rev-dots i.on{width:24px;background:var(--forest)}
+  #kviz .split{grid-template-areas:"side" "box" "facts";grid-template-rows:auto;row-gap:24px}
+  .form-facts{margin-top:8px}
+  #sticky{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;
     padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--cream);
     border-top:1px solid var(--line);transform:translateY(125%);transition:transform .3s var(--ease)}
   #sticky.show{transform:none}
-  #sticky .btn{width:100%;justify-content:center}
+  #sticky .btn{flex:1;justify-content:center}
+  .sticky-tel{flex:none;display:grid;place-items:center;width:52px;border:1px solid var(--forest);color:var(--forest)}
+  .sticky-tel svg{width:22px;height:22px}
   .footer{padding-bottom:96px}
 }
-@media (max-width:980px){ .section{padding:56px 0} .step{grid-template-columns:40px 1fr;gap:16px} .step-core{padding:28px 24px 32px 20px} .ref-head{margin-bottom:32px} .guide-row{margin-top:32px} .only-desk{display:none} .form-side .rows li{flex-direction:column;gap:2px} .rev{padding:20px} }
+@media (max-width:980px){ .section{padding:56px 0} .step{grid-template-columns:40px 1fr;gap:16px} .step-core{padding:28px 24px 32px 20px} .guide-row{margin-top:32px} .only-desk{display:none} .form-facts .rows li{flex-direction:column;gap:2px} .rev{padding:20px} .hero-note{margin-top:20px} }
 </style>
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
 <script src="assets/track.js" defer></script>
@@ -193,7 +236,7 @@
   <div class="wrap">
     <h2 class="t-display">Jeden člověk na všechno. <em class="accent">Ne pobočka, ne infolinka.</em></h2>
     <div class="guide-row">
-      <p class="t-lead">„Sjednali mi to na pobočce, ten člověk už tam nepracuje — a já nevím, na koho se obrátit."</p>
+      <p class="t-lead">„Sjednali mi to na pobočce, ten člověk už tam nepracuje — a já nevím, na koho se obrátit.“</p>
       <div>
         <p class="t-body t-muted">To slyším nejčastěji. Začínal jsem v bance a vím, že pobočka doporučuje podle svého plánu, ne podle vás. Se mnou máte jedno číslo a papíry beru na sebe.</p>
         <p class="t-body t-muted"><b>Provizi dostávám od instituce, ne od vás.</b> Když je nejlepší nechat všechno být, řeknu vám to a o provizi přijdu.</p>
@@ -206,7 +249,7 @@
 <section class="s-green section" id="postup">
   <div class="wrap split">
     <div>
-      <h2 class="t-h2-sans">Tři kroky.</h2>
+      <h2 class="t-h2">Tři kroky.</h2>
       <p class="t-intro steps-intro">Žádná byrokracie na vaší straně.</p>
       <div class="steps-cta only-desk"><a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · postup">Chci druhý názor</a></div>
     </div>
@@ -217,7 +260,7 @@
         <span class="tag tag-green">Srovnání</span>
         <h3 class="t-h3">Dostanete srovnání písemně.</h3>
         <p>Co máte vedle toho, co nabízí trh. Na místě se nic nepodepisuje.</p>
-        <ul class="checklist"><li>Když po telefonátu bude jasné, že vám nemám co nabídnout, řeknu vám to rovnou a víc se neozvu.</li></ul>
+        <p>Když po telefonátu bude jasné, že vám nemám co nabídnout, řeknu vám to rovnou a víc se neozvu.</p>
       </div></div>
     </div>
   </div>
@@ -228,6 +271,7 @@
 <section class="s-cream section" id="reference">
   <div class="wrap">
     <h2 class="t-h2 ref-head">Co říkají lidé, kteří to už mají za sebou.</h2>
+    <p class="t-intro t-muted ref-towns">30 klientů z Jemnice, Dačic, Moravských Budějovic a šesti dalších obcí v okolí. Doslova, se souhlasem se zveřejněním.</p>
     <div class="ref-tabs" id="ref-tabs" role="group" aria-label="Recenze podle tématu">
       <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="vyber" aria-pressed="false">Výběr</button>
       <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hypoteka" aria-pressed="false">Hypotéky</button>
@@ -239,7 +283,8 @@
     </div>
     <div class="wall" id="wall">
       <!-- karty vykreslí skript z pole REV (dole), podle tématu z reklamy -->
-      <div class="wall-grid" id="wall-grid" aria-live="polite"></div>
+      <div class="wall-grid" id="wall-grid"></div>
+      <p class="ref-status" id="ref-status" aria-live="polite"></p>
     </div>
     <div class="ref-foot joinq" id="joinq">
       <p class="t-h3"><span class="accent">Budete mezi ně patřit taky?</span></p>
@@ -254,11 +299,14 @@
     <div class="form-side">
       <h2 class="t-h2" id="q-head">Kam vám mám zavolat?</h2>
       <p class="t-intro q-lead">Stačí jméno a telefon.</p>
+    </div>
+    <div class="form-facts">
       <ul class="rows">
         <li><b>Co vás to stojí?</b><span class="t-muted">Nic. Platí mě instituce.</span></li>
         <li><b>Kdy se ozvu?</b><span class="t-muted">Osobně do 24 hodin.</span></li>
         <li><b>Pod dohledem ČNB</b><span class="t-muted">INSIA a ININVEST</span></li>
       </ul>
+      <p class="t-body call-now">Raději hned? Zavolejte mi: <a href="tel:+420733651217" data-track="Telefon · formulář">733 651 217</a></p>
     </div>
 
     <div class="quiz-box panel-paper" data-track-form="kviz">
@@ -286,7 +334,7 @@
         <!-- nepovinná příprava je zavřená — formulář tak na mobilu není dvě obrazovky -->
         <div class="acc extra">
           <details>
-            <summary><span>Chcete mi rovnou říct, o co jde? <span class="t-muted">Nepovinné.</span></span></summary>
+            <summary><span>Chcete mi rovnou říct, o co jde? <span class="t-muted" id="extra-note">Nepovinné.</span></span></summary>
             <div>
               <div class="field">
                 <span class="t-label" id="lt">O čem chcete mluvit?</span>
@@ -326,11 +374,21 @@
         <p id="sendfail" class="notice notice-error">Odeslání se nepovedlo. Zavolejte mi prosím přímo na&nbsp;<a href="tel:+420733651217">733 651 217</a>.</p>
       </form>
 
-      <div id="done" class="notice">
+      <div id="done" tabindex="-1">
+        <svg class="done-check" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="28"/><path d="M17 29l7 7 15-15"/></svg>
         <div>
           <p class="t-h3">Mám to, děkuji.</p>
           <p id="donetxt">Ozvu se vám osobně nejpozději do 24 hodin.</p>
-          <p class="t-small">Kdyby to nesneslo odkladu: <a href="tel:+420733651217">733 651 217</a></p>
+        </div>
+        <div>
+          <div class="caller">
+            <img src="assets/ondrej-face-112.webp" width="56" height="56" alt="">
+            <div><span class="t-small">Zavolám z tohoto čísla — ať víte, kdo volá</span><b>733 651 217</b></div>
+          </div>
+          <div class="done-actions">
+            <a class="btn btn-ghost btn--sm btn--noarrow" id="vcard" download="Ondrej-Kadlec.vcf" data-track="Uložit kontakt">Uložit číslo do telefonu</a>
+            <a class="btn btn-ghost btn--sm btn--noarrow" href="tel:+420733651217" data-track="Telefon · hotovo">Zavolat hned</a>
+          </div>
         </div>
       </div>
     </div>
@@ -344,7 +402,7 @@
   </div>
 </footer>
 
-<div id="sticky"><a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · lišta">Chci druhý názor</a></div>
+<div id="sticky"><a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · lišta">Chci druhý názor</a><a class="sticky-tel" href="tel:+420733651217" aria-label="Zavolat Ondřejovi: 733 651 217" data-track="Telefon · lišta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg></a></div>
 
 <!-- ═══ SKRIPTY — až pod čarou ponoru (lazy) ═══ -->
 <script type="module">
@@ -515,10 +573,25 @@
     });
     return set;
   }
+  var LBL0 = {pojisteni:'Pojištění', hypoteka:'Hypotéka', uvery:'Úvěry', investice:'Úspory', penze:'Penze'};
   var setTopic = chipGroup('topic', 'topic', true, function(){ kt('step', 'kviz', 1, 'Téma'); });
   chipGroup('urg', 'when', true, function(){ kt('step', 'kviz', 3, 'Spěch'); });
   chipGroup('when', 'call', false);
-  if (tema) { setTopic(CHIP[tema] || tema); var ex = document.querySelector('.extra details'); if (ex) ex.open = true; }          // z reklamy už víme, o čem je řeč
+  // z reklamy už víme, o čem je řeč: téma předvyplníme, ale nepovinnou část
+  // necháme zavřenou, ať formulář na mobilu zůstane krátký
+  if (tema) {
+    setTopic(CHIP[tema] || tema);
+    document.getElementById('extra-note').innerHTML = 'Téma: <span class="extra-pick">' + LBL0[CHIP[tema] || tema] + '</span>';
+  }
+
+  // chyba zmizí, jakmile ji člověk opraví — ne až při dalším odeslání
+  ['fn','ft','fg'].forEach(function(id){
+    var f = document.getElementById(id), i = f.querySelector('input');
+    i.addEventListener(i.type === 'checkbox' ? 'change' : 'input', function(){
+      if (!f.classList.contains('is-error')) return;
+      f.classList.remove('is-error'); i.setAttribute('aria-invalid', 'false');
+    });
+  });
 
   // první dotek kontaktního pole = začátek vyplňování
   var started = false;
@@ -546,10 +619,13 @@
   document.getElementById('f').addEventListener('submit', function(e){
     e.preventDefault();
     var jm = document.getElementById('jmeno'), tl = document.getElementById('tel');
-    var ok = true, dg = tl.value.replace(/\D/g,'');
+    var ok = true, raw = tl.value.trim(), dg = raw.replace(/\D/g,'');
     document.getElementById('fn').classList.toggle('is-error', jm.value.trim().length < 2);
     if (jm.value.trim().length < 2) { ok = false; kt('error', 'kviz', 'jméno'); }
-    var telOk = dg.length >= 9 && dg.length <= 13;
+    // české číslo s předvolbou i bez ní (+420, 00420, 420…) → 9 číslic;
+    // zahraniční jen s + nebo 00 na začátku
+    var cz = dg.replace(/^(00)?420(?=\d{9}$)/, '');
+    var telOk = cz.length === 9 || (/^(\+|00)/.test(raw) && dg.length >= 10 && dg.length <= 15);
     document.getElementById('ft').classList.toggle('is-error', !telOk);
     if (!telOk) { ok = false; kt('error', 'kviz', 'telefon'); }
     var gOk = document.getElementById('gdpr').checked;
@@ -610,156 +686,172 @@
       document.getElementById('f').style.display = 'none';
       document.querySelector('.q-lead').style.display = 'none';
       document.getElementById('q-head').textContent = 'Hotovo';
-      document.getElementById('done').style.display = 'block';
+      var done = document.getElementById('done');
+      done.classList.add('on');
       document.getElementById('donetxt').textContent = (A.when === 'hned')
         ? 'Vidím, že to spěchá — ozvu se ještě dnes, nejpozději zítra dopoledne.'
-        : 'Ozvu se vám osobně nejpozději do 24 hodin.';
+        : 'Ozvu se vám osobně nejpozději do 24 hodin' + (A.call !== 'kdykoli' ? ', ' + CALL[A.call].toLowerCase() + '.' : '.');
       var box = document.querySelector('.quiz-box');
       window.scrollTo({top: box.getBoundingClientRect().top + window.scrollY - 60, behavior:'smooth'});
+      done.focus({preventScroll: true});
       document.getElementById('sticky').classList.remove('show');
     });
   });
 
   // ── reference: skutečné recenze klientů se souhlasem se zveřejněním,
   //    rozdělené podle témat. Věk se neuvádí. Úvěry vlastní nemají → hypotéky.
+  //    [jméno, obec, text, štítek (shrnutí z textu, žádná nová čísla), silueta f/m]
   var REV = {
     hypoteka: [
-      ['Jana Krejčí', 'Jemnice', 'Řešili jsme refinancování staršího úvěru. Poradce všechno vysvětlil, srovnal nabídky a ušetřili jsme skoro dva tisíce měsíčně. Doporučuji.'],
-      ['Petr Dvořák', 'Moravské Budějovice', 'První hypotéka ve čtyřiceti, měl jsem z toho strach. Dostal jsem srozumitelný rozpis a nikdo mě netlačil do vyšší částky, než jsem chtěl.'],
-      ['Lucie Horáková', 'Dačice', 'Oceňuji, že mi řekl i to, co banka zamlčela. Upozornil na poplatky za předčasné splacení, na které jsem se ptala.'],
-      ['Martin Šimek', 'Dešná', 'Šli jsme do toho kvůli rekonstrukci statku. Jednání věcné, trochu jsem čekal na odpověď déle, než mi bylo příjemné, ale výsledek stál za to.'],
-      ['Alena Bartošová', 'Police', 'Půjčovali jsme si na opravu střechy. Vše proběhlo bez zbytečné byrokracie a s lidským přístupem.']
+      ['Jana Krejčí', 'Jemnice', 'Řešili jsme refinancování staršího úvěru. Poradce všechno vysvětlil, srovnal nabídky a ušetřili jsme skoro dva tisíce měsíčně. Doporučuji.', 'Refinancování · skoro 2 000 Kč měsíčně', 'f'],
+      ['Petr Dvořák', 'Moravské Budějovice', 'První hypotéka ve čtyřiceti, měl jsem z toho strach. Dostal jsem srozumitelný rozpis a nikdo mě netlačil do vyšší částky, než jsem chtěl.', 'První hypotéka', 'm'],
+      ['Lucie Horáková', 'Dačice', 'Oceňuji, že mi řekl i to, co banka zamlčela. Upozornil na poplatky za předčasné splacení, na které jsem se ptala.', 'Poplatky, o kterých banka mlčela', 'f'],
+      ['Martin Šimek', 'Dešná', 'Šli jsme do toho kvůli rekonstrukci statku. Jednání věcné, trochu jsem čekal na odpověď déle, než mi bylo příjemné, ale výsledek stál za to.', 'Rekonstrukce statku', 'm'],
+      ['Alena Bartošová', 'Police', 'Půjčovali jsme si na opravu střechy. Vše proběhlo bez zbytečné byrokracie a s lidským přístupem.', 'Oprava střechy', 'f']
     ],
     osoby: [
-      ['Tomáš Vlach', 'Jemnice', 'Po narození dcery jsem potřeboval nastavit životní pojistku. Proběhlo to věcně, bez strašení a s rozumnými částkami.'],
-      ['Kateřina Neubauerová', 'Dačice', 'Měla jsem nastavené krytí úplně špatně. Poradce to rozebral a nastavil tak, aby to odpovídalo realitě.'],
-      ['Roman Kříž', 'Třebelovice', 'Utrpěl jsem úraz při práci na zahradě a komunikace při likvidaci byla bezproblémová. Poradce mi pomohl s podklady.'],
-      ['Iveta Marková', 'Lovčovice', 'Chce to trpělivost s dotazy, ale odpovědi byly vždy konkrétní. Smlouvu mám teď nastavenou výrazně lépe.'],
-      ['David Sedláček', 'Moravské Budějovice', 'Ocenil jsem, že mi doporučil i snížit některá krytí, která byla zbytečná. Nešlo mu jen o provizi.']
+      ['Tomáš Vlach', 'Jemnice', 'Po narození dcery jsem potřeboval nastavit životní pojistku. Proběhlo to věcně, bez strašení a s rozumnými částkami.', 'Životní pojištění', 'm'],
+      ['Kateřina Neubauerová', 'Dačice', 'Měla jsem nastavené krytí úplně špatně. Poradce to rozebral a nastavil tak, aby to odpovídalo realitě.', 'Oprava krytí', 'f'],
+      ['Roman Kříž', 'Třebelovice', 'Utrpěl jsem úraz při práci na zahradě a komunikace při likvidaci byla bezproblémová. Poradce mi pomohl s podklady.', 'Pojistná událost', 'm'],
+      ['Iveta Marková', 'Lovčovice', 'Chce to trpělivost s dotazy, ale odpovědi byly vždy konkrétní. Smlouvu mám teď nastavenou výrazně lépe.', 'Úprava smlouvy', 'f'],
+      ['David Sedláček', 'Moravské Budějovice', 'Ocenil jsem, že mi doporučil i snížit některá krytí, která byla zbytečná. Nešlo mu jen o provizi.', 'Méně zbytečných krytí', 'm']
     ],
     majetek: [
-      ['František Novotný', 'Dančovice', 'Po bouřce s kroupami bylo potřeba zkontrolovat celou smlouvu na dům i stodolu. Proběhlo to rychle a bez dohadování.'],
-      ['Simona Bílková', 'Kostníky', 'Koupili jsme dům po babičce a potřebovali ho pojistit. Vysvětlil rozdíly mezi variantami a upozornil na mezery v krytí.'],
-      ['Jiří Hruška', 'Dešná', 'Vyřešil pojistku na chalupu i domácnost. Cena odpovídá rozsahu, žádné přeplácení.'],
-      ['Marcela Tichá', 'Jemnice', 'Při škodě na střeše mi poradil, co doložit. Bez něj bych to vzdala.'],
-      ['Ondřej Kubín', 'Dačice', 'Věcný přístup, žádné kecy. Zkontroloval, že pojistka opravdu kryje to, co potřebujeme.']
+      ['František Novotný', 'Dančovice', 'Po bouřce s kroupami bylo potřeba zkontrolovat celou smlouvu na dům i stodolu. Proběhlo to rychle a bez dohadování.', 'Dům a stodola po krupobití', 'm'],
+      ['Simona Bílková', 'Kostníky', 'Koupili jsme dům po babičce a potřebovali ho pojistit. Vysvětlil rozdíly mezi variantami a upozornil na mezery v krytí.', 'Dům po babičce', 'f'],
+      ['Jiří Hruška', 'Dešná', 'Vyřešil pojistku na chalupu i domácnost. Cena odpovídá rozsahu, žádné přeplácení.', 'Chalupa a domácnost', 'm'],
+      ['Marcela Tichá', 'Jemnice', 'Při škodě na střeše mi poradil, co doložit. Bez něj bych to vzdala.', 'Škoda na střeše', 'f'],
+      ['Ondřej Kubín', 'Dačice', 'Věcný přístup, žádné kecy. Zkontroloval, že pojistka opravdu kryje to, co potřebujeme.', 'Kontrola krytí', 'm']
     ],
     cestovni: [
-      ['Barbora Zemanová', 'Moravské Budějovice', 'Před cestou do Asie mi poradil, co má smysl a co je zbytečné. Ušetřilo mi to peníze i nervy.'],
-      ['Lukáš Pech', 'Jemnice', 'Řešil jsem pracovní pobyt v zahraničí. Poradil s limity a délkou krytí, na které běžné weby kašlou.'],
-      ['Dana Vondráčková', 'Police', 'Krátká konzultace, jasné doporučení, rychlé sjednání. Přesně takhle si to představuji.'],
-      ['Michal Růžička', 'Kostníky', 'Lyžařská dovolená a obavy o úraz. Dostal jsem krytí včetně sportů, na které se běžně zapomíná.'],
-      ['Veronika Šťastná', 'Třebelovice', 'Chtěla jsem hlavně vědět, co se stane při zrušení zájezdu. Odpověď byla konkrétní a poctivá.']
+      ['Barbora Zemanová', 'Moravské Budějovice', 'Před cestou do Asie mi poradil, co má smysl a co je zbytečné. Ušetřilo mi to peníze i nervy.', 'Cesta do Asie', 'f'],
+      ['Lukáš Pech', 'Jemnice', 'Řešil jsem pracovní pobyt v zahraničí. Poradil s limity a délkou krytí, na které běžné weby kašlou.', 'Pracovní pobyt v zahraničí', 'm'],
+      ['Dana Vondráčková', 'Police', 'Krátká konzultace, jasné doporučení, rychlé sjednání. Přesně takhle si to představuji.', 'Rychlé sjednání', 'f'],
+      ['Michal Růžička', 'Kostníky', 'Lyžařská dovolená a obavy o úraz. Dostal jsem krytí včetně sportů, na které se běžně zapomíná.', 'Hory a sporty', 'm'],
+      ['Veronika Šťastná', 'Třebelovice', 'Chtěla jsem hlavně vědět, co se stane při zrušení zájezdu. Odpověď byla konkrétní a poctivá.', 'Storno zájezdu', 'f']
     ],
     investice: [
-      ['Radek Polák', 'Dačice', 'Měl jsem peníze na spořicím účtu a nevěděl, co dál. Rozebrali jsme horizont i riziko a nastavili to rozumně.'],
-      ['Eva Matoušková', 'Moravské Budějovice', 'Oceňuji, že mi nesliboval výnosy. Vysvětlil, co může kolísat a proč.'],
-      ['Stanislav Beran', 'Lovčovice', 'Konzultace trvala přes hodinu a byla bez tlaku na podpis. To mi dalo důvěru.'],
-      ['Nikola Vlčková', 'Jemnice', 'Začala jsem s malou částkou a postupně ji zvyšuji. Všechno mi bylo srozumitelně vysvětleno.'],
-      ['Adam Řehák', 'Dančovice', 'Při poklesu trhů mi poradil nepanikařit a držet plán. Konečně nemám pocit, že investuju naslepo.']
+      ['Radek Polák', 'Dačice', 'Měl jsem peníze na spořicím účtu a nevěděl, co dál. Rozebrali jsme horizont i riziko a nastavili to rozumně.', 'Peníze ze spořáku', 'm'],
+      ['Eva Matoušková', 'Moravské Budějovice', 'Oceňuji, že mi nesliboval výnosy. Vysvětlil, co může kolísat a proč.', 'Žádné sliby výnosů', 'f'],
+      ['Stanislav Beran', 'Lovčovice', 'Konzultace trvala přes hodinu a byla bez tlaku na podpis. To mi dalo důvěru.', 'Bez tlaku na podpis', 'm'],
+      ['Nikola Vlčková', 'Jemnice', 'Začala jsem s malou částkou a postupně ji zvyšuji. Všechno mi bylo srozumitelně vysvětleno.', 'Začátek s malou částkou', 'f'],
+      ['Adam Řehák', 'Dančovice', 'Při poklesu trhů mi poradil nepanikařit a držet plán. Konečně nemám pocit, že investuju naslepo.', 'Když trhy padaly', 'm']
     ],
     penze: [
-      ['Zdeněk Marek', 'Jemnice', 'Dva roky do důchodu a bylo potřeba dát věci do pořádku. Proběhlo to bez zbytečné paniky.'],
-      ['Hana Doležalová', 'Kostníky', 'Zkontroloval mi stávající smlouvy a ukázal, kde platím zbytečně vysoké poplatky. Ušetřila jsem.'],
-      ['Vlastimil Kopecký', 'Dešná', 'Poradil s čerpáním a daňovými souvislostmi. Klidné a věcné jednání.'],
-      ['Irena Šimková', 'Dačice', 'Dlouho jsem odkládala jakékoli řešení penze. Nakonec to šlo snadno a bez pocitu, že mi někdo něco vnucuje.'],
-      ['Pavel Urban', 'Moravské Budějovice', 'Sestavil mi přehled, kolik budu mít a co je potřeba doplnit. Konečně mám jasno.']
+      ['Zdeněk Marek', 'Jemnice', 'Dva roky do důchodu a bylo potřeba dát věci do pořádku. Proběhlo to bez zbytečné paniky.', 'Dva roky do důchodu', 'm'],
+      ['Hana Doležalová', 'Kostníky', 'Zkontroloval mi stávající smlouvy a ukázal, kde platím zbytečně vysoké poplatky. Ušetřila jsem.', 'Nižší poplatky', 'f'],
+      ['Vlastimil Kopecký', 'Dešná', 'Poradil s čerpáním a daňovými souvislostmi. Klidné a věcné jednání.', 'Čerpání a daně', 'm'],
+      ['Irena Šimková', 'Dačice', 'Dlouho jsem odkládala jakékoli řešení penze. Nakonec to šlo snadno a bez pocitu, že mi někdo něco vnucuje.', 'Odkládaná penze', 'f'],
+      ['Pavel Urban', 'Moravské Budějovice', 'Sestavil mi přehled, kolik budu mít a co je potřeba doplnit. Konečně mám jasno.', 'Přehled na důchod', 'm']
     ]
   };
-  // výběr pro návštěvu bez tématu: z každé oblasti jedna, ta nejkonkrétnější
-  REV.vyber = [REV.hypoteka[2], REV.osoby[4], REV.majetek[3], REV.investice[1], REV.cestovni[3], REV.penze[1]];
+  // první = velká výpověď (ta s nejkonkrétnějším výsledkem), zbytek do řady.
+  // Výběr pro návštěvu bez tématu: z každé oblasti jedna + jedna i s výtkou
+  // (čekání na odpověď) — dokonale hladká stěna působí vyrobeně.
+  var LEAD = {hypoteka:0, osoby:4, majetek:3, cestovni:0, investice:4, penze:1};
+  REV.vyber = [REV.hypoteka[0], REV.osoby[4], REV.majetek[3], REV.investice[1], REV.cestovni[3], REV.penze[1], REV.hypoteka[3]];
   var REV_TOPIC = {uvery:'hypoteka'};
-  var AVA = '<span class="rev-ava" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="17" r="8" fill="currentColor"/><path d="M6 44c0-10 7-16 16-16s16 6 16 16z" fill="currentColor"/></svg></span>';
-  var SURF = ['panel-forest', 's-green', 'panel-paper', 'panel', 'panel-paper', 'panel'];
-  // šířky v mřížce 4 sloupců: každý řádek dá dohromady 4
-  var SPAN = {5:[2,1,1,2,2], 6:[2,1,1,1,1,2]};
+  var TAB = {vyber:'Výběr', hypoteka:'Hypotéky', osoby:'Pojištění osob', majetek:'Majetek', cestovni:'Cestovní', investice:'Investice', penze:'Penze'};
+
+  // siluety hlavy a ramen: obrys se liší účesem, výřezy v barvě dlaždice
+  // (brýle, límec) přes --ava-bg. Stejná dvojice jméno → silueta pokaždé.
+  var BODY = '<path d="M5 48c1-10 8.5-15.5 19-15.5S42 38 43 48z"/><path d="M20.5 27h7v7h-7z"/><ellipse cx="24" cy="20" rx="8" ry="9.6"/>';
+  var CUT = ' fill="none" stroke="var(--ava-bg)" stroke-width="1.5"';
+  var LOOK = {
+    f: [
+      ['<path d="M13.6 31.5c-1.6-4-.6-8.2.4-11.6C14.4 12.2 18.6 8.6 24 8.6s9.6 3.6 10 11.3c1 3.4 2 7.6.4 11.6-2.6 1.2-5.6 1.6-10.4 1.6s-7.8-.4-10.4-1.6z"/>', ''],
+      ['<circle cx="24" cy="8.4" r="4.6"/>', '<path d="M19 36.5c1.6 2 3.2 3 5 3s3.4-1 5-3"' + CUT + '/>'],
+      ['<path d="M30.4 13.2c5.2.4 7.8 5.6 7 11.8-.4 3.4-2.4 5.2-4.4 5.4 1.2-4.4.9-9.2-2.6-12.6z"/><path d="M16 18.5c.4-6.2 3.6-9.6 8-9.6 4.2 0 7.4 3 8 8.4-3.6-2-8.6-1.6-16 1.2z"/>', '']
+    ],
+    m: [
+      ['<path d="M15.8 18.6c-.4-6.6 3.4-10.4 8.4-10.4 5.2 0 8.6 3.6 8.2 10.4-1.6-2.8-4.6-4.2-8.3-4.2s-6.7 1.4-8.3 4.2z"/>', '<path d="M19.6 34.4 24 40l4.4-5.6"' + CUT + '/>'],
+      ['<path d="M15.7 17.4c-.5-6.6 3.4-10.8 9.1-10.8 2.9 0 5.4 1 7 2.9l-1.5 1c1.7 1.8 2.3 4 2 6.4-4.3-1.8-10.4-1.6-16.6.5z"/>', ''],
+      ['<path d="M15.9 18.4c0-6.2 3.4-9.8 8.1-9.8s8.1 3.6 8.1 9.8c-2.2-1.8-5-2.6-8.1-2.6s-5.9.8-8.1 2.6z"/>', '<g' + CUT + '><circle cx="20.6" cy="20.6" r="2.7"/><circle cx="27.4" cy="20.6" r="2.7"/><path d="M23.3 20.6h1.4"/></g>']
+    ]
+  };
+  function ava(name, g){
+    var h = 0; for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+    var l = LOOK[g][h % 3];
+    return '<span class="rev-ava" aria-hidden="true"><svg viewBox="0 0 48 48">' + l[0] + BODY + l[1] + '</svg></span>';
+  }
   function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
-  function renderRev(key){
-    var list = REV[key], span = SPAN[list.length], html = '';
-    list.forEach(function(r, i){
-      html += '<article class="rev ' + SURF[i] + '" style="--c:' + span[i] + ';--d:' + (i * 90) + 'ms">' +
-        '<div class="rev-who">' + AVA + '<div><b class="t-label">' + esc(r[0]) + '</b><span class="rev-town">' + esc(r[1]) + '</span></div></div>' +
-        '<blockquote>' + esc(r[2]) + '</blockquote></article>';
-      // ⚠️ OVĚŘ: 10/10 ze 100+ musí sedět s doložitelným.
-      if (i === 2) html += '<div class="gauge s-forest" style="--gd:700ms"><span class="t-display"><span class="accent">10</span>/10</span>' +
-        '<span class="t-intro t-muted">průměrné hodnocení ze <b><span data-count="100">100</span>+</b> klientů</span></div>';
-    });
-    document.getElementById('wall-grid').innerHTML = html;
+  function card(r, lead){
+    return '<article class="rev' + (lead ? ' rev-lead' : '') + '">' +
+      '<span class="rev-tag">' + esc(r[3]) + '</span>' +
+      '<blockquote>' + (lead ? '„' : '') + esc(r[2]) + (lead ? '“' : '') + '</blockquote>' +
+      '<div class="rev-who">' + ava(r[0], r[4]) + '<div><b class="rev-name">' + esc(r[0]) + '</b><span class="rev-town">' + esc(r[1]) + '</span></div></div></article>';
+  }
+
+  var grid = document.getElementById('wall-grid'), status = document.getElementById('ref-status');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canAnim = !reduce && !!Element.prototype.animate;
+  var EASE = 'cubic-bezier(.16,1,.3,1)';
+  var shown = false;   // stěna už byla na obrazovce → přepnutí tématu animujeme hned
+
+  function build(key){
+    var list = REV[key].slice(), li = LEAD[key] || 0, lead = list.splice(li, 1)[0];
+    grid.innerHTML = card(lead, true) +
+      '<div class="rev-track" style="--cols:' + (list.length % 3 ? 2 : 3) + '">' + list.map(function(r){ return card(r, false); }).join('') + '</div>' +
+      '<div class="rev-dots" aria-hidden="true">' + list.map(function(_, i){ return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div>';
     document.querySelectorAll('#ref-tabs .chip').forEach(function(b){
       var on = b.dataset.v === key; b.classList.toggle('sel', on); b.setAttribute('aria-pressed', on);
+      if (on && b.scrollIntoView && shown) b.scrollIntoView({block:'nearest', inline:'nearest', behavior: reduce ? 'auto' : 'smooth'});
+    });
+    status.textContent = TAB[key] + ': ' + REV[key].length + ' recenzí';
+    // karusel na mobilu: tečky sledují, která karta je vlevo
+    var track = grid.querySelector('.rev-track'), dots = grid.querySelectorAll('.rev-dots i');
+    track.addEventListener('scroll', function(){
+      var w = track.firstElementChild.getBoundingClientRect().width + 12;
+      var n = Math.min(dots.length - 1, Math.round(track.scrollLeft / w));
+      dots.forEach(function(d, i){ d.classList.toggle('on', i === n); });
+    }, {passive:true});
+  }
+
+  // vstup stěny: hlavní výpověď se odkryje zleva, karty v řadě přijedou zprava
+  // (na mobilu tím zároveň napovídají, že se dají posouvat)
+  function enter(){
+    if (!canAnim) return;
+    var lead = grid.querySelector('.rev-lead');
+    lead.animate([{clipPath:'inset(0 100% 0 0)'}, {clipPath:'inset(0 0 0 0)'}], {duration:800, easing:EASE, fill:'backwards'});
+    lead.querySelector('blockquote').animate([{opacity:0, transform:'translateY(12px)'}, {opacity:1, transform:'none'}], {duration:600, delay:300, easing:EASE, fill:'backwards'});
+    grid.querySelectorAll('.rev-track .rev').forEach(function(c, i){
+      c.animate([{opacity:0, transform:'translateX(48px)'}, {opacity:1, transform:'none'}], {duration:650, delay:420 + Math.min(i, 4) * 80, easing:EASE, fill:'backwards'});
     });
   }
-  renderRev(REV[REV_TOPIC[tema] || tema] ? (REV_TOPIC[tema] || tema) : 'vyber');
+
+  function renderRev(key){
+    if (!shown || !canAnim) { build(key); return; }
+    // přepnutí tématu: krátké zmizení (rychlejší než příchod), pak nový vstup
+    var a = grid.animate([{opacity:1}, {opacity:0}], {duration:140, easing:'ease-in', fill:'forwards'});
+    a.onfinish = function(){ build(key); a.cancel(); enter(); };
+  }
+  build(REV[REV_TOPIC[tema] || tema] ? (REV_TOPIC[tema] || tema) : 'vyber');
   document.getElementById('ref-tabs').addEventListener('click', function(e){
-    var b = e.target.closest('.chip'); if (!b) return;
+    var b = e.target.closest('.chip'); if (!b || b.classList.contains('sel')) return;
     renderRev(b.dataset.v); kt('event', 'recenze: ' + b.dataset.v);
   });
 
-  // ── reference: pád karet, načtení měřiče, otázka ──
-  (function(){
-    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var hasIO  = 'IntersectionObserver' in window;
+  // ── pohyb při posunu: spustí se, až když je prvek opravdu na obrazovce ──
+  function onView(el, threshold, fn){
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) { fn(); return; }
+    var io = new IntersectionObserver(function(en){
+      if (en.some(function(e){ return e.isIntersecting; })) { io.disconnect(); fn(); }
+    }, {threshold: threshold});
+    io.observe(el);
+  }
+  // práh 0: spustí se, jakmile horní hrana vjede do obrazovky — dřív, než by
+  // bylo vidět, že karty teprve přijedou
+  onView(grid, 0, function(){ shown = true; enter(); });
+  // zvýrazňovač bolestí; bez pohybu je zvýraznění vidět hned
+  var pl = document.getElementById('p-list');
+  pl.querySelectorAll('strong').forEach(function(s, i){ s.style.setProperty('--d', (i * .18) + 's'); });
+  if (reduce) pl.classList.add('hl'); else onView(pl, .6, function(){ pl.classList.add('hl'); });
 
-    // Bez podpory nebo při vypnutém pohybu se nic neskrývá — výchozí stav
-    // v CSS je viditelný, takže stačí nepřidat třídu .anim.
-    if (reduce || !hasIO) return;
-
-    function reveal(id, threshold, hold, then){
-      var el = document.getElementById(id); if (!el) return;
-      el.classList.add('anim');
-      var done = false;
-      function fire(){
-        if (done) return; done = true;
-        el.classList.add('in'); if (then) then(el);
-        // Tvrdá záruka: po doběhnutí sundáme třídu .anim úplně. Tím padá
-        // i skryvající pravidlo (obsah je vidět, i kdyby engine přechody
-        // vůbec nespustil) a zároveň zmizí will-change, které nemá žít
-        // déle než samotný běh. Hold je vždy delší než nejdelší přechod.
-        setTimeout(function(){ el.classList.remove('anim'); }, hold);
-      }
-      // Pojistka: kdyby pozorovatel nikdy nedoručil (úsporný režim, chyba
-      // enginu), obsah se po chvíli odkryje sám. Reference nesmí zmizet.
-      var safety = setTimeout(fire, 3000);
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if (!e.isIntersecting) return;
-          io.disconnect(); clearTimeout(safety); fire();
-        });
-      }, {threshold: threshold});
-      io.observe(el);
-    }
-
-    // hold = doběh nejdelšího přechodu v prvku + rezerva
-    reveal('joinq', .80, 1100);   // 220 ms čeká + 500 ms
-    // stěna: poslední dlaždice 1020 ms čeká + 660 ms letí; měřič přejíždí
-    // od 1250 ms po dobu 900 ms, tedy doběh v 2150 ms
-    reveal('wall',  .22, 2500, function(box){
-      var nums = box.querySelectorAll('[data-count]');
-      if (!nums.length) return;
-      // Cíl je v HTML. Nulujeme až při startu a jistíme časovačem — když
-      // requestAnimationFrame neběží (záložka na pozadí, úsporný režim),
-      // číslo se stejně dopočítá na cílovou hodnotu.
-      // stopped hlídá, aby opožděný snímek nepřepsal dopočítanou hodnotu
-      // zpátky na nižší číslo — jinak by v patičce zůstal špatný údaj
-      var stopped = false;
-      function settle(){
-        stopped = true;
-        nums.forEach(function(n){ n.textContent = n.dataset.count; });
-      }
-      // počítadlo naskočí až s přejezdem měřiče, ne s náletem dlaždic
-      var safety = setTimeout(settle, 2600);
-      nums.forEach(function(n){ n.textContent = '0'; });
-      var t0 = 0, START = 1250;
-      requestAnimationFrame(function step(ts){
-        if (stopped) return;
-        if (!t0) t0 = ts;
-        var k = Math.min(Math.max(ts - t0 - START, 0) / 900, 1), e3 = 1 - Math.pow(1 - k, 3);
-        nums.forEach(function(n){ n.textContent = Math.round(+n.dataset.count * e3); });
-        if (k < 1) requestAnimationFrame(step);
-        else { clearTimeout(safety); settle(); }
-      });
-    });
-  })();
+  // kontakt do telefonu (vizitka .vcf) — ať klient pozná, kdo volá
+  document.getElementById('vcard').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(
+    'BEGIN:VCARD\r\nVERSION:3.0\r\nN:Kadlec;Ondřej;;;\r\nFN:Ondřej Kadlec\r\nORG:Ondřej Kadlec & partneři\r\n' +
+    'TITLE:Finanční poradce\r\nTEL;TYPE=CELL:+420733651217\r\nADR;TYPE=WORK:;;Polická 1106;Jemnice;;675 31;Česko\r\nEND:VCARD\r\n');
 
   var hero = document.getElementById('hero'), kviz = document.getElementById('kviz'), st = document.getElementById('sticky');
   addEventListener('scroll', function(){
