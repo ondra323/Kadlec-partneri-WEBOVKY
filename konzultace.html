@@ -141,6 +141,45 @@
 #done .t-h3{margin-bottom:8px}
 #done p + p{margin-top:12px}
 
+/* ── PLOVOUCÍ PŘEDMĚTY — věci z vašich financí (dům, peníze, fajfka, telefon)
+      sedí na švech mezi sekcemi, střídavě vlevo a vpravo. Leží v paddingu
+      sekce, nikdy přes text. Vytváří je skript, takže bez skriptu nic nepřekáží;
+      houpání běží jen na obrazovce, při omezeném pohybu stojí. ── */
+.section{position:relative}
+.fl{--sz:clamp(132px,11vw,176px);position:absolute;top:calc(var(--sz) / -2);width:var(--sz);height:var(--sz);z-index:3;pointer-events:none;will-change:transform}
+.fl.r{right:max(20px,calc((100vw - var(--wrap)) / 2 - 24px))}
+.fl.l{left:max(20px,calc((100vw - var(--wrap)) / 2 - 24px))}
+.fl.sm{--sz:clamp(60px,5vw,80px)}
+/* měkká zelená záře za předmětem dává hloubku na krémové i tmavé ploše */
+.fl-in::before{content:"";position:absolute;inset:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(43,212,127,.38),rgba(43,212,127,0));filter:blur(6px);animation:glow 5.2s ease-in-out var(--bd,0s) infinite alternate}
+.fl:not(.run) .fl-in::before{animation-play-state:paused}
+@keyframes glow{to{transform:scale(1.18);opacity:.7}}
+.fl-in{position:relative;width:100%;height:100%;transition:opacity .5s var(--ease),transform 1s cubic-bezier(.16,1,.3,1)}
+.fl.wait .fl-in{opacity:0;transform:scale(.4) rotate(-14deg)}
+.fl-bob{width:100%;height:100%;transform:rotate(var(--r,0deg));
+  filter:drop-shadow(0 14px 14px rgba(15,59,42,.22)) drop-shadow(0 3px 3px rgba(15,59,42,.18));
+  animation:bob 5.2s ease-in-out var(--bd,0s) infinite alternate;
+  /* myš: předměty se jemně natočí za kurzorem (samostatná vlastnost translate se sčítá s houpáním) */
+  translate:calc(var(--mx,0) * var(--pk,8px)) calc(var(--my,0) * var(--pk,8px));transition:translate .8s cubic-bezier(.16,1,.3,1)}
+.fl.sm .fl-bob{--pk:18px}
+.fl-sh{position:absolute;left:18%;right:18%;bottom:-10%;height:12%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(15,59,42,.28),transparent);
+  animation:shad 5.2s ease-in-out var(--bd,0s) infinite alternate}
+.fl:not(.run) .fl-bob,.fl:not(.run) .fl-sh{animation-play-state:paused}
+@keyframes bob{to{transform:translate3d(0,-14px,0) rotate(calc(var(--r,0deg) + 5deg))}}
+@keyframes shad{to{transform:scaleX(.72);opacity:.5}}
+.fl svg{display:block;width:100%;height:100%;overflow:visible}
+.fl svg *{fill:none;stroke:var(--forest);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.fl svg .f{fill:var(--forest)} .fl svg .g{fill:var(--g)} .fl svg .p{fill:var(--paper)} .fl svg .l{fill:#bff0d4}
+.fl svg .t{stroke:none;fill:var(--forest);font:400 15px var(--f-display);text-anchor:middle}
+.fl svg .tg{stroke:none;fill:var(--g);font:400 64px var(--f-display);text-anchor:middle}
+.fl svg .w{stroke-width:2}
+@media (max-width:980px){
+  .fl{--sz:80px}
+  .fl.r{right:10px} .fl.l{left:10px}
+  .fl.sm{display:none}
+}
+
 /* ── LIŠTA S AKCÍ (jen mobil) ── */
 #sticky{display:none}
 
@@ -860,6 +899,101 @@
       kviz.getBoundingClientRect().top > window.innerHeight * 0.85);
   }, {passive:true});
 
+})();
+</script>
+<script>
+// ═══ PLOVOUCÍ PŘEDMĚTY — kresby v barvách kitu, podle tématu z reklamy ═══
+(function(){
+  var ART = {
+    dum: '<path class="p" d="M24 60 60 30l36 30v42H24z"/><path class="g" d="M78 33h12v22l-12-10z"/><path class="f" d="M12 63 60 22l48 41-8 8-40-34-40 34z"/><path class="g" d="M51 75h18v27H51z"/><path class="l" d="M30 70h13v12H30zM77 70h13v12H77z"/><path d="M14 102h92"/>',
+    fajfka: '<circle class="g" cx="60" cy="60" r="40"/><path d="M40 61l13 13 27-29" style="stroke-width:9"/><path d="M101 18v14M94 25h14M17 90v10M12 95h10"/>',
+    mince: '<circle class="g" cx="84" cy="40" r="20"/><circle class="w" cx="84" cy="40" r="14"/><text class="t" x="84" y="45.5">Kč</text>' +
+      '<path class="g" d="M26 88v12a34 9 0 0 0 68 0V88"/><ellipse class="l" cx="60" cy="88" rx="34" ry="9"/>' +
+      '<path class="g" d="M26 76v12a34 9 0 0 0 68 0V76"/><ellipse class="l" cx="60" cy="76" rx="34" ry="9"/>' +
+      '<path class="g" d="M26 64v12a34 9 0 0 0 68 0V64"/><ellipse class="l" cx="60" cy="64" rx="34" ry="9"/>',
+    bankovka: '<rect class="l" x="14" y="30" width="90" height="52" rx="4" transform="rotate(-12 60 56)"/>' +
+      '<g transform="rotate(7 60 64)"><rect class="g" x="14" y="38" width="92" height="52" rx="4"/><rect class="w" x="22" y="46" width="76" height="36" rx="2" style="stroke-dasharray:3 5"/><circle class="l" cx="60" cy="64" r="13"/><text class="t" x="60" y="69.5">Kč</text></g>',
+    procenta: '<g transform="rotate(-8 60 60)"><rect class="f" x="20" y="18" width="80" height="84" rx="18"/><circle class="p" cx="38" cy="36" r="5"/><text class="tg" x="62" y="88">%</text></g>',
+    stit: '<path class="p" d="M60 14 98 27v31c0 25-17 40-38 48-21-8-38-23-38-48V27z"/><path class="g" d="M60 24 88 34v24c0 18-11 31-28 38z"/><path d="M42 60l12 12 22-24" style="stroke-width:7"/>',
+    telefon: '<rect class="f" x="32" y="12" width="54" height="96" rx="11"/><rect class="p" x="38" y="22" width="42" height="70" rx="3"/><path class="w" d="M46 34h26M46 42h16"/><circle class="g" cx="59" cy="70" r="12"/>' +
+      '<path class="w" d="M54 65c.6 5 4.4 8.8 9.4 9.4l2.2-2.6 3.4 1.6v2.4c0 1-.8 1.6-1.8 1.6-8.4 0-15-6.6-15-15 0-1 .6-1.8 1.6-1.8h2.4l1.6 3.4z"/><path d="M96 40c6 6 6 18 0 24M105 31c11 11 11 31 0 42"/>',
+    letadlo: '<path class="w" d="M8 100c16-2 26-12 32-24" style="stroke-dasharray:4 7"/><path class="p" d="M12 58 108 20 78 100 58 72z"/><path class="l" d="M58 72 108 20 50 84z"/><path d="M58 72 108 20"/>',
+    hodiny: '<rect class="f" x="53" y="10" width="14" height="10" rx="2"/><circle class="p" cx="60" cy="64" r="42"/><path class="g" d="M60 64V22a42 42 0 0 1 42 42z"/><path d="M60 64V38M60 64l17 11" style="stroke-width:5"/><circle class="f" cx="60" cy="64" r="4.5"/>',
+    mince1: '<circle class="g" cx="60" cy="60" r="38"/><circle class="w" cx="60" cy="60" r="28"/><text class="t" x="60" y="70" style="font-size:28px">Kč</text>'
+  };
+  // šev = horní hrana sekce; [sekce, předmět, strana, náklon]
+  var SEAMS = ['problem', 'pruvodce', 'postup', 'reference', 'kviz'];
+  var SETS = {
+    obecne:   ['dum', 'fajfka', 'mince', 'bankovka', 'telefon'],
+    hypoteka: ['dum', 'procenta', 'fajfka', 'mince', 'telefon'],
+    uvery:    ['procenta', 'mince', 'fajfka', 'bankovka', 'telefon'],
+    investice:['mince', 'bankovka', 'fajfka', 'hodiny', 'telefon'],
+    penze:    ['hodiny', 'mince', 'fajfka', 'bankovka', 'telefon'],
+    osoby:    ['stit', 'fajfka', 'hodiny', 'mince', 'telefon'],
+    majetek:  ['dum', 'stit', 'fajfka', 'mince', 'telefon'],
+    cestovni: ['letadlo', 'stit', 'fajfka', 'mince', 'telefon']
+  };
+  var t = new URLSearchParams(location.search).get('tema'); if (t === 'pojisteni') t = 'osoby';
+  var set = SETS[t] || SETS.obecne;
+  var TILT = [-8, 6, -4, 9, -6];
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = [];
+
+  function make(sec, key, side, tilt, small, bd){
+    var el = document.createElement('div');
+    el.className = 'fl ' + side + (small ? ' sm' : '') + (reduce ? '' : ' wait');
+    el.setAttribute('aria-hidden', 'true');
+    el.style.setProperty('--r', tilt + 'deg'); el.style.setProperty('--bd', bd + 's');
+    el.innerHTML = '<div class="fl-in"><div class="fl-sh"></div><div class="fl-bob"><svg viewBox="0 0 120 120">' + ART[key] + '</svg></div></div>';
+    sec.appendChild(el);
+    items.push({el: el, k: small ? .14 : .08});
+  }
+  SEAMS.forEach(function(id, i){
+    var sec = document.getElementById(id); if (!sec) return;
+    var side = i % 2 ? 'l' : 'r';
+    make(sec, set[i], side, TILT[i], false, -i * 1.3);
+    // na širokém displeji drobnost na druhé straně švu
+    if (i === 0) make(sec, 'mince1', side === 'r' ? 'l' : 'r', 10, true, -2);
+    if (i === 2) make(sec, 'fajfka', side === 'r' ? 'l' : 'r', -6, true, -3.4);
+  });
+  if (reduce) return;
+
+  // na obrazovce: přiletí a houpe se; mimo ni se houpání zastaví
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        e.target.classList.toggle('run', e.isIntersecting);
+        if (e.isIntersecting) e.target.classList.remove('wait');
+      });
+    }, {rootMargin: '0px 0px -8% 0px'});
+    items.forEach(function(it){ io.observe(it.el); });
+  } else items.forEach(function(it){ it.el.classList.remove('wait'); it.el.classList.add('run'); });
+
+  // lehká paralaxa: předměty plují pomaleji než stránka (na mobilu méně,
+  // aby nevjely do textu — padding sekce je jen 56 px)
+  var mob = matchMedia('(max-width:980px)'), ticking = false;
+  function frame(){
+    ticking = false;
+    var vh = innerHeight, f = mob.matches ? .35 : 1;
+    items.forEach(function(it){
+      if (!it.el.classList.contains('run')) return;
+      var r = it.el.parentNode.getBoundingClientRect();
+      // strop posunu drží předmět v paddingu sekce, ať je šev kdekoli
+      var y = Math.max(-24 * f, Math.min(24 * f, (r.top - vh / 2) * -it.k * f));
+      it.el.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+    });
+  }
+  addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, {passive: true});
+  frame();
+  // jen s myší (ne na dotyku): poloha kurzoru -1…1 do proměnných na <html>
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var root = document.documentElement, mt = false, mx = 0, my = 0;
+    addEventListener('pointermove', function(e){
+      mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1;
+      if (mt) return; mt = true;
+      requestAnimationFrame(function(){ mt = false; root.style.setProperty('--mx', mx.toFixed(3)); root.style.setProperty('--my', my.toFixed(3)); });
+    }, {passive: true});
+  }
 })();
 </script>
 </body>
