@@ -1,15 +1,17 @@
-/* ═══ Admin — stejný svět jako současný web ═══════════════════════════════
-   Jost jako jediné písmo, teplý krém a inkoust, zelená = akce, jantar =
-   varování, modrá = struktura a data. Plochy jsou bílé s vlasovou linkou,
-   bez stínů a zaoblení; hloubku nese materiál, ne vznášení. 8px modul.     */
+/* ═══ Admin — stejný svět jako landing page ══════════════════════════════
+   Gloock na nadpisy a čísla, Montserrat na rozhraní. Krém, papír a lesní
+   zelená; jasná zelená jen jako signál. Tlačítka jako půlpilulka, bez
+   stínů. Jantar = varování. 8px modul.                                       */
 :root {
-  --cream: #faf7f2; --plane: #ffffff; --table: #f1ede4;
-  --ink: #1d1f1e; --ink-2: #50554f; --rule: #e3ded4; --rule-strong: #cfc8bb;
-  --green: #00803f; --green-deep: #006632; --green-soft: #e7f2ea;
-  --amber: #b97e26; --blue: #1c3564;
+  --cream: #f4eee3; --plane: #fffaf1; --table: #ebe3d4;
+  --ink: #1c1a17; --ink-2: #5c564d; --rule: #e0d6c4; --rule-strong: #c8bba4;
+  --green: #0d6b3e; --green-deep: #0f3b2a; --green-soft: #dcefe2; --signal: #2bd47f;
+  --amber: #a8701c; --blue: #0f3b2a;
   --u: 8px;
-  --f: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --t-h1: 1.75rem; --t-h2: 1.06rem; --t-body: 1rem; --t-sm: .9rem; --t-xs: .84rem; --t-label: .8rem; --t-fig: clamp(1.5rem, 3vw, 2rem);
+  --f: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display: 'Gloock', Georgia, serif;
+  --pill: 0 9999px 9999px 0;
+  --t-h1: clamp(2rem, 3.6vw, 2.75rem); --t-h2: 1.3rem; --t-body: .95rem; --t-sm: .875rem; --t-xs: .8rem; --t-label: .74rem; --t-fig: clamp(1.9rem, 3.4vw, 2.5rem);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -337,3 +339,52 @@ table.data { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
   #chart-navstevy .chart { min-width: 640px; }
   .cost-form { grid-template-columns: 1fr; }
 }
+
+/* ═══ Vrstva ve stylu landing page ═══════════════════════════════════════ */
+.btn { border-radius: var(--pill); padding: 0 calc(var(--u) * 2.5) 0 calc(var(--u) * 2); border-width: 1.5px; letter-spacing: .02em; }
+.btn-primary { background: var(--green-deep); border-color: var(--green-deep); }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+.btn-ghost, .btn-link { border-radius: 0; }
+.filter, .range { border-radius: var(--pill); overflow: hidden; }
+.range button[aria-pressed="true"] { background: var(--green-deep); }
+.filter[aria-pressed="true"] { background: var(--green-deep); border-color: var(--green-deep); box-shadow: none; color: #fff; }
+.input:focus, .select:focus, .textarea:focus { border-color: var(--green-deep); box-shadow: inset 0 0 0 2px var(--green-deep); }
+:focus-visible { outline-color: var(--green); }
+
+.brand { font-weight: 700; font-size: 1.05rem; line-height: 1.05; letter-spacing: -.01em; }
+.login { background: var(--signal); }
+.login-box { border: 0; border-top: 3px solid var(--ink); }
+.login-box .brand { font-family: var(--display); font-weight: 400; font-size: 2.2rem; }
+.login-box .brand span { color: var(--ink-2); }
+.login .btn-primary { border-radius: var(--pill); }
+
+.topbar { background: var(--green-deep); border-bottom: 0; color: #cfe0d5; }
+.topbar .brand { color: #fff; }
+.topbar .brand span { color: #b9cbbf; }
+.tab { color: #b9cbbf; }
+.tab:hover, .tab[aria-selected="true"] { color: #fff; }
+.tab[aria-selected="true"]::after { bottom: 0; background: var(--signal); }
+.badge { background: var(--signal); color: var(--green-deep); }
+.who, .optout { color: #b9cbbf; }
+.optout:hover, .topbar .btn-link:hover { color: #fff; }
+.topbar .btn-link { color: #cfe0d5; }
+.optout::before { border-color: #b9cbbf; }
+.optout[aria-pressed="true"]::before { background: var(--signal); border-color: var(--signal); }
+.idle { border-color: var(--signal); color: #fff; }
+.topbar :focus-visible { outline-color: var(--signal); }
+
+.page-head h1 { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; line-height: 1.02; }
+.block-head h2, .setup h2 { font-family: var(--display); font-weight: 400; letter-spacing: 0; }
+.block-head h2::before { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); vertical-align: 3px; }
+.tile-num { font-family: var(--display); font-weight: 400; letter-spacing: 0; }
+.tile-good .tile-label::before { background: var(--signal); }
+.block { border: 0; border-top: 3px solid var(--ink); }
+.tiles { border-top: 3px solid var(--ink); }
+.bar-fill, .mini span { background: var(--green-deep); }
+.bar-row.is-good .bar-fill { background: var(--signal); }
+.data tr.is-new td { background: var(--green-soft); }
+.data tr.is-new td:first-child { box-shadow: inset 3px 0 0 var(--signal); }
+.chip { border-radius: var(--pill); }
+a { color: var(--green); }
+@media (max-width: 1080px) { .tabs { border-top-color: rgba(255,255,255,.14); } }
+@media (max-width: 760px) { .page-head h1 { font-size: 2rem; } }

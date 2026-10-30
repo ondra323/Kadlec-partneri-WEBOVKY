@@ -41,7 +41,13 @@ match /portal_activity/{id} {
 async function load(days) {
   const from = new Date(); from.setHours(0, 0, 0, 0); from.setDate(from.getDate() - (days - 1));
   const ts = Timestamp.fromDate(from);
-  const out = { auth: [], visits: [], denied: false };
+  const out = { auth: [], visits: [], web: null, denied: false };
+  // cesta z webu do zóny: kdo viděl sekci zóny a kdo klikl na odkaz do ní (sessions z track.js)
+  try {
+    const w = await getDocs(query(collection(db, 'sessions'), where('startedAt', '>=', ts), orderBy('startedAt', 'desc'), limit(5000)));
+    out.web = w.docs.map((d) => { const x = d.data(); return { seen: Array.isArray(x.events) && x.events.some((e) => e.e === 'zona-sekce'),
+      links: Array.isArray(x.clicks) ? [...new Set(x.clicks.map((c) => c.l || '').filter((l) => /^Zóna · /.test(l)))] : [] }; });
+  } catch (e) { if (!isDenied(e)) throw e; }
   try {
     const [a, v] = await Promise.all([
       getDocs(query(collection(db, 'portal_auth'), where('at', '>=', ts), orderBy('at', 'desc'), limit(2000))),
@@ -131,6 +137,23 @@ function timeline(v) {
       <span class="tl-text">${e.text}${e.sub ? raw(html` <span class="tl-sub">${e.sub}</span>`) : ''}</span></li>`).join(''))}</ol>`) : raw('<p class="empty">Bez zaznamenaných akcí.</p>')}`;
 }
 
+function webBlock(W) {
+  if (!W) return '';
+  const all = W.length, seen = W.filter((s) => s.seen).length, went = W.filter((s) => s.links.length).length;
+  const by = new Map(); W.forEach((s) => s.links.forEach((l) => by.set(l, (by.get(l) || 0) + 1)));
+  const rows = [...by.entries()].sort((a, b) => b[1] - a[1]);
+  const max = rows.length ? rows[0][1] : 1;
+  const pc = (a, b) => b ? Math.round(a / b * 100) + ' %' : '—';
+  return html`<section class="block"><header class="block-head"><h2>Z webu do zóny</h2><span class="block-aside">návštěvy hlavní stránky za období</span></header>
+    <div class="bars">
+      <div class="bar-row"><span class="bar-label">Návštěvy webu</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-val">${num(all)}</span></div>
+      <div class="bar-row"><span class="bar-label">Viděli ukázku zóny</span><span class="bar-track"><span class="bar-fill" style="width:${raw(all ? (seen / all * 100).toFixed(1) : 0)}%"></span></span><span class="bar-val">${num(seen)} · ${pc(seen, all)}</span></div>
+      <div class="bar-row is-good"><span class="bar-label">Otevřeli zónu</span><span class="bar-track"><span class="bar-fill" style="width:${raw(all ? (went / all * 100).toFixed(1) : 0)}%"></span></span><span class="bar-val">${num(went)} · ${pc(went, seen || all)}</span></div>
+    </div>
+    ${rows.length ? raw(html`<ul class="kv">${raw(rows.map(([l, n]) => html`<li><span>${l.replace('Zóna · ', '')}</span><b>${num(n)}</b></li>`).join(''))}</ul>`) : raw('<p class="empty">Zatím nikdo z webu do zóny neklikl.</p>')}
+  </section>`;
+}
+
 /* ─── vykreslení ────────────────────────────────────────────────────────── */
 export function render() {
   const box = $('#zona');
@@ -179,7 +202,7 @@ export function render() {
   const log = st.data.auth.slice(0, 60).map((a) => html`<tr><td class="t-nowrap">${when(a.at)}</td><td>${a.type === 'fail' ? raw('<span class="z-fail">▲</span> ') : ''}${AUTH[a.type] || a.type}</td>
     <th scope="row">${a.email}</th><td>${a.device || '—'}</td><td class="muted">${CODES[a.code] || a.code || ''}</td></tr>`).join('');
 
-  box.innerHTML = html`<div class="tiles">${raw(tiles)}</div>${raw(alerts)}
+  box.innerHTML = html`<div class="tiles">${raw(tiles)}</div>${raw(alerts)}${raw(webBlock(st.data.web))}
     <section class="block"><header class="block-head"><h2>Klienti</h2><span class="block-aside">klikněte na řádek — ukáže se každá návštěva krok za krokem</span></header>
       ${rows ? raw(html`<div class="table-wrap"><table class="data sessions"><thead><tr><th scope="col">Klient</th><th scope="col">Naposledy</th><th scope="col" class="t-num">Návštěvy</th>
         <th scope="col" class="t-num">Přihlášení</th><th scope="col" class="t-num">Aktivně celkem</th><th scope="col">Nejvíc času</th><th scope="col" class="t-num">Chyby</th></tr></thead><tbody>${raw(rows)}</tbody></table></div>`)
