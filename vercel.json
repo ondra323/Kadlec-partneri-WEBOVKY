@@ -1,6 +1,44 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/konzultace/:tema([a-z]+)", "destination": "/konzultace.html" }
+    {
+      "source": "/konzultace/:tema([a-z]+)",
+      "destination": "/konzultace.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/klientska-zona",
+      "destination": "/klientsky-portal/",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/klientsky-portal/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/klientsky-portal/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
   ]
 }
