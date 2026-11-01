@@ -212,7 +212,7 @@
     denied = true;
     if (window.console) console.info('[měření] Kolekce sessions není povolená v pravidlech Firestore — zapisuji jen základní návštěvu. Návod je v adminu.');
     legacyCreate('pageviews', {
-      page: S.landing.replace(/^\//, '').replace(/\.html.*$/, '') || 'domu',
+      page: S.landing.replace(/^\//, '').replace(/(\.html)?([?#].*)?$/, '') || 'domu',
       source: S.source, referrer: S.referrer, ua: navigator.userAgent.substring(0, 120), duration: 0
     }, 'timestamp');
     legacyQueue.forEach(legacyFunnelWrite);

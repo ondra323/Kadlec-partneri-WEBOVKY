@@ -28,6 +28,10 @@ export const CHANNELS = {
 };
 const CAMPAIGN = 'druhy-nazor';
 
+// Odkazy pro klienty a reklamy vždy na vlastní doménu, i když je admin
+// otevřený jinde (vercel.app, místní náhled). /konzultace = konzultace.html
+// díky cleanUrls ve vercel.json.
+const SITE = 'https://kadlec-partneri.cz';
 const ui = { ch: 'fb', tag: '' };
 
 /** „Jaro 2027 – Novák" → „jaro-2027-novak" (bez diakritiky, jen a–z, 0–9, pomlčky) */
@@ -38,7 +42,7 @@ export function slug(s) {
 
 export function buildUrl(topic, chKey, variant, tag) {
   const ch = CHANNELS[chKey];
-  const u = new URL('konzultace.html', location.origin + '/');
+  const u = new URL('/konzultace', SITE);
   if (topic) u.searchParams.set('tema', topic);
   u.searchParams.set('utm_source', ch.src);
   u.searchParams.set('utm_medium', ch.med);
