@@ -44,6 +44,7 @@
     if (navigator.globalPrivacyControl === true) return true;
     if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return true;
     if (navigator.webdriver) return true;
+    if (/[?&]nahled\b/.test(location.search)) return true;   // náhled z adminu
     if (/bot|crawl|spider|slurp|headless|lighthouse|preview/i.test(navigator.userAgent)) return true;
     return false;
   }
@@ -63,7 +64,7 @@
     return s;
   }
   function clip(s, n) { s = String(s == null ? '' : s).replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1) + '…' : s; }
-  function pathNow() { return location.pathname.replace(/^.*\//, '/') + location.search + location.hash; }
+  function pathNow() { return (location.pathname || '/') + location.search + location.hash; }
 
   function classifySource(params, ref) {
     var utm = params.get('utm_source');
@@ -101,7 +102,7 @@
       // utm_content (která reklama / který odkaz z adminu) jede v poli campaign
       // za lomítkem — pravidla Firestore nové pole nepustí, admin ho zase rozdělí
       campaign: clip([p.get('utm_campaign') || '', p.get('utm_content') || ''].filter(Boolean).join(' / '), 80),
-      tema: clip(p.get('tema') || '', 40),
+      tema: clip((/^\/konzultace\/([a-z]+)/.exec(location.pathname) || [])[1] || p.get('tema') || '', 40),
       device: deviceClass(), vw: innerWidth, vh: innerHeight,
       lang: (navigator.language || '').slice(0, 5),
       pages: [], active: 0, clicks: [], forms: {}, events: [],

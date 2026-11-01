@@ -12,7 +12,7 @@
 <!-- Vzhled = UI kit (ui-kit/kit.css), stejný jako hlavní web profil.html.
      Níže jen rozvržení: grid/flex, mezery v násobcích 8 px, šířky, viditelnost.
      Žádné vlastní barvy, stíny, zaoblení ani písma — jen tokeny z kitu. -->
-<link rel="stylesheet" href="ui-kit/kit.css">
+<link rel="stylesheet" href="/ui-kit/kit.css">
 <style>
 /* ── HERO — skladba převzatá z profil.html ── */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);min-height:min(820px,100vh)}
@@ -227,7 +227,7 @@
 @media (max-width:980px){ .section{padding:56px 0} .step{grid-template-columns:40px 1fr;gap:16px} .step-core{padding:28px 24px 32px 20px} .guide-row{margin-top:32px} .only-desk{display:none} .form-facts .rows li{flex-direction:column;gap:2px} .rev{padding:20px} .hero-note{margin-top:20px} }
 </style>
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
-<script src="assets/track.js" defer></script>
+<script src="/assets/track.js" defer></script>
 </head>
 <body>
 
@@ -248,8 +248,8 @@
   <div class="hero-right s-stone">
     <!-- fotka už nese zelené K i náměstí v Jemnici, proto bez .monogram a bez .portrait-bw -->
     <img id="hero-photo"
-         src="assets/ondrej-jemnice-900.webp"
-         srcset="assets/ondrej-jemnice-600.webp 600w, assets/ondrej-jemnice-900.webp 900w, assets/ondrej-jemnice-1400.webp 1400w"
+         src="/assets/ondrej-jemnice-900.webp"
+         srcset="/assets/ondrej-jemnice-600.webp 600w, /assets/ondrej-jemnice-900.webp 900w, /assets/ondrej-jemnice-1400.webp 1400w"
          sizes="(max-width:980px) min(100vw, 560px), 52vw"
          width="1400" height="1551" alt="Ondřej Kadlec opřený o písmeno K na náměstí v Jemnici"
          fetchpriority="high" decoding="async">
@@ -403,7 +403,7 @@
         <div class="field" id="fg">
           <label class="check">
             <input type="checkbox" id="gdpr" required aria-describedby="fg-err">
-            <span>Souhlasím se zpracováním jména a telefonu za účelem vyřízení mé poptávky. <a href="gdpr.html" target="_blank" rel="noopener">Jak s údaji nakládám</a></span>
+            <span>Souhlasím se zpracováním jména a telefonu za účelem vyřízení mé poptávky. <a href="/gdpr.html" target="_blank" rel="noopener">Jak s údaji nakládám</a></span>
           </label>
           <span class="hint err" id="fg-err">Bez souhlasu vám nemůžu zavolat — zaškrtněte ho prosím.</span>
         </div>
@@ -422,7 +422,7 @@
         </div>
         <div>
           <div class="caller">
-            <img src="assets/ondrej-face-112.webp" width="56" height="56" alt="">
+            <img src="/assets/ondrej-face-112.webp" width="56" height="56" alt="">
             <div><span class="t-small">Zavolám z tohoto čísla — ať víte, kdo volá</span><b>733 651 217</b></div>
           </div>
           <div class="done-actions">
@@ -438,7 +438,7 @@
 <footer class="footer">
   <div class="wrap">
     <span>Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span>
-    <span>Vázaný zástupce INSIA a.s. a ININVEST pod dohledem ČNB · <a href="gdpr.html">Zpracování osobních údajů</a></span>
+    <span>Vázaný zástupce INSIA a.s. a ININVEST pod dohledem ČNB · <a href="/gdpr.html">Zpracování osobních údajů</a></span>
   </div>
 </footer>
 
@@ -574,8 +574,9 @@
     ['Peníze mi leží na účtu','a nevím, co s nimi.']
   ];
 
+  // téma: vlastní adresa funnelu (/konzultace/hypoteka), starší odkazy ?tema=
   var P = new URLSearchParams(location.search);
-  var tema = P.get('tema'); tema = ALIAS[tema] || tema; if (!T[tema]) tema = null;
+  var tema = (/^\/konzultace\/([a-z]+)/.exec(location.pathname) || [])[1] || P.get('tema'); tema = ALIAS[tema] || tema; if (!T[tema]) tema = null;
   var A = {topic: tema ? (CHIP[tema] || tema) : '', when:'', call:'kdykoli'};
 
   // ── vykreslení problému + hera podle tématu ──
@@ -868,7 +869,10 @@
     var a = grid.animate([{opacity:1}, {opacity:0}], {duration:140, easing:'ease-in', fill:'forwards'});
     a.onfinish = function(){ build(key); a.cancel(); enter(); };
   }
-  build(REV[REV_TOPIC[tema] || tema] ? (REV_TOPIC[tema] || tema) : 'vyber');
+  // funnel oblasti ukazuje jen recenze své oblasti; přepínat jde jen v univerzálním
+  var revKey = REV[REV_TOPIC[tema] || tema] ? (REV_TOPIC[tema] || tema) : 'vyber';
+  if (revKey !== 'vyber') document.getElementById('ref-tabs').hidden = true;
+  build(revKey);
   document.getElementById('ref-tabs').addEventListener('click', function(e){
     var b = e.target.closest('.chip'); if (!b || b.classList.contains('sel')) return;
     renderRev(b.dataset.v); kt('event', 'recenze: ' + b.dataset.v);
@@ -937,7 +941,7 @@
     majetek:  ['dum', 'stit', 'fajfka', 'mince', 'telefon'],
     cestovni: ['letadlo', 'stit', 'fajfka', 'mince', 'telefon']
   };
-  var t = new URLSearchParams(location.search).get('tema'); if (t === 'pojisteni') t = 'osoby';
+  var t = (/^\/konzultace\/([a-z]+)/.exec(location.pathname) || [])[1] || new URLSearchParams(location.search).get('tema'); if (t === 'pojisteni') t = 'osoby';
   var set = SETS[t] || SETS.obecne;
   var TILT = [-8, 6, -4, 9, -6];
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

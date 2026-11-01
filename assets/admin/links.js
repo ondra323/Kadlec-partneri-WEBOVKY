@@ -1,17 +1,18 @@
 // Odkazy na funnel konzultace.html: generátor podle tématu a kanálu
 // a výkon každého odkazu (návštěvy → klik na tlačítko → formulář → poptávka).
-// Odkaz nese ?tema= (přepne nadpis, text i recenze) a utm_* (admin pozná,
+// Každá oblast má vlastní adresu /konzultace/<oblast> (nadpis, texty, recenze);
+// starší odkazy s ?tema= fungují dál. Odkaz nese i utm_* (admin pozná,
 // odkud člověk přišel). utm_content přenáší track.js v poli campaign za „ / ".
 import { html, raw, $, num, pct, toast } from './util.js';
 
 export const TOPICS = [
-  { k: '',          label: 'Obecný',             head: 'Druhý názor na vaše smlouvy.' },
-  { k: 'investice', label: 'Investice a úspory', head: 'Leží vaše úspory tam, kde jim inflace ubírá?' },
-  { k: 'penze',     label: 'Penze',              head: 'Víte, kolik vám stát v penzi doopravdy pošle?' },
-  { k: 'osoby',     label: 'Životní pojištění',  head: 'Vyplatí vaše pojistka, když to bude potřeba?' },
+  { k: '',          label: 'Univerzální',        head: 'Druhý názor na vaše peníze.' },
+  { k: 'investice', label: 'Investice a úspory', head: 'Leží vám peníze na účtu a nevíte, co s nimi?' },
+  { k: 'penze',     label: 'Penze',              head: 'Víte, kolik budete v důchodu potřebovat?' },
+  { k: 'osoby',     label: 'Životní pojištění',  head: 'Platíte pojistku roky a nevíte, za co?' },
   { k: 'majetek',   label: 'Pojištění majetku',  head: 'Je váš dům pojištěný na dnešní ceny?' },
-  { k: 'cestovni',  label: 'Cestovní pojištění', head: 'Zaplatí cestovní pojištění i nemocnici v zahraničí?' },
-  { k: 'hypoteka',  label: 'Hypotéka',           head: 'Kolik by hypotéka stála u jiné banky?' },
+  { k: 'cestovni',  label: 'Cestovní pojištění', head: 'Zaplatí vaše pojištění i nemocnici v zahraničí?' },
+  { k: 'hypoteka',  label: 'Hypotéka',           head: 'Kolik by vaše hypotéka stála u jiné banky?' },
   { k: 'uvery',     label: 'Úvěry',              head: 'Víc splátek jde někdy sloučit do jedné, levnější.' }
 ];
 
@@ -42,8 +43,7 @@ export function slug(s) {
 
 export function buildUrl(topic, chKey, variant, tag) {
   const ch = CHANNELS[chKey];
-  const u = new URL('/konzultace', SITE);
-  if (topic) u.searchParams.set('tema', topic);
+  const u = new URL('/konzultace' + (topic ? '/' + topic : ''), SITE);
   u.searchParams.set('utm_source', ch.src);
   u.searchParams.set('utm_medium', ch.med);
   u.searchParams.set('utm_campaign', CAMPAIGN);
@@ -53,7 +53,7 @@ export function buildUrl(topic, chKey, variant, tag) {
 }
 
 /* ─── Výkon: čisté výpočty ──────────────────────────────────────────────── */
-const isFunnel = (s) => /^\/konzultace(\.html)?([?#]|$)/.test(s.landing || '');
+const isFunnel = (s) => /^\/konzultace(\.html|\/[a-z]+)?([?#]|$)/.test(s.landing || '');
 
 export function channelOf(s) {
   const src = s.source, med = s.medium;
@@ -102,6 +102,9 @@ export function performance(sessions) {
 /* ─── Vykreslení ────────────────────────────────────────────────────────── */
 const topicLabel = (k) => (TOPICS.find((t) => t.k === k) || { label: k || 'Obecný' }).label;
 
+// náhled bez utm a s ?nahled — track.js ho nepočítá
+const previewUrl = (k) => SITE + '/konzultace' + (k ? '/' + k : '') + '?nahled';
+
 function rowsHtml() {
   const ch = CHANNELS[ui.ch];
   return TOPICS.map((t) => {
@@ -111,7 +114,7 @@ function rowsHtml() {
     return html`<tr>
       <th scope="row">${t.label}<div class="s-sub">${t.head}</div></th>
       <td class="l-url"><code title="${url}">${url.replace(/^https?:\/\//, '')}</code></td>
-      <td class="t-actions">${raw(copy)}<button class="btn btn-small" data-action="link-qr" data-url="${url}" data-name="${t.k || 'obecny'}">QR</button><a class="btn btn-small btn-ghost" href="${url}" target="_blank" rel="noopener">Otevřít</a></td>
+      <td class="t-actions">${raw(copy)}<button class="btn btn-small" data-action="link-qr" data-url="${url}" data-name="${t.k || 'obecny'}">QR</button><a class="btn btn-small btn-ghost" href="${previewUrl(t.k)}" target="_blank" rel="noopener" title="Náhled se nezapočítá do návštěv">Náhled</a></td>
     </tr>`;
   }).join('');
 }
@@ -123,7 +126,7 @@ export function renderGenerator() {
   const chips = Object.entries(CHANNELS).map(([k, c]) =>
     html`<button type="button" data-action="link-ch" data-ch="${k}" aria-pressed="${k === ui.ch}">${c.label}</button>`).join('');
   return html`<section class="block">
-    <header class="block-head"><h2>Odkaz pro každé téma</h2><span class="block-aside">nadpis stránky se přepne podle tématu</span></header>
+    <header class="block-head"><h2>Funnel pro každou oblast</h2><span class="block-aside">každá oblast má vlastní adresu, nadpis, texty a recenze</span></header>
     <div class="link-controls">
       <div class="field"><span>Kam odkaz dáte</span><div class="seg seg-wrap" role="group" aria-label="Kanál">${raw(chips)}</div></div>
       <label class="field"><span>Vlastní označení <em class="opt">nepovinné</em></span>

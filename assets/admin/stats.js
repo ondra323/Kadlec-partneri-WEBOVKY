@@ -47,7 +47,7 @@ function slim(d) {
     at: toDate(d.startedAt) || toDate(d.startedAtClient),
     source: d.source || 'přímá', medium: d.medium || '', tema: d.tema || '',
     content: i < 0 ? '' : d.campaign.slice(i + 3),
-    funnel: /^\/konzultace(\.html)?([?#]|$)/.test(d.landing || ''),
+    funnel: /^\/konzultace(\.html|\/[a-z]+)?([?#]|$)/.test(d.landing || ''),
     active: +d.active || 0, lead: !!d.lead,
     cta: Array.isArray(d.clicks) && d.clicks.some((c) => /^CTA/.test(c.l || '')),
     touch: f.touch >= 0 || f.ok === true
