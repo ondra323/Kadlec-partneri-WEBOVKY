@@ -52,6 +52,7 @@
 .ref-head{margin-bottom:16px}
 .ref-towns{max-width:56ch;margin-bottom:32px}
 .ref-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.ref-tabs[hidden]{display:none}
 .ref-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 .wall-grid{display:grid;gap:16px}
 .rev{display:flex;flex-direction:column;padding:24px;background:var(--paper);border:1px solid var(--line)}
@@ -94,15 +95,10 @@
 .chip:active{transform:scale(.97)}
 
 /* ── FORMULÁŘ — na mobilu jde formulář hned pod nadpis, fakta až za něj ── */
-#kviz .split{grid-template-areas:"side box" "facts box";grid-template-rows:auto 1fr;row-gap:0}
+#kviz .split{grid-template-areas:"side box"}
 .form-side{grid-area:side}
 .quiz-box{grid-area:box}
-.form-facts{grid-area:facts;margin-top:40px}
 .form-side .t-intro{margin:24px 0 0}
-.form-facts .rows li{display:flex;gap:16px;justify-content:space-between}
-.form-facts .rows b{font-weight:600}
-.call-now{margin-top:24px}
-.call-now a{font-weight:600;color:var(--forest);white-space:nowrap}
 .chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .chip{min-height:44px}
 .chips .btn{justify-content:center;width:100%;text-align:center}
@@ -213,8 +209,7 @@
   .rev-dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
   .rev-dots i{width:8px;height:8px;background:var(--line);transition:background-color .2s var(--ease)}
   .rev-dots i.on{width:24px;background:var(--forest)}
-  #kviz .split{grid-template-areas:"side" "box" "facts";grid-template-rows:auto;row-gap:24px}
-  .form-facts{margin-top:8px}
+  #kviz .split{grid-template-areas:"side" "box";row-gap:24px}
   #sticky{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;
     padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--cream);
     border-top:1px solid var(--line);transform:translateY(125%);transition:transform .3s var(--ease)}
@@ -224,7 +219,7 @@
   .sticky-tel svg{width:22px;height:22px}
   .footer{padding-bottom:96px}
 }
-@media (max-width:980px){ .section{padding:56px 0} .step{grid-template-columns:40px 1fr;gap:16px} .step-core{padding:28px 24px 32px 20px} .guide-row{margin-top:32px} .only-desk{display:none} .form-facts .rows li{flex-direction:column;gap:2px} .rev{padding:20px} .hero-note{margin-top:20px} }
+@media (max-width:980px){ .section{padding:56px 0} .step{grid-template-columns:40px 1fr;gap:16px} .step-core{padding:28px 24px 32px 20px} .guide-row{margin-top:32px} .only-desk{display:none} .rev{padding:20px} .hero-note{margin-top:20px} }
 </style>
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
 <script src="/assets/track.js" defer></script>
@@ -265,7 +260,7 @@
     </div>
     <div>
       <ul class="rows" id="p-list"></ul>
-      <p class="t-body t-muted prob-close" id="p-close">Začneme jednou schůzkou, na které se nic nepodepisuje.</p>
+      <p class="t-body t-muted prob-close" id="p-close">Projdeme to spolu a budete vědět, na čem jste.</p>
       <p class="t-small t-muted prob-close" id="p-risk" hidden>Investování je spojeno s rizikem. Hodnota investice může klesat i stoupat a návratnost vložené částky není zaručena.</p>
     </div>
   </div>
@@ -299,7 +294,7 @@
       <div class="step step-core panel-forest"><div class="t-num">3</div><div>
         <span class="tag tag-green">Doporučení</span>
         <h3 class="t-h3">Ke každé smlouvě řeknu, co dál.</h3>
-        <p>Ponechat, upravit, nebo zrušit, a proč. Na schůzce se nic nepodepisuje.</p>
+        <p>Jestli ji ponechat, upravit, nebo zrušit, a proč. Na schůzce se nic nepodepisuje.</p>
         <p>Když po telefonátu bude jasné, že vám nemám co nabídnout, řeknu vám to rovnou.</p>
       </div></div>
     </div>
@@ -311,7 +306,7 @@
 <section class="s-cream section" id="reference">
   <div class="wrap">
     <h2 class="t-h2 ref-head">Co říkají lidé, kteří to už mají za sebou.</h2>
-    <p class="t-intro t-muted ref-towns">Přes 100 klientů mi už svěřilo své peníze. Tady píše 30 z nich, z Jemnice, Dačic, Moravských Budějovic a okolí. Doslova a se souhlasem.</p>
+    <p class="t-intro t-muted ref-towns">Přes 100 klientů mi už svěřilo své peníze. Tady jsou slova některých z nich, doslova a se souhlasem.</p>
     <div class="ref-tabs" id="ref-tabs" role="group" aria-label="Recenze podle tématu">
       <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="vyber" aria-pressed="false">Výběr</button>
       <button type="button" class="btn btn-ghost btn--sm btn--noarrow chip" data-v="hypoteka" aria-pressed="false">Hypotéky</button>
@@ -327,7 +322,7 @@
       <p class="ref-status" id="ref-status" aria-live="polite"></p>
     </div>
     <div class="ref-foot joinq" id="joinq">
-      <p class="t-h3"><span class="accent">Budete mezi ně patřit taky?</span></p>
+      <p class="t-h3"><span class="accent">Chcete vědět, jak jste na tom vy?</span></p>
       <a class="btn btn-dark" href="#kviz" data-cta data-track="CTA · recenze">Chci druhý názor</a>
     </div>
   </div>
@@ -339,14 +334,6 @@
     <div class="form-side">
       <h2 class="t-h2" id="q-head">Kam vám mám zavolat?</h2>
       <p class="t-intro q-lead">Stačí jméno a telefon.</p>
-    </div>
-    <div class="form-facts">
-      <ul class="rows">
-        <li><b>Co se na první schůzce podepisuje?</b><span class="t-muted">Nic.</span></li>
-        <li><b>Kdy se ozvu?</b><span class="t-muted">Do 24 hodin, osobně.</span></li>
-        <li><b>Pod dohledem ČNB</b><span class="t-muted">INSIA a ININVEST</span></li>
-      </ul>
-      <p class="t-body call-now">Raději hned? Zavolejte mi: <a href="tel:+420733651217" data-track="Telefon · formulář">733 651 217</a></p>
     </div>
 
     <div class="quiz-box panel-paper" data-track-form="kviz">
@@ -555,7 +542,7 @@
       title:'Víc splátek jde někdy sloučit <em>do jedné, levnější.</em>',
       sub:'Spočítám, jestli by sloučení úvěrů snížilo splátku i celkovou přeplacenou částku. <b>A řeknu i to, kdy se nevyplatí.</b>',
       cta:'Chci spočítat splátky',
-      ptitle:'Kreditka a kontokorent jsou nejdražší peníze, a používají se nejsnáz.',
+      ptitle:'Kreditka a kontokorent jsou nejdražší peníze a používají se nejsnáz.',
       pain:[
         ['Splácím na víc místech','a kolik je to dohromady, nevím.'],
         ['Splátky mě dusí,','ale nevím, jestli jde něco změnit.'],
@@ -797,20 +784,25 @@
   var REV_TOPIC = {uvery:'hypoteka'};
   var TAB = {vyber:'Výběr', hypoteka:'Hypotéky', osoby:'Pojištění osob', majetek:'Majetek', cestovni:'Cestovní', investice:'Investice', penze:'Penze'};
 
-  // siluety hlavy a ramen: obrys se liší účesem, výřezy v barvě dlaždice
-  // (brýle, límec) přes --ava-bg. Stejná dvojice jméno → silueta pokaždé.
-  var BODY = '<path d="M5 48c1-10 8.5-15.5 19-15.5S42 38 43 48z"/><path d="M20.5 27h7v7h-7z"/><ellipse cx="24" cy="20" rx="8" ry="9.6"/>';
-  var CUT = ' fill="none" stroke="var(--ava-bg)" stroke-width="1.5"';
+  // siluety hlavy a ramen: liší se jen obrysem účesu (žádné výřezy uvnitř —
+  // brýle nebo náhrdelník z dálky četly jako obličej). Stejné jméno → stejná silueta.
+  var BODY = '<path d="M6 48c1-9.5 8.5-15 18-15s17 5.5 18 15z"/><path d="M20.5 26h7v8h-7z"/><ellipse cx="24" cy="19" rx="8.2" ry="9.4"/>';
   var LOOK = {
     f: [
-      ['<path d="M13.6 31.5c-1.6-4-.6-8.2.4-11.6C14.4 12.2 18.6 8.6 24 8.6s9.6 3.6 10 11.3c1 3.4 2 7.6.4 11.6-2.6 1.2-5.6 1.6-10.4 1.6s-7.8-.4-10.4-1.6z"/>', ''],
-      ['<circle cx="24" cy="8.4" r="4.6"/>', '<path d="M19 36.5c1.6 2 3.2 3 5 3s3.4-1 5-3"' + CUT + '/>'],
-      ['<path d="M30.4 13.2c5.2.4 7.8 5.6 7 11.8-.4 3.4-2.4 5.2-4.4 5.4 1.2-4.4.9-9.2-2.6-12.6z"/><path d="M16 18.5c.4-6.2 3.6-9.6 8-9.6 4.2 0 7.4 3 8 8.4-3.6-2-8.6-1.6-16 1.2z"/>', '']
+      // dlouhé vlasy na ramena
+      ['<path d="M13.8 32c-1.6-4.6-1-9.4-.2-13C14.6 11.6 18.6 8 24 8s9.4 3.6 10.4 11c.8 3.6 1.4 8.4-.2 13-2.4.8-4.4 1-6.2 1h-8c-1.8 0-3.8-.2-6.2-1z"/>', ''],
+      // mikádo
+      ['<path d="M14.6 26.5c-.8-3-.9-6-.5-8.6C14.9 11.4 18.8 8 24 8s9.1 3.4 9.9 9.9c.4 2.6.3 5.6-.5 8.6-1.8.6-3.4.8-4.8.4L24 26l-4.6.9c-1.4.4-3 .2-4.8-.4z"/>', ''],
+      // drdol
+      ['<circle cx="24" cy="8.2" r="4.6"/><path d="M15.9 18.6C15.7 12.2 19.2 9 24 9s8.4 3.2 8.1 9.6c-2-2.6-5-3.6-8.1-3.6s-6.1 1-8.1 3.6z"/>', '']
     ],
     m: [
-      ['<path d="M15.8 18.6c-.4-6.6 3.4-10.4 8.4-10.4 5.2 0 8.6 3.6 8.2 10.4-1.6-2.8-4.6-4.2-8.3-4.2s-6.7 1.4-8.3 4.2z"/>', '<path d="M19.6 34.4 24 40l4.4-5.6"' + CUT + '/>'],
-      ['<path d="M15.7 17.4c-.5-6.6 3.4-10.8 9.1-10.8 2.9 0 5.4 1 7 2.9l-1.5 1c1.7 1.8 2.3 4 2 6.4-4.3-1.8-10.4-1.6-16.6.5z"/>', ''],
-      ['<path d="M15.9 18.4c0-6.2 3.4-9.8 8.1-9.8s8.1 3.6 8.1 9.8c-2.2-1.8-5-2.6-8.1-2.6s-5.9.8-8.1 2.6z"/>', '<g' + CUT + '><circle cx="20.6" cy="20.6" r="2.7"/><circle cx="27.4" cy="20.6" r="2.7"/><path d="M23.3 20.6h1.4"/></g>']
+      // krátký střih
+      ['<path d="M15.9 18.5c-.3-6.4 3.3-10 8.1-10s8.4 3.6 8.1 10c-1.8-2.4-4.8-3.4-8.1-3.4s-6.3 1-8.1 3.4z"/>', ''],
+      // patka
+      ['<path d="M15.95 17.6c-.5-6.6 3.4-10.6 9-10.6 2.6 0 4.8.8 6.4 2.4l-1.2 1.2c1.4 1.6 2.1 3.8 1.9 7-2.4-1.8-5.4-2.6-8.4-2.6s-5.7.8-7.7 2.6z"/>', ''],
+      // krátký střih a plnovous
+      ['<path d="M15.9 18.5c-.3-6.4 3.3-10 8.1-10s8.4 3.6 8.1 10c-1.8-2.4-4.8-3.4-8.1-3.4s-6.3 1-8.1 3.4z"/><path d="M16.2 21.5c.4 6 3.4 9.4 7.8 9.4s7.4-3.4 7.8-9.4c-1.4 1.6-2.4 4.8-7.8 4.8s-6.4-3.2-7.8-4.8z"/>', '']
     ]
   };
   function ava(name, g){
