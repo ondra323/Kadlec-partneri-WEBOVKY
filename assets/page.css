@@ -133,6 +133,6 @@ a { color: inherit; text-underline-offset: 3px; }
 .prose h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; margin-top: 40px; }
 .prose h3 { font-size: 18px; font-weight: 700; margin-top: 28px; }
 .prose img { max-width: 100%; height: auto; }
-.prose blockquote { border-left: 3px solid var(--g); padding-left: 18px; color: var(--muted); }
+.prose blockquote { font-family: var(--display); font-size: 1.35rem; line-height: 1.4; color: var(--ink); padding-top: 14px; border-top: 1px solid var(--rule); }
 .rel-box { margin-top: 36px !important; padding: 18px 20px; background: var(--paper); font-weight: 600; }
 @media (max-width: 640px) { .article-img { padding: 0; } }
