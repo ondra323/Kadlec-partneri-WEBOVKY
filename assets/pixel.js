@@ -1,4 +1,4 @@
-/* Meta Pixel – PageView na každé stránce, Lead po odeslání poptávky (konzultace.html).
+/* Meta Pixel – PageView na každé stránce, Lead po odeslání poptávky (konzultace.html), Contact po kliku na telefon či e-mail.
    Pixel se nenačte, dokud není vyplněné ID níže (Meta Business → Events Manager → Zdroje dat). */
 (function () {
   'use strict';
@@ -15,4 +15,10 @@
   document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', PIXEL_ID);
   fbq('track', 'PageView');
+
+  // Contact: klik na telefon nebo e-mail kdekoli na webu.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"],a[href^="mailto:"]');
+    if (a) fbq('track', 'Contact', { content_category: a.href.slice(0, 4) === 'tel:' ? 'telefon' : 'email' });
+  }, true);
 })();
