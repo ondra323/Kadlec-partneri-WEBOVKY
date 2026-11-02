@@ -258,49 +258,47 @@ p["ld"] = service_ld(p, "Pojištění osob, majetku a vozidel", "Pojišťovací 
 PAGES.append(("pojisteni.html", service_page(p)))
 
 # ================================================================ HYPOTÉKY A ÚVĚRY
-# Úvěry sám nezprostředkovávám: kontakt předávám partnerovi, specialistovi na úvěry.
-# Proto tady žádné srovnávání nabídek, výpočty úvěru ani rady k jeho nastavení – jen propojení
-# a to, co k úvěru patří z mého oboru: pojištění nemovitosti a pojištění schopnosti splácet.
 p = dict(
     path="/hypoteky", tema="/hypoteka", track="Hypotéky", crumb="Hypotéky",
-    title="Hypotéka Jemnice | partner na úvěry a pojištění k hypotéce",
-    desc="Řešíte hypotéku nebo úvěr v Jemnici a okolí? Propojím vás se svým partnerem, specialistou na úvěry, a postarám se o pojištění nemovitosti i splácení.",
+    title="Hypotéka Jemnice | hypotéky a úvěry | Ondřej Kadlec",
+    desc="Hypotéky a úvěry v Jemnici a okolí. Pomohu s první hypotékou, s refinancováním před koncem fixace i se sloučením úvěrů. Náklady uvidíte předem.",
     eyebrow="Hypotéky a úvěry · Jemnice a okolí",
-    h1="Hypotéka v Jemnici: partner na úvěr, pojištění ode mě",
-    answer=f"Hypotéky a úvěry pro lidi z {MESTA_2P} zajišťuje partner Ondřeje Kadlece, specialista na úvěry. Ondřej Kadlec vás s ním propojí a sám se postará o to, co k úvěru patří z jeho oboru: pojištění nemovitosti, které banka vyžaduje, a životní pojištění, aby rodina zvládla splácet, i kdyby přišla o příjem.",
-    facts=[("Úvěr řeší", "partner, specialista na úvěry"), ("Pojištění k úvěru", "nemovitost a schopnost splácet"), ("Kde se sejdeme", "Jemnice, u vás doma, online")],
-    cta="Řešíte hypotéku nebo konec fixace?",
+    h1="Hypotéka a úvěry s poradcem v Jemnici",
+    answer=f"Ondřej Kadlec je finanční poradce v Jemnici, který lidem z {MESTA_2P} pomáhá s hypotékou na bydlení, s refinancováním před koncem fixace a se sloučením úvěrů. Porovná nabídky, spočítá, kolik vás úvěr bude stát celkem, a připraví podklady pro banku. Zároveň zkontroluje, jestli máte splácení zajištěné pojištěním.",
+    facts=[("S čím pomohu", "hypotéka, refinancování, sloučení úvěrů"), ("Před koncem fixace", "ozvěte se několik měsíců předem"), ("Kde se sejdeme", "Jemnice, u vás doma, online")],
+    cta="Blíží se vám konec fixace?",
     sections=dict(
-        komu=("S čím vám pomohu", "<p>Hypotéka je na dlouho a kolem ní je víc než jen úvěr. Ozvěte se, když:</p>" + ul([
-            "kupujete nebo stavíte bydlení a potřebujete hypotéku,",
-            "vám končí fixace a chcete, aby se na úvěr podíval specialista,",
-            "splácíte více úvěrů a chcete vědět, jestli jde situaci řešit,",
-            "potřebujete pojistit nemovitost, kterou bance dáváte do zástavy,",
-            "chcete mít jistotu, že rodina zvládne splácet, i kdyby se něco stalo.",
-        ]) + "<p>Úvěr samotný řeší můj partner, specialista na úvěry. Já vás s ním propojím a postarám se o pojištění.</p>"),
-        chyby=("Nejčastější chyby kolem hypotéky, které vidím", mistakes([
-            ("Hypotéka bez zajištění splácení.", "Když splácí jeden příjem a ten vypadne, je problém. Ke každé hypotéce proto kontroluji životní pojištění, hlavně krytí invalidity."),
-            ("Životní pojistka bez krytí invalidity.", "Smlouva kryje zlomeniny, ale ne dlouhodobou ztrátu příjmu. Právě ta by ohrozila splácení nejvíc."),
-            ("Dům pojištěný na nízkou částku.", "Banka chce mít zástavu pojištěnou. Pojistná částka ale musí odpovídat tomu, za kolik byste dům dnes postavili, jinak při škodě dostanete jen část."),
-            ("Pozdní začátek.", "Konec fixace i nová hypotéka potřebují čas. Ozvěte se několik měsíců předem, ne pár týdnů."),
-            ("Pojištění sjednané narychlo u banky.", "Pojištění nabízené k úvěru nemusí být to nejvhodnější. Před podpisem ho rád porovnám s jinými možnostmi."),
+        komu=("Komu pomáhám", "<p>Úvěr je na dlouho, a proto se vyplatí ho nastavit dobře hned na začátku. Pomáhám lidem, kteří:</p>" + ul([
+            "kupují nebo staví první bydlení a chtějí vědět, kolik si mohou půjčit,",
+            "mají hypotéku, které končí fixace, a dostali od banky nabídku k podpisu,",
+            "splácejí více úvěrů a splátky je dusí,",
+            "potřebují peníze na rekonstrukci a nevědí, jestli zvolit hypotéku, nebo spotřebitelský úvěr,",
+            "chtějí mít jistotu, že rodina zvládne splácet, i kdyby se něco stalo.",
+        ])),
+        chyby=("Nejčastější chyby, které vidím", mistakes([
+            ("Podpis nabídky banky bez porovnání.", "Před koncem fixace pošle banka novou nabídku a čeká, že ji podepíšete. Porovnat ji s ostatními bankami trvá pár dní, a i malý rozdíl v sazbě dělá za roky splácení tisíce korun."),
+            ("Pozdní začátek.", "Refinancování i nová hypotéka potřebují čas na podklady a ocenění nemovitosti. Ozvěte se několik měsíců před koncem fixace, ne pár týdnů."),
+            ("Rozhodování jen podle splátky.", "Nižší splátka díky delší splatnosti může znamenat, že celkem zaplatíte víc. Vždy počítám i celkovou částku, kterou bance vrátíte."),
+            ("Hypotéka bez zajištění.", "Když splácí jeden příjem a ten vypadne, je problém. Ke každému úvěru kontroluji i životní pojištění, hlavně krytí invalidity."),
+            ("Sloučení úvěrů za každou cenu.", "Sloučení sníží měsíční splátku, ale nemusí snížit celkovou přeplacenou částku. Spočítám obě varianty a řeknu, kdy se nevyplatí."),
         ])),
         postup=steps([START,
-                      ("Propojení s partnerem", "Předám váš kontakt svému partnerovi, specialistovi na úvěry. Ten se vám ozve a hypotéku nebo úvěr s vámi vyřeší. O schválení úvěru rozhoduje vždy banka."),
-                      ("Pojištění k úvěru", "Já mezitím projdu pojištění nemovitosti a životní pojištění, které máte, a ukážu vám na jedné stránce, co je kryté a co ne. Náklady i svoji odměnu uvidíte předem v korunách."),
+                      ("Přehled", "Projdeme, co splácíte a jaký máte příjem. Spočítám, kolik si můžete půjčit a kolik vás to bude stát celkem. Na první schůzce se nic nepodepisuje."),
+                      ("Porovnání nabídek", "Porovnám nabídky a vysvětlím rozdíly. Náklady i svoji odměnu vám ukážu předem v korunách."),
+                      ("Podklady a banka", "Pomohu s podklady pro banku a provedu vás až k podpisu. O schválení úvěru rozhoduje vždy banka."),
                       REVIZE]),
     ),
     faq=[
-        ("Kdo mi s hypotékou pomůže?", "Hypotéky a úvěry zajišťuje můj partner, specialista na úvěry. Já vás s ním propojím a postarám se o pojištění, které k hypotéce patří."),
-        ("Kdy se ozvat, když mi končí fixace hypotéky?", "Ideálně několik měsíců před koncem fixace. Partner tak má čas se na váš úvěr podívat bez spěchu."),
-        ("Jak pojistit nemovitost k hypotéce?", "Banka obvykle vyžaduje pojištění nemovitosti, kterou dáváte do zástavy. Pojistná částka by měla odpovídat tomu, za kolik byste nemovitost dnes znovu postavili. Pojištění vám zkontroluji a sjednám."),
-        ("Potřebuji k hypotéce životní pojištění?", "Banka ho většinou nevyžaduje, ale doporučuji ho. Hlavně krytí invalidity a smrti chrání rodinu před tím, aby musela splácet bez vašeho příjmu."),
+        ("Kdy se mám ozvat, když mi končí fixace hypotéky?", "Ideálně několik měsíců před koncem fixace. Je čas porovnat nabídku vaší banky s ostatními a případně připravit refinancování bez spěchu."),
+        ("Kolik si můžu na hypotéku půjčit?", "Záleží na vašem příjmu, výdajích, ostatních úvěrech a hodnotě nemovitosti. Banky se navíc řídí pravidly České národní banky. Přesnou částku spočítám podle vašich údajů na schůzce."),
+        ("Garantujete, že mi banka úvěr schválí?", "Ne. O schválení úvěru rozhoduje vždy banka. Já vám pomohu vybrat vhodnou nabídku a připravit podklady tak, aby žádost měla co nejlepší šanci."),
+        ("Vyplatí se sloučit více úvěrů do jednoho?", "Někdy ano, někdy ne. Sloučení obvykle sníží měsíční splátku, ale celková přeplacená částka může vzrůst. Spočítám obě varianty a řeknu vám, která je pro vás výhodnější."),
         COST_FAQ,
         MEET_FAQ,
     ],
-    note='<p class="note">Hypotéky a úvěry nezprostředkovávám. Kontakt předávám partnerovi, specialistovi na úvěry. O poskytnutí úvěru rozhoduje banka nebo jiný věřitel.</p>',
+    note='<p class="note">Konkrétní úrokové sazby a výši splátky vám spočítám podle vaší situace. O poskytnutí úvěru rozhoduje banka nebo jiný věřitel.</p>',
 )
-p["ld"] = service_ld(p, "Pojištění k hypotéce a propojení se specialistou na úvěry", "Pojištění nemovitosti a životní pojištění k úvěru")
+p["ld"] = service_ld(p, "Hypotéky a úvěry", "Zprostředkování hypotečních a spotřebitelských úvěrů")
 PAGES.append(("hypoteky.html", service_page(p)))
 
 # ================================================================ PENZE
@@ -403,7 +401,7 @@ p["ld"] = {"@context": "https://schema.org", "@graph": [
      "worksFor": {"@id": ORG_ID},
      "alumniOf": {"@type": "CollegeOrUniversity", "name": "Právnická fakulta Masarykovy univerzity", "url": "https://www.law.muni.cz/"},
      "homeLocation": {"@type": "City", "name": "Jemnice"},
-     "knowsAbout": ["Pojištění", "Penzijní spoření", "Investice", "Dlouhodobý investiční produkt", "Spoření pro děti"],
+     "knowsAbout": ["Pojištění", "Hypotéky", "Penzijní spoření", "Investice", "Dlouhodobý investiční produkt", "Spoření pro děti"],
      "memberOf": [{"@type": "Organization", "name": "INSIA a.s.", "url": "https://www.insia.cz/"},
                   {"@type": "Organization", "name": "In Investments a.s.", "url": "https://www.ininvest.cz/"}],
      "sameAs": [GOOGLE, FIRMY, FACEBOOK]},
@@ -413,7 +411,7 @@ o_mne = f"""
 <div class="hero">
   <p class="eyebrow">O mně</p>
   <h1>Ondřej Kadlec, finanční poradce z Jemnice</h1>
-  <p class="answer">Jsem Ondřej Kadlec, finanční poradce z Jemnice. Jako vázaný zástupce společností INSIA a.s. a In Investments a.s. (ININVEST), registrovaný u České národní banky, pomáhám lidem z {MESTA_2P} s pojištěním, penzí a investicemi. S hypotékou vás propojím se svým partnerem, specialistou na úvěry. Vystudoval jsem Právnickou fakultu Masarykovy univerzity.</p>
+  <p class="answer">Jsem Ondřej Kadlec, finanční poradce z Jemnice. Jako vázaný zástupce společností INSIA a.s. a In Investments a.s. (ININVEST), registrovaný u České národní banky, pomáhám lidem z {MESTA_2P} s pojištěním, hypotékami, penzí a investicemi. Vystudoval jsem Právnickou fakultu Masarykovy univerzity.</p>
   {facts([("Kancelář", ADDR), ("Otevírací doba", HOURS), ("Ověření", f'<a href="{CNB}" target="_blank" rel="noopener">Registr ČNB</a> · IČO 14311569')])}
 </div>
 
@@ -421,7 +419,7 @@ o_mne = f"""
   <div>
     <section id="kdo"><h2><span>01</span>Kdo jsem</h2>
       <p>Jsem z Jemnice a pracuji tady. Kancelář mám na Havlíčkově náměstí, ale za klienty jezdím i domů, do Moravských Budějovic, Dačic, Třebíče, Telče, Slavonic a okolních obcí. Sejít se můžeme i online.</p>
-      <p>Svěřilo se mi kolem 100 klientů, hlavně z Jemnice a okolí. Řeším s nimi pojištění, penzijní spoření, investice a spoření pro děti, protože peníze v domácnosti spolu souvisí. Kdo potřebuje hypotéku nebo úvěr, toho propojím se svým partnerem, specialistou na úvěry.</p>
+      <p>Svěřilo se mi kolem 100 klientů, hlavně z Jemnice a okolí. Řeším s nimi pojištění, hypotéky a úvěry, penzijní spoření, investice a spoření pro děti, protože peníze v domácnosti spolu souvisí.</p>
     </section>
     <section id="vzdelani"><h2><span>02</span>Vzdělání a oprávnění</h2>
       <h3>Právnická fakulta Masarykovy univerzity</h3>
@@ -436,7 +434,7 @@ o_mne = f"""
     </section>
     <section id="jak"><h2><span>03</span>Jak pracuji</h2>
       <ol class="steps">
-        <li><b>Projdu, co máte</b>Na začátku se podívám na smlouvy, které už máte: pojištění, penzijko, investice.</li>
+        <li><b>Projdu, co máte</b>Na začátku se podívám na smlouvy, které už máte: pojištění, penzijko, investice, úvěry.</li>
         <li><b>Přehled na jedné stránce</b>Ve svém analytickém programu vám na jedné stránce ukážu, co je kryté a co ne. Nejčastěji najdu dům pojištěný na starou částku, penzijko bez plného státního příspěvku a životní pojistku bez krytí invalidity.</li>
         <li><b>Plán</b>Navrhnu plán: rezervu, zajištění příjmu, spoření pro děti. Na první schůzce se nic nepodepisuje.</li>
         <li><b>Náklady předem v korunách</b>Odměnu dostávám od finanční instituce, nebo přímo od vás. Náklady i svoji odměnu vždy uvidíte předem v korunách.</li>
