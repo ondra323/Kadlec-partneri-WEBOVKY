@@ -356,6 +356,7 @@ table.data { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
 .login-box { border: 0; border-top: 3px solid var(--ink); }
 .login-box .brand { font-family: var(--display); font-weight: 400; font-size: 2.2rem; }
 .login-box .brand span { color: var(--ink-2); }
+.logo{display:inline-block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:24px;line-height:.92;letter-spacing:-.005em;text-decoration:none;color:#1c1a17;white-space:nowrap}.logo .l1{display:block;padding-left:1.02em}.logo .amp{color:#0d6b3e}.logo.on-green .amp{color:#fffaf1}.login-logo{font-size:2.2rem;margin-bottom:8px}
 .login .btn-primary { border-radius: var(--pill); }
 
 .topbar { background: var(--green-deep); border-bottom: 0; color: #cfe0d5; }
