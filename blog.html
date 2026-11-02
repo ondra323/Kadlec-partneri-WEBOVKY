@@ -64,7 +64,7 @@ a { color: inherit; }
 /* ── HORNÍ LIŠTA ── */
 .topbar { position: sticky; top: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--rule); }
 .topbar-in { max-width: 1160px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.topbar-logo { font-weight: 700; font-size: 17px; line-height: 1.05; letter-spacing: -.01em; text-decoration: none; color: var(--ink); }
+.logo{display:inline-block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:24px;line-height:.92;letter-spacing:-.005em;text-decoration:none;color:#1c1a17;white-space:nowrap}.logo .l1{display:block;padding-left:1.02em}.logo .amp{color:#0d6b3e}.logo.on-green .amp{color:#fffaf1}
 
 /* ── SEZNAM ── */
 #view-list { display: block; }
@@ -157,7 +157,7 @@ a { color: inherit; }
 <body>
 
 <header class="topbar"><div class="topbar-in">
-  <a href="/" class="topbar-logo">Ondřej Kadlec<br>&amp; partneři</a>
+  <a href="/" class="logo" aria-label="Kadlec &amp; partneři – úvod"><span class="l1">Kadlec</span><span class="amp">&amp;</span> partneři</a>
   <a href="/" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>Zpět na web</a>
 </div></header>
 

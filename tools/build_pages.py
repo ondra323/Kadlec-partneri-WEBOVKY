@@ -54,7 +54,7 @@ def head(p):
 <body>
 
 <header class="topbar"><div class="topbar-in">
-  <a href="/" class="topbar-logo">Ondřej Kadlec<br>&amp; partneři</a>
+  <a href="/" class="logo" aria-label="Kadlec &amp; partneři – úvod"><span class="l1">Kadlec</span><span class="amp">&amp;</span> partneři</a>
   <nav class="topnav" aria-label="Hlavní">{''.join(f'<a href="{h}"' + (' aria-current="page"' if h == p['path'] else '') + f'>{t}</a>' for h, t in NAV)}</nav>
   <a href="/konzultace{p['tema']}" class="pill" data-track="{p['track']} · hlavička">Domluvit schůzku</a>
 </div></header>

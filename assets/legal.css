@@ -20,7 +20,7 @@ a { color: inherit; text-underline-offset: 3px; }
 
 .topbar { position: sticky; top: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--rule); }
 .topbar-in { max-width: 1160px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.topbar-logo { font-weight: 700; font-size: 17px; line-height: 1.05; letter-spacing: -.01em; text-decoration: none; }
+.logo{display:inline-block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:24px;line-height:.92;letter-spacing:-.005em;text-decoration:none;color:#1c1a17;white-space:nowrap}.logo .l1{display:block;padding-left:1.02em}.logo .amp{color:#0d6b3e}.logo.on-green .amp{color:#fffaf1}
 
 .doc { max-width: 1160px; margin: 0 auto; padding: 72px 32px 96px; display: grid; grid-template-columns: 240px minmax(0, 720px); gap: 64px; }
 .doc-head { grid-column: 1 / -1; }
