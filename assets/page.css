@@ -119,3 +119,20 @@ a { color: inherit; text-underline-offset: 3px; }
   .faq details p { padding-right: 0; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* Článek blogu (api/clanek.js) */
+.eyebrow a { text-decoration: none; }
+.h1-article { font-size: clamp(2.1rem, 4.6vw, 3.6rem) !important; max-width: 22ch !important; }
+.byline { margin-top: 28px; display: flex; align-items: center; gap: 14px; font-size: 15px; color: var(--muted); line-height: 1.5; }
+.byline img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none; }
+.byline a { color: var(--ink); font-weight: 600; }
+.article-img { max-width: 1160px; margin: 0 auto 8px; padding: 0 32px; }
+.article-img img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--stone); }
+.prose { padding-top: 32px; border-top: 3px solid var(--ink); }
+.prose > * + * { margin-top: 16px; }
+.prose h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; margin-top: 40px; }
+.prose h3 { font-size: 18px; font-weight: 700; margin-top: 28px; }
+.prose img { max-width: 100%; height: auto; }
+.prose blockquote { border-left: 3px solid var(--g); padding-left: 18px; color: var(--muted); }
+.rel-box { margin-top: 36px !important; padding: 18px 20px; background: var(--paper); font-weight: 600; }
+@media (max-width: 640px) { .article-img { padding: 0; } }
