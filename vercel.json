@@ -8,6 +8,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "kadlec-partneri.vercel.app"
+        }
+      ],
+      "destination": "https://kadlec-partneri.cz/:path*",
+      "permanent": true
+    },
+    {
       "source": "/klientska-zona",
       "destination": "/klientsky-portal/",
       "permanent": false
