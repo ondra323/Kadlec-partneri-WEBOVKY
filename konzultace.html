@@ -212,6 +212,7 @@
 </style>
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
 <script src="/assets/track.js" defer></script>
+<script src="/assets/pixel.js" defer></script>
 </head>
 <body>
 
@@ -709,6 +710,7 @@
         return;
       }
       kt('submit', 'kviz', true, r[0].status === 'fulfilled' ? r[0].value : '');
+      window.fbq && fbq('track', 'Lead', {content_category: tema || 'obecne'});
       document.getElementById('f').style.display = 'none';
       document.querySelector('.q-lead').style.display = 'none';
       document.getElementById('q-head').textContent = 'Hotovo';
