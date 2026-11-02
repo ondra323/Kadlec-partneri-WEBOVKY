@@ -1,0 +1,5 @@
+# Netlify (doména kadlec-partneri.cz). Stejná pravidla jako vercel.json – měnit obojí.
+/klientska-zona        /klientsky-portal/   302
+/k/:tema/:kanal        /konzultace/:tema?utm_source=:kanal&utm_medium=kratky-odkaz&utm_campaign=:tema   302
+/k/:tema               /konzultace/:tema?utm_source=kratky-odkaz&utm_medium=kratky-odkaz&utm_campaign=:tema   302
+/konzultace/:tema      /konzultace.html     200
