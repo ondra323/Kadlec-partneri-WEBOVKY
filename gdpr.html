@@ -9,7 +9,7 @@
 <link href="/assets/fonts/fonts.css" rel="stylesheet">
 <link href="/assets/legal.css" rel="stylesheet">
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
-<script src="/assets/consent.js" defer></script>
+<script src="/assets/track.js" defer></script>
 </head>
 <body>
 
@@ -55,7 +55,7 @@
       <h3>Poptávka z webu</h3>
       <p>Jméno, telefon a odpovědi z krátkého dotazníku, pokud ho vyplníte.</p>
       <h3>Používání webu</h3>
-      <p>Jen s vaším souhlasem: odkud jste přišli (například z reklamy), které stránky jste otevřeli, jak dlouho a na která tlačítka jste klikli. Bez jména, bez IP adresy a bez trvalého identifikátoru.</p>
+      <p>Odkud jste přišli (například z reklamy), které stránky jste otevřeli, jak dlouho a na která tlačítka jste klikli. Bez jména, bez IP adresy a bez trvalého identifikátoru.</p>
       <h3>Klientská zóna</h3>
       <p>Váš e-mail, kdy jste se přihlásili (i neúspěšné pokusy), které části zóny jste otevřeli a jak dlouho, typ zařízení.</p>
       <p class="note">Nikdy nezaznamenávám hesla, obsah vyplněných polí ani záznam obrazovky.</p>
@@ -68,9 +68,9 @@
       <h3>Právní povinnost</h3>
       <p>Zákony o distribuci pojištění, o podnikání na kapitálovém trhu a o opatřeních proti praní špinavých peněz (AML).</p>
       <h3>Oprávněný zájem</h3>
-      <p>Ochrana právních nároků, zabezpečení klientské zóny (záznam přihlášení a neúspěšných pokusů) a zlepšování klientské zóny.</p>
+      <p>Ochrana právních nároků, zabezpečení klientské zóny (záznam přihlášení a neúspěšných pokusů), zlepšování webu a klientské zóny a vyhodnocení, která propagace funguje (údaje o používání).</p>
       <h3>Souhlas</h3>
-      <p>Údaje o zdravotním stavu a měření návštěvnosti webu. Souhlas můžete kdykoli odvolat.</p>
+      <p>Údaje o zdravotním stavu. Souhlas můžete kdykoli odvolat.</p>
     </section>
 
     <section id="prijemci">
@@ -93,13 +93,11 @@
       <table>
         <thead><tr><th>Název</th><th>K čemu slouží</th><th>Jak dlouho</th><th>Typ</th></tr></thead>
         <tbody>
-          <tr><td><code>kp_consent</code></td><td>Pamatuje si, jestli jste měření povolili, nebo odmítli.</td><td>Do změny volby</td><td>Nezbytné</td></tr>
           <tr><td>Přihlášení do klientské zóny</td><td>Udrží vás přihlášené (Firebase Authentication).</td><td>Do odhlášení</td><td>Nezbytné</td></tr>
-          <tr><td><code>kt_session_v1</code></td><td>Spojí stránky jedné návštěvy, abych viděl, odkud lidé přicházejí a co je zajímá.</td><td>Do zavření karty</td><td>Měření, jen se souhlasem</td></tr>
+          <tr><td><code>kt_session_v1</code></td><td>Spojí stránky jedné návštěvy, abych viděl, odkud lidé přicházejí a co je zajímá.</td><td>Do zavření karty</td><td>Měření návštěvnosti</td></tr>
         </tbody>
       </table>
-      <p style="margin-top:16px">Nezbytné úložiště se používá bez souhlasu, protože bez něj web nefunguje. Měření se spustí, až když ho povolíte. Pokud máte v prohlížeči zapnuté Do Not Track nebo Global Privacy Control, neměřím vůbec.</p>
-      <p><a href="#" data-cookies class="pill" style="margin-top:8px">Změnit nastavení cookies</a></p>
+      <p style="margin-top:16px">Měření neobsahuje jméno, IP adresu ani trvalý identifikátor a po zavření karty se z prohlížeče smaže. Pokud máte v prohlížeči zapnuté Do Not Track nebo Global Privacy Control, neměřím vůbec. Proti měření můžete také vznést námitku e-mailem.</p>
     </section>
 
     <section id="prava">
@@ -120,6 +118,6 @@
   </div>
 </main>
 
-<footer class="foot"><span>© 2026 Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span><span><a href="informace.html">Informace pro klienty</a> · <a href="#" data-cookies>Nastavení cookies</a> · <a href="index.html">Hlavní stránka</a></span></footer>
+<footer class="foot"><span>© 2026 Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span><span><a href="informace.html">Informace pro klienty</a> · <a href="index.html">Hlavní stránka</a></span></footer>
 </body>
 </html>
