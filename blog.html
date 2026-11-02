@@ -3,20 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog | Ondřej Kadlec, finanční poradce Jemnice</title>
-<meta property="og:type" content="website">
-<meta property="og:locale" content="cs_CZ">
-<meta property="og:site_name" content="Kadlec &amp; partneři">
-<meta property="og:title" content="Blog | Ondřej Kadlec, finanční poradce Jemnice">
-<meta property="og:description" content="Články o pojištění, hypotékách, penzi a investicích. Srozumitelně, s čísly a bez reklamních slibů. Píše Ondřej Kadlec, finanční poradce z Jemnice.">
-<meta property="og:url" content="https://kadlec-partneri.cz/blog">
-<meta property="og:image" content="https://kadlec-partneri.cz/assets/ondrej-jemnice-1400.webp">
+<title>Blog · Ondřej Kadlec, finanční poradce</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0f3b2a">
-<link rel="canonical" href="https://kadlec-partneri.cz/blog">
-<meta name="description" content="Články o pojištění, hypotékách, penzi a investicích. Srozumitelně, s čísly a bez reklamních slibů. Píše Ondřej Kadlec, finanční poradce z Jemnice.">
+<meta name="description" content="Články Ondřeje Kadlece o investicích, penzi, hypotékách a pojištění. Srozumitelně a s čísly.">
 <link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link href="/assets/fonts/fonts.css" rel="stylesheet">
 <script>window.kt=window.kt||function(){(kt.q=kt.q||[]).push(arguments)}</script>
@@ -75,6 +67,7 @@ a { color: inherit; }
 
 /* ── SEZNAM ── */
 #view-list { display: block; }
+#view-detail { display: none; }
 .blog-header { max-width: 1160px; margin: 0 auto; padding: 72px 32px 0; }
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--g-ink); margin-bottom: 18px; }
 .blog-header h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.02; letter-spacing: -.01em; max-width: 14ch; }
@@ -90,7 +83,7 @@ a { color: inherit; }
 @media (max-width: 900px) { .blog-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .blog-grid { grid-template-columns: 1fr; padding: 0 16px; } .blog-header, .filter-bar, .topbar-in { padding-left: 16px; padding-right: 16px; } .blog-header { padding-top: 48px; } }
 
-.card { color: inherit; text-decoration: none; background: var(--paper); border-top: 3px solid var(--ink); overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: border-color .3s var(--e); }
+.card { background: var(--paper); border-top: 3px solid var(--ink); overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: border-color .3s var(--e); }
 .card:hover { border-top-color: var(--g); }
 .card:hover h2 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .card-media { overflow: hidden; }
@@ -114,11 +107,34 @@ a { color: inherit; }
 .skeleton-line { height: 12px; margin-bottom: 10px; }
 
 /* ── ČLÁNEK ── */
-@media (max-width: 600px) {   color: var(--muted); cursor: pointer; margin-bottom: 24px; background: none; border: none; padding: 0; transition: color .2s; }
+.detail-hero { width: 100%; max-height: 460px; object-fit: cover; display: block; }
+.detail-hero-placeholder { width: 100%; height: 220px; background: var(--forest); }
+.detail-hero-placeholder svg { display: none; }
+.detail-wrap { max-width: 760px; margin: 0 auto; padding: 48px 32px 96px; }
+@media (max-width: 600px) { .detail-wrap { padding: 32px 16px 72px; } }
+.detail-back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font: 600 13px/1 var(--ui); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); cursor: pointer; margin-bottom: 24px; background: none; border: none; padding: 0; transition: color .2s; }
+.detail-back:hover { color: var(--ink); }
+.detail-back svg { width: 16px; height: 16px; }
+.detail-tag { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--g-ink); margin-bottom: 16px; }
+.detail-title { font-family: var(--display); font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; letter-spacing: -.01em; margin-bottom: 28px; }
+.detail-byline { display: flex; align-items: center; gap: 16px; padding: 18px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 40px; }
 .byline-avatar { width: 44px; height: 44px; background: var(--forest); border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-family: var(--display); font-size: 16px; color: var(--g); flex-shrink: 0; }
 .byline-name { font-size: 15px; font-weight: 600; }
 .byline-meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.detail-body { font-size: 17px; line-height: 1.75; color: #2c2925; }
+.detail-body h1, .detail-body h2, .detail-body h3 { font-family: var(--display); font-weight: 400; color: var(--ink); margin: 40px 0 14px; line-height: 1.15; }
+.detail-body h2 { font-size: 1.9rem; }
+.detail-body h3 { font-size: 1.4rem; }
+.detail-body p { margin-bottom: 20px; }
+.detail-body a { color: var(--g-ink); text-underline-offset: 3px; }
+.detail-body strong { color: var(--ink); font-weight: 600; }
+.detail-body ul, .detail-body ol { padding-left: 24px; margin-bottom: 20px; }
+.detail-body li { margin-bottom: 8px; }
+.detail-body li::marker { color: var(--g-ink); }
+.detail-body blockquote { border-left: 4px solid var(--g); margin: 32px 0; padding: 4px 0 4px 24px; font-family: var(--display); font-size: 1.5rem; line-height: 1.3; color: var(--forest); }
+.detail-body img { max-width: 100%; height: auto; }
 
 /* ── VÝZVA ── */
 .cta { background: var(--forest); color: #cfe0d5; }
@@ -141,7 +157,7 @@ a { color: inherit; }
 
 <header class="topbar"><div class="topbar-in">
   <a href="/" class="logo" aria-label="Kadlec &amp; partneři – úvod"><span class="l1">Kadlec</span><span class="amp">&amp;</span> partneři</a>
-  <a href="/" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>Zpět na web</a>
+  <a href="index.html" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>Zpět na web</a>
 </div></header>
 
 <!-- ══ BLOG LIST ══ -->
@@ -196,13 +212,14 @@ a { color: inherit; }
 </div>
 
 <!-- ══ ARTICLE DETAIL ══ -->
+<div id="view-detail"></div>
 
 <section class="cta"><div class="cta-in">
   <div><h2>Chcete vědět, jak jsou na tom vaše peníze?</h2>
   <p>Jedna schůzka, na které se nic nepodepisuje. Projdeme, co máte, a řeknu vám to na rovinu.</p></div>
-  <a class="pill" href="/#kontakt" data-track="CTA · blog">Chci druhý názor</a>
+  <a class="pill" href="index.html#kontakt" data-track="CTA · blog">Chci druhý názor</a>
 </div></section>
-<footer class="foot"><span><strong>Kadlec &amp; partneři</strong> – Ondřej Kadlec, finanční poradce · Kancelář: Havlíčkovo nám. 8, 675 31 Jemnice · <a href="tel:+420733651217">+420 733 651 217</a> · Po–Pá 8:00–22:00<br>IČO 14311569 · sídlo Polická 1106, 675 31 Jemnice · vázaný zástupce INSIA a.s. a ININVEST, <a href="https://apl.cnb.cz/apljerrsdad/JERRS.WEB07.INTRO_PAGE?p_lang=cz" target="_blank" rel="noopener">registrován u ČNB</a></span><span><a href="https://share.google/q5W7nTjL4THlAzep5" target="_blank" rel="noopener">Recenze na Googlu</a> · <a href="https://www.firmy.cz/detail/14092496-kadlec-partneri-jemnice.html" target="_blank" rel="noopener">Firmy.cz</a> · <a href="https://www.facebook.com/profile.php?id=61582855272315" target="_blank" rel="noopener">Facebook</a><br><a href="/pojisteni">Pojištění</a> · <a href="/hypoteky">Hypotéky</a> · <a href="/penze">Penze</a> · <a href="/investice">Investice</a> · <a href="/o-mne">O mně</a> · <a href="/blog">Blog</a><br><a href="/informace">Informace pro klienty</a> · <a href="/gdpr">Ochrana osobních údajů</a></span></footer>
+<footer class="foot"><span>© 2026 Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span><span><a href="informace.html">Informace pro klienty</a> · <a href="gdpr.html">Ochrana osobních údajů</a> · <a href="index.html">Hlavní stránka</a></span></footer>
 
 <script>
 let allArticles = []
@@ -227,9 +244,9 @@ function renderGrid(articles) {
     return
   }
   grid.innerHTML = articles.map(a => `
-    <a class="card" href="${articlePath(a)}">
+    <div class="card" onclick="showDetail('${a.id}')">
       ${a.imageUrl
-        ? `<div class="card-media"><img class="card-img" src="${cardImg(a.imageUrl)}" alt="" loading="lazy"></div>`
+        ? `<div class="card-media"><img class="card-img" src="${a.imageUrl}" alt="${a.title}" loading="lazy"></div>`
         : `<div class="card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`
       }
       <div class="card-body">
@@ -241,7 +258,7 @@ function renderGrid(articles) {
           <span>${readingTime(a.content || '')} min čtení</span>
         </div>
       </div>
-    </a>
+    </div>
   `).join('')
 }
 
@@ -253,16 +270,50 @@ function filterArticles(cat, btn) {
   renderGrid(filtered)
 }
 
-// Stejný tvar adresy jako api/_blog.js: /blog/<titulek-jako-slug>-<id>
-function slugify(s) {
-  s = String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-  const s2 = s.length > 60 ? s.slice(0, s.lastIndexOf('-', 60)) : s
-  return s2 || s.slice(0, 60)
+function showDetail(id) {
+  const a = allArticles.find(x => x.id === id)
+  if (!a) return
+  const detail = document.getElementById('view-detail')
+  const rt = readingTime(a.content || '')
+  detail.innerHTML = `
+    ${a.imageUrl
+      ? `<img class="detail-hero" src="${a.imageUrl}" alt="${a.title}">`
+      : `<div class="detail-hero-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="21 15 16 10 5 21"/></svg></div>`
+    }
+    <div class="detail-wrap">
+      <button class="detail-back" onclick="showList()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Zpět na blog
+      </button>
+      <div class="detail-tag">${a.category || ''}</div>
+      <h1 class="detail-title">${a.title}</h1>
+      <div class="detail-byline">
+        <div class="byline-avatar">OK</div>
+        <div>
+          <div class="byline-name">Ondřej Kadlec</div>
+          <div class="byline-meta">${formatDate(a.publishedAt)} · ${rt} min čtení</div>
+        </div>
+      </div>
+      <div class="detail-body">${a.content || ''}</div>
+    </div>
+  `
+  document.getElementById('view-list').style.display = 'none'
+  detail.style.display = 'block'
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+  history.pushState({ articleId: id }, '', `?clanek=${id}`)
 }
-const articlePath = a => `/blog/${slugify(a.title)}-${a.id}`
-// Unsplash umí vrátit menší obrázek – karta nepotřebuje 1800 px
-const cardImg = u => /^https:\/\/images\.unsplash\.com\//.test(u) ? u.split('?')[0] + '?w=800&q=70&auto=format&fit=crop' : u
+
+function showList() {
+  document.getElementById('view-list').style.display = 'block'
+  document.getElementById('view-detail').style.display = 'none'
+  history.pushState({}, '', window.location.pathname)
+  window.scrollTo({ top: 0 })
+}
+
+window.addEventListener('popstate', e => {
+  if (e.state && e.state.articleId) showDetail(e.state.articleId)
+  else showList()
+})
 
 // Load articles from Firebase
 window.addEventListener('firebase-ready', async () => {
@@ -277,6 +328,10 @@ window.addEventListener('firebase-ready', async () => {
     const snap = await getDocs(q)
     allArticles = snap.docs.map(d => ({ id: d.id, ...d.data() }))
     renderGrid(allArticles)
+
+    // Handle direct URL to article
+    const params = new URLSearchParams(location.search)
+    if (params.get('clanek')) showDetail(params.get('clanek'))
   } catch (err) {
     console.error('Firebase chyba:', err)
     document.getElementById('blog-grid').innerHTML = `<div class="card-empty"><p>Nepodařilo se načíst články. Zkontrolujte Firebase konfiguraci.</p></div>`

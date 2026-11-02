@@ -4,14 +4,6 @@
     {
       "source": "/konzultace/:tema([a-z]+)",
       "destination": "/konzultace"
-    },
-    {
-      "source": "/sitemap.xml",
-      "destination": "/api/sitemap"
-    },
-    {
-      "source": "/blog/:slug",
-      "destination": "/api/clanek?slug=:slug"
     }
   ],
   "redirects": [
@@ -40,18 +32,6 @@
       "source": "/k/:tema([a-z]+)",
       "destination": "/konzultace/:tema?utm_source=kratky-odkaz&utm_medium=kratky-odkaz&utm_campaign=:tema",
       "permanent": false
-    },
-    {
-      "source": "/blog",
-      "has": [
-        {
-          "type": "query",
-          "key": "clanek",
-          "value": "(?<id>[A-Za-z0-9]{20})"
-        }
-      ],
-      "destination": "/blog/:id",
-      "permanent": true
     }
   ],
   "headers": [
@@ -124,15 +104,6 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
-        }
-      ]
-    },
-    {
-      "source": "/(llms|robots).txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
         }
       ]
     }
