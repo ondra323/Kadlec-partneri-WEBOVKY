@@ -8,6 +8,7 @@
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0f3b2a">
+<link rel="canonical" href="https://kadlec-partneri.cz/blog" id="canon">
 <meta name="description" content="Články Ondřeje Kadlece o investicích, penzi, hypotékách a pojištění. Srozumitelně a s čísly.">
 <link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link href="/assets/fonts/fonts.css" rel="stylesheet">
@@ -156,8 +157,8 @@ a { color: inherit; }
 <body>
 
 <header class="topbar"><div class="topbar-in">
-  <a href="index.html" class="topbar-logo">Ondřej Kadlec<br>&amp; partneři</a>
-  <a href="index.html" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>Zpět na web</a>
+  <a href="/" class="topbar-logo">Ondřej Kadlec<br>&amp; partneři</a>
+  <a href="/" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>Zpět na web</a>
 </div></header>
 
 <!-- ══ BLOG LIST ══ -->
@@ -217,9 +218,9 @@ a { color: inherit; }
 <section class="cta"><div class="cta-in">
   <div><h2>Chcete vědět, jak jsou na tom vaše peníze?</h2>
   <p>Jedna schůzka, na které se nic nepodepisuje. Projdeme, co máte, a řeknu vám to na rovinu.</p></div>
-  <a class="pill" href="index.html#kontakt" data-track="CTA · blog">Chci druhý názor</a>
+  <a class="pill" href="/#kontakt" data-track="CTA · blog">Chci druhý názor</a>
 </div></section>
-<footer class="foot"><span>© 2026 Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span><span><a href="informace.html">Informace pro klienty</a> · <a href="gdpr.html">Ochrana osobních údajů</a> · <a href="index.html">Hlavní stránka</a></span></footer>
+<footer class="foot"><span>© 2026 Ondřej Kadlec · IČO 14311569 · Polická 1106, 675 31 Jemnice</span><span><a href="/informace">Informace pro klienty</a> · <a href="/gdpr">Ochrana osobních údajů</a> · <a href="/">Hlavní stránka</a></span></footer>
 
 <script>
 let allArticles = []
@@ -301,12 +302,36 @@ function showDetail(id) {
   detail.style.display = 'block'
   window.scrollTo({ top: 0, behavior: 'smooth' })
   history.pushState({ articleId: id }, '', `?clanek=${id}`)
+  setMeta(a, id)
+}
+
+// Článek se vykresluje v prohlížeči – titulek, kanonická adresa a BlogPosting pro vyhledávače
+const META0 = { title: document.title, desc: document.querySelector('meta[name="description"]').content }
+function setMeta(a, id) {
+  const canon = document.getElementById('canon'), desc = document.querySelector('meta[name="description"]')
+  let ld = document.getElementById('ld-clanek')
+  if (!a) {
+    document.title = META0.title; desc.content = META0.desc; canon.href = 'https://kadlec-partneri.cz/blog'
+    if (ld) ld.remove()
+    return
+  }
+  const text = (a.excerpt || (a.content || '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim().slice(0, 155)
+  document.title = a.title + ' | Blog Ondřeje Kadlece'
+  desc.content = text
+  canon.href = 'https://kadlec-partneri.cz/blog?clanek=' + encodeURIComponent(id)
+  if (!ld) { ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'ld-clanek'; document.head.appendChild(ld) }
+  const d = a.publishedAt && a.publishedAt.toDate ? a.publishedAt.toDate().toISOString() : undefined
+  ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: a.title, description: text,
+    image: a.imageUrl || undefined, datePublished: d, inLanguage: 'cs', mainEntityOfPage: canon.href,
+    author: { '@type': 'Person', '@id': 'https://kadlec-partneri.cz/#ondrej-kadlec', name: 'Ondřej Kadlec', url: 'https://kadlec-partneri.cz/o-mne' },
+    publisher: { '@id': 'https://kadlec-partneri.cz/#poradce' } })
 }
 
 function showList() {
   document.getElementById('view-list').style.display = 'block'
   document.getElementById('view-detail').style.display = 'none'
   history.pushState({}, '', window.location.pathname)
+  setMeta(null)
   window.scrollTo({ top: 0 })
 }
 

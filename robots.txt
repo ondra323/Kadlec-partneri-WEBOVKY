@@ -1,0 +1,26 @@
+# Vyhledávače i AI vyhledávání mají přístup ke všemu kromě administrace a klientské zóny.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /klientsky-portal/
+Disallow: /api/
+
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: SeznamBot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Google-Extended
+User-agent: Applebot
+Allow: /
+Disallow: /admin
+Disallow: /klientsky-portal/
+Disallow: /api/
+
+Sitemap: https://kadlec-partneri.cz/sitemap.xml
