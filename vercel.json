@@ -11,6 +11,16 @@
       "source": "/klientska-zona",
       "destination": "/klientsky-portal/",
       "permanent": false
+    },
+    {
+      "source": "/k/:tema([a-z]+)/:kanal([a-z0-9-]+)",
+      "destination": "/konzultace/:tema?utm_source=:kanal&utm_medium=kratky-odkaz&utm_campaign=:tema",
+      "permanent": false
+    },
+    {
+      "source": "/k/:tema([a-z]+)",
+      "destination": "/konzultace/:tema?utm_source=kratky-odkaz&utm_medium=kratky-odkaz&utm_campaign=:tema",
+      "permanent": false
     }
   ],
   "headers": [

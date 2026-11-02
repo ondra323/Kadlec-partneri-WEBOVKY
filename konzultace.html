@@ -664,19 +664,25 @@
     var fail = document.getElementById('sendfail');
     fail.classList.remove('on');
 
-    var utm = P.get('utm_source') || '';
+    // zdroj poptávky: první stránka návštěvy (track.js), jinak adresa této stránky
+    var at = (window.KTrack && !KTrack.off && KTrack.attr) || {};
+    var utm = at.source || P.get('utm_source') || '';
     if (!utm && document.referrer) {
       if (/instagram\./i.test(document.referrer)) utm = 'instagram';
       else if (/facebook\.|fb\./i.test(document.referrer)) utm = 'facebook';
     }
+    var medium = at.medium || P.get('utm_medium') || '';
+    var campaign = at.campaign || [P.get('utm_campaign'), P.get('utm_content')].filter(Boolean).join(' / ');
+    var attr = [utm, medium && medium !== utm ? medium : '', campaign].filter(function(x){ return x && x !== 'přímá'; }).join(' / ');
     var data = {
       name: jm.value.trim(), email: '', phone: tl.value.trim(),
       service: LBL[A.topic] || 'Konzultace', term: CALL[A.call] || 'Kdykoli',
       note: [A.topic ? 'téma: ' + LBL[A.topic] : 'téma nevybral',
              A.when ? 'spěch: ' + WHEN[A.when] : 'spěch neuvedl',
-             tema ? 'z reklamy: ' + tema : '', utm,
-             P.get('utm_content') ? 'odkaz: ' + P.get('utm_content').slice(0, 40) : ''].filter(Boolean).join(' · '),
-      source: 'konzultace/' + (tema || 'obecne'), status: 'new'
+             tema ? 'z reklamy: ' + tema : '',
+             attr ? 'zdroj: ' + attr.slice(0, 120) : 'zdroj: přímá návštěva',
+             at.landing && !/^\/konzultace/.test(at.landing) ? 'přišel přes: ' + at.landing.slice(0, 80) : ''].filter(Boolean).join(' · '),
+      source: 'konzultace/' + (tema || 'obecne') + (attr ? ' · ' + attr.slice(0, 80) : ''), status: 'new'
     };
 
     var btn = document.querySelector('.submit'), orig = btn.textContent;

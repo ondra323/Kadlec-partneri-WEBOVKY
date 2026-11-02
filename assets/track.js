@@ -360,7 +360,11 @@
     if (API[cmd]) { try { API[cmd].apply(null, args); } catch (e) {} }
   }
   window.kt = kt;
-  window.KTrack = { get id() { return S.id; }, off: false };
+  window.KTrack = {
+    get id() { return S.id; }, off: false,
+    // první zdroj návštěvy – formulář ho připíše k poptávce, i když člověk mezitím přešel jinam
+    get attr() { return { source: S.source, medium: S.medium, campaign: S.campaign, landing: S.landing }; }
+  };
 
   /* ── životní cyklus ─────────────────────────────────────────────────── */
   addPage();
