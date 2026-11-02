@@ -2,7 +2,7 @@
    Pixel se nenačte, dokud není vyplněné ID níže (Meta Business → Events Manager → Zdroje dat). */
 (function () {
   'use strict';
-  var PIXEL_ID = '';
+  var PIXEL_ID = '28932024959771908';
 
   if (!PIXEL_ID) return;
   try { if (localStorage.getItem('kt_off') === '1') return; } catch (e) {}   // admin
