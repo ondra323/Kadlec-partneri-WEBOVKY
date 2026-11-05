@@ -732,50 +732,50 @@
   });
 
   // ── reference: skutečné recenze klientů se souhlasem se zveřejněním,
-  //    rozdělené podle témat. Věk se neuvádí. Úvěry vlastní nemají → hypotéky.
-  //    [jméno, obec, text, štítek (shrnutí z textu, žádná nová čísla), silueta f/m]
+  //    rozdělené podle témat. Bydliště se neuvádí. Úvěry vlastní nemají → hypotéky.
+  //    [jméno, věk (null = neuvádět), text, štítek (shrnutí z textu, žádná nová čísla), silueta f/m]
   var REV = {
     hypoteka: [
-      ['Jana Krejčí', 'Jemnice', 'Řešili jsme refinancování staršího úvěru. Poradce všechno vysvětlil, srovnal nabídky a ušetřili jsme skoro dva tisíce měsíčně. Doporučuji.', 'Refinancování · skoro 2 000 Kč měsíčně', 'f'],
-      ['Petr Dvořák', 'Moravské Budějovice', 'První hypotéka ve čtyřiceti, měl jsem z toho strach. Dostal jsem srozumitelný rozpis a nikdo mě netlačil do vyšší částky, než jsem chtěl.', 'První hypotéka', 'm'],
-      ['Lucie Horáková', 'Dačice', 'Oceňuji, že mi řekl i to, co banka zamlčela. Upozornil na poplatky za předčasné splacení, na které jsem se ptala.', 'Poplatky, o kterých banka mlčela', 'f'],
-      ['Martin Šimek', 'Dešná', 'Šli jsme do toho kvůli rekonstrukci statku. Jednání věcné, trochu jsem čekal na odpověď déle, než mi bylo příjemné, ale výsledek stál za to.', 'Rekonstrukce statku', 'm'],
-      ['Alena Bartošová', 'Police', 'Půjčovali jsme si na opravu střechy. Vše proběhlo bez zbytečné byrokracie a s lidským přístupem.', 'Oprava střechy', 'f']
+      ['Jana Krejčí', null, 'Řešili jsme refinancování staršího úvěru. Poradce všechno vysvětlil, srovnal nabídky a ušetřili jsme skoro dva tisíce měsíčně. Doporučuji.', 'Refinancování · skoro 2 000 Kč měsíčně', 'f'],
+      ['Petr Dvořák', null, 'První hypotéka ve čtyřiceti, měl jsem z toho strach. Dostal jsem srozumitelný rozpis a nikdo mě netlačil do vyšší částky, než jsem chtěl.', 'První hypotéka', 'm'],
+      ['Lucie Horáková', null, 'Oceňuji, že mi řekl i to, co banka zamlčela. Upozornil na poplatky za předčasné splacení, na které jsem se ptala.', 'Poplatky, o kterých banka mlčela', 'f'],
+      ['Martin Šimek', null, 'Šli jsme do toho kvůli rekonstrukci statku. Jednání věcné, trochu jsem čekal na odpověď déle, než mi bylo příjemné, ale výsledek stál za to.', 'Rekonstrukce statku', 'm'],
+      ['Alena Bartošová', null, 'Půjčovali jsme si na opravu střechy. Vše proběhlo bez zbytečné byrokracie a s lidským přístupem.', 'Oprava střechy', 'f']
     ],
     osoby: [
-      ['Tomáš Vlach', 'Jemnice', 'Po narození dcery jsem potřeboval nastavit životní pojistku. Proběhlo to věcně, bez strašení a s rozumnými částkami.', 'Životní pojištění', 'm'],
-      ['Kateřina Neubauerová', 'Dačice', 'Měla jsem nastavené krytí úplně špatně. Poradce to rozebral a nastavil tak, aby to odpovídalo realitě.', 'Oprava krytí', 'f'],
-      ['Roman Kříž', 'Třebelovice', 'Utrpěl jsem úraz při práci na zahradě a komunikace při likvidaci byla bezproblémová. Poradce mi pomohl s podklady.', 'Pojistná událost', 'm'],
-      ['Iveta Marková', 'Lovčovice', 'Chce to trpělivost s dotazy, ale odpovědi byly vždy konkrétní. Smlouvu mám teď nastavenou výrazně lépe.', 'Úprava smlouvy', 'f'],
-      ['David Sedláček', 'Moravské Budějovice', 'Ocenil jsem, že mi doporučil i snížit některá krytí, která byla zbytečná. Nešlo mu jen o provizi.', 'Méně zbytečných krytí', 'm']
+      ['Tomáš Vlach', null, 'Po narození dcery jsem potřeboval nastavit životní pojistku. Proběhlo to věcně, bez strašení a s rozumnými částkami.', 'Životní pojištění', 'm'],
+      ['Kateřina Neubauerová', null, 'Měla jsem nastavené krytí úplně špatně. Poradce to rozebral a nastavil tak, aby to odpovídalo realitě.', 'Oprava krytí', 'f'],
+      ['Roman Kříž', null, 'Utrpěl jsem úraz při práci na zahradě a komunikace při likvidaci byla bezproblémová. Poradce mi pomohl s podklady.', 'Pojistná událost', 'm'],
+      ['Iveta Marková', null, 'Chce to trpělivost s dotazy, ale odpovědi byly vždy konkrétní. Smlouvu mám teď nastavenou výrazně lépe.', 'Úprava smlouvy', 'f'],
+      ['David Sedláček', null, 'Ocenil jsem, že mi doporučil i snížit některá krytí, která byla zbytečná. Nešlo mu jen o provizi.', 'Méně zbytečných krytí', 'm']
     ],
     majetek: [
-      ['František Novotný', 'Dančovice', 'Po bouřce s kroupami bylo potřeba zkontrolovat celou smlouvu na dům i stodolu. Proběhlo to rychle a bez dohadování.', 'Dům a stodola po krupobití', 'm'],
-      ['Simona Bílková', 'Kostníky', 'Koupili jsme dům po babičce a potřebovali ho pojistit. Vysvětlil rozdíly mezi variantami a upozornil na mezery v krytí.', 'Dům po babičce', 'f'],
-      ['Jiří Hruška', 'Dešná', 'Vyřešil pojistku na chalupu i domácnost. Cena odpovídá rozsahu, žádné přeplácení.', 'Chalupa a domácnost', 'm'],
-      ['Marcela Tichá', 'Jemnice', 'Při škodě na střeše mi poradil, co doložit. Bez něj bych to vzdala.', 'Škoda na střeše', 'f'],
-      ['Ondřej Kubín', 'Dačice', 'Věcný přístup, žádné kecy. Zkontroloval, že pojistka opravdu kryje to, co potřebujeme.', 'Kontrola krytí', 'm']
+      ['František Novotný', null, 'Po bouřce s kroupami bylo potřeba zkontrolovat celou smlouvu na dům i stodolu. Proběhlo to rychle a bez dohadování.', 'Dům a stodola po krupobití', 'm'],
+      ['Simona Bílková', null, 'Koupili jsme dům po babičce a potřebovali ho pojistit. Vysvětlil rozdíly mezi variantami a upozornil na mezery v krytí.', 'Dům po babičce', 'f'],
+      ['Jiří Hruška', null, 'Vyřešil pojistku na chalupu i domácnost. Cena odpovídá rozsahu, žádné přeplácení.', 'Chalupa a domácnost', 'm'],
+      ['Marcela Tichá', null, 'Při škodě na střeše mi poradil, co doložit. Bez něj bych to vzdala.', 'Škoda na střeše', 'f'],
+      ['Ondřej Kubín', null, 'Věcný přístup, žádné kecy. Zkontroloval, že pojistka opravdu kryje to, co potřebujeme.', 'Kontrola krytí', 'm']
     ],
     cestovni: [
-      ['Barbora Zemanová', 'Moravské Budějovice', 'Před cestou do Asie mi poradil, co má smysl a co je zbytečné. Ušetřilo mi to peníze i nervy.', 'Cesta do Asie', 'f'],
-      ['Lukáš Pech', 'Jemnice', 'Řešil jsem pracovní pobyt v zahraničí. Poradil s limity a délkou krytí, na které běžné weby kašlou.', 'Pracovní pobyt v zahraničí', 'm'],
-      ['Dana Vondráčková', 'Police', 'Krátká konzultace, jasné doporučení, rychlé sjednání. Přesně takhle si to představuji.', 'Rychlé sjednání', 'f'],
-      ['Michal Růžička', 'Kostníky', 'Lyžařská dovolená a obavy o úraz. Dostal jsem krytí včetně sportů, na které se běžně zapomíná.', 'Hory a sporty', 'm'],
-      ['Veronika Šťastná', 'Třebelovice', 'Chtěla jsem hlavně vědět, co se stane při zrušení zájezdu. Odpověď byla konkrétní a poctivá.', 'Storno zájezdu', 'f']
+      ['Barbora Zemanová', null, 'Před cestou do Asie mi poradil, co má smysl a co je zbytečné. Ušetřilo mi to peníze i nervy.', 'Cesta do Asie', 'f'],
+      ['Lukáš Pech', null, 'Řešil jsem pracovní pobyt v zahraničí. Poradil s limity a délkou krytí, na které běžné weby kašlou.', 'Pracovní pobyt v zahraničí', 'm'],
+      ['Dana Vondráčková', null, 'Krátká konzultace, jasné doporučení, rychlé sjednání. Přesně takhle si to představuji.', 'Rychlé sjednání', 'f'],
+      ['Michal Růžička', null, 'Lyžařská dovolená a obavy o úraz. Dostal jsem krytí včetně sportů, na které se běžně zapomíná.', 'Hory a sporty', 'm'],
+      ['Veronika Šťastná', null, 'Chtěla jsem hlavně vědět, co se stane při zrušení zájezdu. Odpověď byla konkrétní a poctivá.', 'Storno zájezdu', 'f']
     ],
     investice: [
-      ['Radek Polák', 'Dačice', 'Měl jsem peníze na spořicím účtu a nevěděl, co dál. Rozebrali jsme horizont i riziko a nastavili to rozumně.', 'Peníze ze spořáku', 'm'],
-      ['Eva Matoušková', 'Moravské Budějovice', 'Oceňuji, že mi nesliboval výnosy. Vysvětlil, co může kolísat a proč.', 'Žádné sliby výnosů', 'f'],
-      ['Stanislav Beran', 'Lovčovice', 'Konzultace trvala přes hodinu a byla bez tlaku na podpis. To mi dalo důvěru.', 'Bez tlaku na podpis', 'm'],
-      ['Nikola Vlčková', 'Jemnice', 'Začala jsem s malou částkou a postupně ji zvyšuji. Všechno mi bylo srozumitelně vysvětleno.', 'Začátek s malou částkou', 'f'],
-      ['Adam Řehák', 'Dančovice', 'Při poklesu trhů mi poradil nepanikařit a držet plán. Konečně nemám pocit, že investuju naslepo.', 'Když trhy padaly', 'm']
+      ['Radek Polák', null, 'Měl jsem peníze na spořicím účtu a nevěděl, co dál. Rozebrali jsme horizont i riziko a nastavili to rozumně.', 'Peníze ze spořáku', 'm'],
+      ['Eva Matoušková', null, 'Oceňuji, že mi nesliboval výnosy. Vysvětlil, co může kolísat a proč.', 'Žádné sliby výnosů', 'f'],
+      ['Stanislav Beran', null, 'Konzultace trvala přes hodinu a byla bez tlaku na podpis. To mi dalo důvěru.', 'Bez tlaku na podpis', 'm'],
+      ['Nikola Vlčková', null, 'Začala jsem s malou částkou a postupně ji zvyšuji. Všechno mi bylo srozumitelně vysvětleno.', 'Začátek s malou částkou', 'f'],
+      ['Adam Řehák', null, 'Při poklesu trhů mi poradil nepanikařit a držet plán. Konečně nemám pocit, že investuju naslepo.', 'Když trhy padaly', 'm']
     ],
     penze: [
-      ['Zdeněk Marek', 'Jemnice', 'Dva roky do důchodu a bylo potřeba dát věci do pořádku. Proběhlo to bez zbytečné paniky.', 'Dva roky do důchodu', 'm'],
-      ['Hana Doležalová', 'Kostníky', 'Zkontroloval mi stávající smlouvy a ukázal, kde platím zbytečně vysoké poplatky. Ušetřila jsem.', 'Nižší poplatky', 'f'],
-      ['Vlastimil Kopecký', 'Dešná', 'Poradil s čerpáním a daňovými souvislostmi. Klidné a věcné jednání.', 'Čerpání a daně', 'm'],
-      ['Irena Šimková', 'Dačice', 'Dlouho jsem odkládala jakékoli řešení penze. Nakonec to šlo snadno a bez pocitu, že mi někdo něco vnucuje.', 'Odkládaná penze', 'f'],
-      ['Pavel Urban', 'Moravské Budějovice', 'Sestavil mi přehled, kolik budu mít a co je potřeba doplnit. Konečně mám jasno.', 'Přehled na důchod', 'm']
+      ['Zdeněk Marek', null, 'Dva roky do důchodu a bylo potřeba dát věci do pořádku. Proběhlo to bez zbytečné paniky.', 'Dva roky do důchodu', 'm'],
+      ['Hana Doležalová', null, 'Zkontroloval mi stávající smlouvy a ukázal, kde platím zbytečně vysoké poplatky. Ušetřila jsem.', 'Nižší poplatky', 'f'],
+      ['Vlastimil Kopecký', null, 'Poradil s čerpáním a daňovými souvislostmi. Klidné a věcné jednání.', 'Čerpání a daně', 'm'],
+      ['Irena Šimková', null, 'Dlouho jsem odkládala jakékoli řešení penze. Nakonec to šlo snadno a bez pocitu, že mi někdo něco vnucuje.', 'Odkládaná penze', 'f'],
+      ['Pavel Urban', null, 'Sestavil mi přehled, kolik budu mít a co je potřeba doplnit. Konečně mám jasno.', 'Přehled na důchod', 'm']
     ]
   };
   // první = velká výpověď (ta s nejkonkrétnějším výsledkem), zbytek do řady.
@@ -817,7 +817,7 @@
     return '<article class="rev' + (lead ? ' rev-lead' : '') + '">' +
       '<span class="rev-tag">' + esc(r[3]) + '</span>' +
       '<blockquote>' + (lead ? '„' : '') + esc(r[2]) + (lead ? '“' : '') + '</blockquote>' +
-      '<div class="rev-who">' + ava(r[0], r[4]) + '<div><b class="rev-name">' + esc(r[0]) + '</b><span class="rev-town">' + esc(r[1]) + '</span></div></div></article>';
+      '<div class="rev-who">' + ava(r[0], r[4]) + '<div><b class="rev-name">' + esc(r[0]) + '</b>' + (r[1] ? '<span class="rev-town">' + r[1] + ' let</span>' : '') + '</div></div></article>';
   }
 
   var grid = document.getElementById('wall-grid'), status = document.getElementById('ref-status');
